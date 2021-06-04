@@ -1,6 +1,7 @@
 package com.team11.Parkhaus;
 
 import java.io.*;
+import java.util.Arrays;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.servlet.*;
@@ -30,27 +31,6 @@ public class ParkhausServlet extends HttpServlet {
             System.out.println("enter:" + licensePlate);
             getContext().setAttribute("cars", cars);
         } else if (postParams[0].equals("leave")){
-            float total = Float.parseFloat(postParams[4]);
-            total /= 100;
-            float sum;
-            if (getContext().getAttribute("sum") == null) {
-                sum = 0f;
-            } else {
-                sum = (float) getContext().getAttribute("sum");
-            }
-            sum += total;
-            getContext().setAttribute("sum", sum);
-
-
-            int carCount;
-            if (getContext().getAttribute("carCount") == null) {
-                carCount = 0;
-            } else {
-                carCount = (int) getContext().getAttribute("carCount");
-            }
-            carCount++;
-            getContext().setAttribute("carCount", carCount);
-
             CarIF[] cars = cars();
             for (int i=0; i<cars.length; i++){
                 if(cars[i].getTicketId().equals(postParams[5])){
@@ -118,25 +98,23 @@ public class ParkhausServlet extends HttpServlet {
     }
 
     private float getSum() {
-        return getContext().getAttribute("sum") == null ? 0f : (float)getContext().getAttribute("sum");
+        return (float)Arrays.stream(cars())
+                .filter(car -> !car.isParking())
+                .mapToDouble(car -> car.getPrice())
+                .sum()/100;
     }
 
     private float getAvg() {
-        if (getContext().getAttribute("sum") == null) {
-            return 0f;
-        } else {
-            float sum = (float)getContext().getAttribute("sum");
-            int carCount = (int)getContext().getAttribute("carCount");
-            return sum / carCount;
-        }
+        return (float) Arrays.stream(cars())
+                        .filter(car -> !car.isParking())
+                        .mapToDouble(car -> car.getPrice())
+                        .average().orElse(0.0)/100;
     }
 
     private int getCarCount() {
-        if (getContext().getAttribute("carCount") == null) {
-            return 0;
-        } else {
-            return (int)getContext().getAttribute("carCount");
-        }
+        return (int) Arrays.stream(cars())
+                        .filter(car -> !car.isParking())
+                        .count();
     }
 
     private String getDiagram(){

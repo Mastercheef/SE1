@@ -8,4 +8,5 @@ public interface CarIF {
     String getTicketId();
     String getLicencePlate();
     String getColor();
+    boolean isParking();
 }

@@ -103,4 +103,7 @@ public class Car implements CarIF {
 
     @Override
     public String getColor() { return this.color; }
+
+    @Override
+    public boolean isParking() { return this.isParking; }
 }
