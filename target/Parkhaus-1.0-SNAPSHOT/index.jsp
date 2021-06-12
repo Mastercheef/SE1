@@ -7,7 +7,7 @@
 <body>
 <ccm-parkhaus-9-1-9
         key='{"name":"CarHome",
-                  "server_url":"http://localhost:8080/Parkhaus_war_exploded/api/",
+                  "server_url":"http://localhost:8080/api/",
                   "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen"],
                   "extra_charts":["Diagramm", "FahrzeugtypenDiagramm"],
                   "client_categories":["Limousine", "Kombi", "SUV"]
