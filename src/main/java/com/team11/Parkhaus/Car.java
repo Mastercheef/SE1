@@ -1,13 +1,15 @@
 package com.team11.Parkhaus;
 
+import java.util.Arrays;
+
 public class Car implements CarIF {
     boolean isParking;
     String licensePlate;
     String ticketId;
     String color;
     String carType;
-    int duration;
-    int price;
+    float duration;
+    float price;
 
 
     Car(String licensePlate, String ticketId, String color, String carType){
@@ -21,21 +23,13 @@ public class Car implements CarIF {
     }
 
 
-    public static String[] durationArray(CarIF[] cars){
-        String[] durationArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
-            durationArray[i] = Integer.toString(cars[i].getDuration());
-        }
-        return durationArray;
+    public static double[] durationArray(CarIF[] cars){
+        return Arrays.stream(cars).filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
     }
 
 
-    public static String[] priceArray(CarIF[] cars){
-        String[] priceArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
-            priceArray[i] = Integer.toString(cars[i].getPrice());
-        }
-        return priceArray;
+    public static double[] priceArray(CarIF[] cars){
+        return Arrays.stream(cars).filter(car -> !car.isParking()).mapToDouble(CarIF::getPrice).toArray();
     }
 
 
@@ -57,11 +51,7 @@ public class Car implements CarIF {
     }
 
     public static String[] licencePlateArray(CarIF[] cars){
-        String[] licencePlateArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
-            licencePlateArray[i] = cars[i].getLicencePlate();
-        }
-        return licencePlateArray;
+        return Arrays.stream(cars).filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
     }
 
 
@@ -80,15 +70,11 @@ public class Car implements CarIF {
 
 
     @Override
-    public int getPrice() {
-        return this.price;
-    }
+    public float getPrice() { return this.price/100; }
 
 
     @Override
-    public int getDuration() {
-        return this.duration;
-    }
+    public float getDuration() { return this.duration/60; }
 
 
     @Override

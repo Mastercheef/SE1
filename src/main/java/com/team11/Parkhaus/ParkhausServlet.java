@@ -1,9 +1,11 @@
 package com.team11.Parkhaus;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.*;
 import java.util.Arrays;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -118,35 +120,42 @@ public class ParkhausServlet extends HttpServlet {
     }
 
     private String getDiagram(){
-        String licencePlates = "";
-        String durations = "";
-        String prices = "";
+        JsonObject json = new JsonObject();
+        JsonObject dataDurations = new JsonObject();
+        JsonObject dataPrices = new JsonObject();
+        JsonArray jArray = new JsonArray();
 
-        for (int i=0; i<cars().length; i++){
-            licencePlates += "\"" + Car.licencePlateArray(cars())[i] + "\",";
-            durations += "\"" + Float.parseFloat(Car.durationArray(cars())[i])/100 + "\",";
-            prices += "\"" + Float.parseFloat(Car.priceArray(cars())[i])/100 + "\",";
+        JsonArray licencePlates = new JsonArray();
+        JsonArray durations = new JsonArray();
+        JsonArray prices = new JsonArray();
+
+        for (String s : Car.licencePlateArray(cars())) {
+            licencePlates.add(s);
         }
-        licencePlates = "[" + licencePlates.substring(0,licencePlates.length()-1) + "]";
-        durations = "[" + durations.substring(0,durations.length()-1) + "]";
-        prices = "[" + prices.substring(0,prices.length()-1) + "]";
-        String json = "{\"data\":[{\"x\":" +
-                licencePlates +
-                ", \"y\":" +
-                durations +
-                ", \"type\": \"bar\"" +
-                ", \"name\": \"Dauer\"" +
-                "},{" +
-                "\"x\":" +
-                licencePlates +
-                ", \"y\":" +
-                prices +
-                ", \"type\": \"bar\"" +
-                ", \"name\": \"Preis\"" +
-                "}" +
-                "]}";
+        for (double d : Car.durationArray(cars())) {
+            durations.add(d);
+        }
+        for (double p : Car.priceArray(cars())) {
+            prices.add(p);
+        }
 
-        return json;
+        dataDurations.add("x", licencePlates);
+        dataDurations.add("y", durations);
+        dataDurations.addProperty("type", "bar");
+        dataDurations.addProperty("name", "Dauer");
+
+        dataPrices.add("x", licencePlates);
+        dataPrices.add("y", prices);
+        dataPrices.addProperty("type", "bar");
+        dataPrices.addProperty("name", "Preis");
+
+        jArray.add(dataDurations);
+        jArray.add(dataPrices);
+
+        json.add("data", jArray);
+
+
+        return json.toString();
     }
 
     private String getCarTypeDiagram(){
