@@ -1,7 +1,7 @@
 package com.team11.Parkhaus;
 
 public interface CarIF {
-    void leave(int duration, int price);
+    void leave(String duration, String price);
     String getCarType();
     float getPrice();
     float getDuration();
@@ -9,4 +9,8 @@ public interface CarIF {
     String getLicencePlate();
     String getColor();
     boolean isParking();
+    int getNr();
+    String getArrival();
+    int getSpace();
+    String getClientType();
 }
