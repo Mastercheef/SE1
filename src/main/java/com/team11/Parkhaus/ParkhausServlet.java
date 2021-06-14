@@ -16,10 +16,10 @@ public class ParkhausServlet extends HttpServlet {
         String[] postParams = getBody(req).split(",");
         // enter
         if (postParams[0].equals("enter")){
-            enter(postParams[1], postParams[5], postParams[6], postParams[9]);
+            enter(postParams[10], postParams[5], postParams[6], postParams[9], postParams[1], postParams[2],postParams[7], postParams[8]);
         // leave
         } else if (postParams[0].equals("leave")){
-            leave(postParams[5], Integer.parseInt(postParams[3]), Integer.parseInt(postParams[4]));
+            leave(postParams[5], postParams[3], postParams[4]);
 
         }
     }
@@ -49,6 +49,8 @@ public class ParkhausServlet extends HttpServlet {
                 case "reset":
                     out.println(reset());
                     break;
+                case "cars":
+                    out.println(Car.getSavedCarsCSV(getCars()));
             }
         }
     }
@@ -82,7 +84,7 @@ public class ParkhausServlet extends HttpServlet {
         return getServletConfig().getServletContext();
     }
 
-    private void enter(String licensePlate, String ticketId, String color, String carType) {
+    private void enter(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType) {
         CarIF[] cars = getCars();
 
         // extend array
@@ -93,13 +95,13 @@ public class ParkhausServlet extends HttpServlet {
         cars = tmpCars;
 
         // add new car
-        cars[cars.length-1] = new Car(licensePlate,ticketId,color,carType);
+        cars[cars.length-1] = new Car(licensePlate,ticketId,color,carType, nr, arrival, space, clientType);
         System.out.println("enter:" + licensePlate);
 
         setCars(cars);
     }
 
-    private void leave(String ticketId, int duration, int price){
+    private void leave(String ticketId, String duration, String price){
         CarIF[] cars = getCars();
         for (int i=0; i<cars.length; i++){
             if(cars[i].getTicketId().equals(ticketId)){

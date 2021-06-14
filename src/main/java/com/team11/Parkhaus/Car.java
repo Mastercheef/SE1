@@ -4,22 +4,30 @@ import java.util.Arrays;
 
 public class Car implements CarIF {
     boolean isParking;
-    String licensePlate;
+    int nr;
+    String arrival;
+    String licencePlate;
     String ticketId;
     String color;
     String carType;
     float duration;
     float price;
+    int space;
+    String clientType;
 
 
-    Car(String licensePlate, String ticketId, String color, String carType){
+    Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType){
         this.isParking = true;
-        this.licensePlate = licensePlate;
+        this.nr = Integer.parseInt(nr);
+        this.licencePlate = licensePlate;
         this.ticketId = ticketId;
         this.color = color;
         this.carType = carType;
         this.price =  -1;
         this.duration = -1;
+        this.arrival = arrival;
+        this.space = Integer.parseInt(space);
+        this.clientType = clientType;
     }
 
 
@@ -54,12 +62,33 @@ public class Car implements CarIF {
         return Arrays.stream(cars).filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
     }
 
+    public static String getSavedCarsCSV(CarIF[] cars){
+        // Nr/Timer/Duration/Price/Hash/Color/Space/client_category/vehicle_type/license
+        String csv = "";
+        for (int i = 0; i<cars.length; i++){
+            int nr = cars[i].getNr();
+            String timer = cars[i].getArrival();
+            int duration = (int)cars[i].getDuration()*100;
+            int price = (int)cars[i].getPrice()*100;
+            String ticketId = cars[i].getTicketId();
+            String color = cars[i].getColor();
+            int space = cars[i].getSpace();
+            String client_category = cars[i].getClientType();
+            String license = cars[i].getLicencePlate();
+
+            String csv_car = nr+"/"+timer+"/"+duration+"/"+price+"/"+ticketId+"/"
+                    +color+"/"+space+"/"+client_category+"/"+license;
+            csv += "," + csv_car;
+        }
+        return csv.substring(1);
+    }
+
 
     @Override
-    public void leave(int duration, int price) {
+    public void leave(String duration, String price) {
         this.isParking = false;
-        this.duration = duration;
-        this.price = price;
+        this.duration = Integer.parseInt(duration);
+        this.price = Integer.parseInt(price);
     }
 
 
@@ -84,7 +113,7 @@ public class Car implements CarIF {
 
 
     @Override
-    public String getLicencePlate() { return this.licensePlate; }
+    public String getLicencePlate() { return this.licencePlate; }
 
 
     @Override
@@ -92,4 +121,16 @@ public class Car implements CarIF {
 
     @Override
     public boolean isParking() { return this.isParking; }
+
+    @Override
+    public int getNr() { return this.nr; }
+
+    @Override
+    public String getArrival() { return  this.arrival; }
+
+    @Override
+    public int getSpace() { return this.space; }
+
+    @Override
+    public String getClientType() { return this.clientType; }
 }
