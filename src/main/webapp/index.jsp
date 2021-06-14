@@ -3,7 +3,7 @@
 <head>
     <title>SE1 - Parkhaus</title>
     <style><%@include file="WEB-INF/style.css"%></style>
-    <script src='https://ccmjs.github.io/mkaul-components/parkhaus/versions/ccm.parkhaus-9.1.9.js'></script>
+    <script src="https://ccmjs.github.io/mkaul-components/parkhaus/versions/ccm.parkhaus-10.2.3.js"></script>
     <script>
         var resetPopup = document.getElementById('resetPopup');
         window.onclick = function(event) {
@@ -32,14 +32,14 @@
     </form>
 </div>
 
-<ccm-parkhaus-9-1-9
+<ccm-parkhaus-10-2-3
         key='{"name":"CarHome",
                   "server_url":"./api/",
                   "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen"],
                   "extra_charts":["Diagramm", "FahrzeugtypenDiagramm"],
                   "vehicle_types":["Limousine", "Kombi", "SUV"]
                   }'>
-</ccm-parkhaus-9-1-9>
+</ccm-parkhaus-10-2-3>
 
 
 </body>
