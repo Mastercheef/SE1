@@ -26,7 +26,7 @@
             <div class="clearfix">
                 <input type="hidden" name="cmd" value="reset" />
                 <button type="button" onclick="document.getElementById('resetPopup').style.display='none'" class="cancelbtn">Cancel</button>
-                <button type="submit" onclick="document.getElementById('resetPopup').style.display='none'" class="deletebtn">Delete</button>
+                <button type="submit" onclick="document.getElementById('resetPopup').style.display='none'" class="deletebtn">Reset</button>
             </div>
         </div>
     </form>
