@@ -1,46 +1,26 @@
 package com.team11.Parkhaus;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
 import java.io.*;
-import java.util.Arrays;
+import java.util.Enumeration;
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
 public class ParkhausServlet extends HttpServlet {
-
+    Stats stats = new Stats();
+    Charts charts = new Charts();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] postParams = getBody(req).split(",");
+        // enter
         if (postParams[0].equals("enter")){
-            CarIF[] cars = cars();
-            CarIF[] tmpCars = new Car[cars.length+1];
-            for (int i=0; i<cars.length; i++){
-                tmpCars[i] = cars[i];
-            }
-            cars = tmpCars;
-            String licensePlate = postParams[1];
-            String ticketId = postParams[5];
-            String color = postParams[6];
-            String carType = postParams[8];
-            cars[cars.length-1] = new Car(licensePlate,ticketId,color,carType);
-            System.out.println("enter:" + licensePlate);
-            getContext().setAttribute("cars", cars);
+            enter(postParams[1], postParams[5], postParams[6], postParams[9]);
+        // leave
         } else if (postParams[0].equals("leave")){
-            CarIF[] cars = cars();
-            for (int i=0; i<cars.length; i++){
-                if(cars[i].getTicketId().equals(postParams[5])){
-                    cars[i].leave(Integer.parseInt(postParams[3]), Integer.parseInt(postParams[4]));
-                    System.out.println("leave:" + cars()[i].getLicencePlate());
-                }
-            }
-            getContext().setAttribute("cars", cars);
+            leave(postParams[5], Integer.parseInt(postParams[3]), Integer.parseInt(postParams[4]));
+
         }
     }
 
@@ -52,19 +32,22 @@ public class ParkhausServlet extends HttpServlet {
         if (cmd != null) {
             switch(cmd) {
                 case "Summe":
-                    out.println(getSum());
+                    out.println(stats.getSum(getCars()));
                     break;
                 case "Durchschnitt":
-                    out.println(getAvg());
+                    out.println(stats.getAvg(getCars()));
                     break;
                 case "habenVerlassen":
-                    out.println(getCarCount());
+                    out.println(stats.getCarCount(getCars()));
                     break;
                 case "Diagramm":
-                    out.println((getDiagram()));
+                    out.println((charts.getDiagram(getCars())));
                     break;
                 case "FahrzeugtypenDiagramm":
-                    out.println((getCarTypeDiagram()));
+                    out.println((charts.getCarTypeDiagram(getCars())));
+                    break;
+                case "reset":
+                    out.println(reset());
                     break;
             }
         }
@@ -99,94 +82,35 @@ public class ParkhausServlet extends HttpServlet {
         return getServletConfig().getServletContext();
     }
 
-    private float getSum() {
-        return (float)Arrays.stream(cars())
-                .filter(car -> !car.isParking())
-                .mapToDouble(car -> car.getPrice())
-                .sum()/100;
-    }
+    private void enter(String licensePlate, String ticketId, String color, String carType) {
+        CarIF[] cars = getCars();
 
-    private float getAvg() {
-        return (float) Arrays.stream(cars())
-                        .filter(car -> !car.isParking())
-                        .mapToDouble(car -> car.getPrice())
-                        .average().orElse(0.0)/100;
-    }
-
-    private int getCarCount() {
-        return (int) Arrays.stream(cars())
-                        .filter(car -> !car.isParking())
-                        .count();
-    }
-
-    private String getDiagram(){
-        JsonObject json = new JsonObject();
-        JsonObject dataDurations = new JsonObject();
-        JsonObject dataPrices = new JsonObject();
-        JsonArray jArray = new JsonArray();
-
-        JsonArray licencePlates = new JsonArray();
-        JsonArray durations = new JsonArray();
-        JsonArray prices = new JsonArray();
-
-        for (String s : Car.licencePlateArray(cars())) {
-            licencePlates.add(s);
+        // extend array
+        CarIF[] tmpCars = new Car[cars.length+1];
+        for (int i=0; i<cars.length; i++){
+            tmpCars[i] = cars[i];
         }
-        for (double d : Car.durationArray(cars())) {
-            durations.add(d);
-        }
-        for (double p : Car.priceArray(cars())) {
-            prices.add(p);
-        }
+        cars = tmpCars;
 
-        dataDurations.add("x", licencePlates);
-        dataDurations.add("y", durations);
-        dataDurations.addProperty("type", "bar");
-        dataDurations.addProperty("name", "Dauer");
+        // add new car
+        cars[cars.length-1] = new Car(licensePlate,ticketId,color,carType);
+        System.out.println("enter:" + licensePlate);
 
-        dataPrices.add("x", licencePlates);
-        dataPrices.add("y", prices);
-        dataPrices.addProperty("type", "bar");
-        dataPrices.addProperty("name", "Preis");
-
-        jArray.add(dataDurations);
-        jArray.add(dataPrices);
-
-        json.add("data", jArray);
-
-
-        return json.toString();
+        setCars(cars);
     }
 
-    private String getCarTypeDiagram(){
-        int suv = 0, limousine = 0, kombi = 0;
-        for (int i=0; i<cars().length; i++){
-            if (Car.carTypeArray(cars())[i].equals("SUV")){
-                suv++;
-            }
-            if (Car.carTypeArray(cars())[i].equals("Limousine")){
-                limousine++;
-            }
-            if (Car.carTypeArray(cars())[i].equals("Kombi")){
-                kombi++;
+    private void leave(String ticketId, int duration, int price){
+        CarIF[] cars = getCars();
+        for (int i=0; i<cars.length; i++){
+            if(cars[i].getTicketId().equals(ticketId)){
+                cars[i].leave(duration, price);
+                System.out.println("leave:" + getCars()[i].getLicencePlate());
             }
         }
-
-        String json = "{\"data\":[{\"labels\":" +
-                "[\"SUV\", \"Limousine\", \"Kombi\"]" +
-                ", \"values\":" +
-                "[\"" + suv + "\"," +
-                "\"" + limousine + "\"," +
-                "\"" + kombi + "\"]" +
-                ", \"type\": \"pie\"" +
-                ", \"name\": \"Typ\"" +
-                "}" +
-                "]}";
-
-        return json;
+        setCars(cars);
     }
 
-    private CarIF[] cars(){
+    private CarIF[] getCars(){
         CarIF[] cars;
         if(getContext().getAttribute("cars") == null){
             cars = new Car[0];
@@ -194,5 +118,17 @@ public class ParkhausServlet extends HttpServlet {
             cars = (CarIF[]) getContext().getAttribute("cars");
         }
         return cars;
+    }
+
+    private void setCars(CarIF[] cars) {
+        getContext().setAttribute("cars", cars);
+    }
+
+    private String reset() {
+        Enumeration names = getContext().getAttributeNames();
+        while (names.hasMoreElements()){
+            getContext().removeAttribute(names.nextElement().toString());
+        }
+        return "<meta http-equiv=\"refresh\" content=\"0; url=../\" />";
     }
 }
