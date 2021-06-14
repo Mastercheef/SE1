@@ -14,6 +14,7 @@
     </script>
 </head>
 <body>
+<!-- https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
 <button onclick="document.getElementById('resetPopup').style.display='block'">RESET</button>
 <div id="resetPopup" class="resetPopup">
     <span onclick="document.getElementById('resetPopup').style.display='none'" class="close" title="Abbrechen">×</span>
