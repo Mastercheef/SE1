@@ -68,8 +68,8 @@ public class Car implements CarIF {
         for (int i = 0; i<cars.length; i++){
             int nr = cars[i].getNr();
             String timer = cars[i].getArrival();
-            int duration = (int)cars[i].getDuration()*100;
-            int price = (int)cars[i].getPrice()*100;
+            int duration = (int) (cars[i].getDuration()*60);
+            int price = (int) (cars[i].getPrice()*100);
             String ticketId = cars[i].getTicketId();
             String color = cars[i].getColor();
             int space = cars[i].getSpace();
@@ -79,6 +79,9 @@ public class Car implements CarIF {
             String csv_car = nr+"/"+timer+"/"+duration+"/"+price+"/"+ticketId+"/"
                     +color+"/"+space+"/"+client_category+"/"+license;
             csv += "," + csv_car;
+
+            System.out.println(price);
+            System.out.println(cars[i].getPrice());
         }
         return csv.substring(1);
     }
