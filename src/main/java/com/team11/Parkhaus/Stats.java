@@ -7,14 +7,14 @@ public class Stats {
         return (float) Arrays.stream(cars)
                 .filter(car -> !car.isParking())
                 .mapToDouble(car -> car.getPrice())
-                .sum()/100;
+                .sum();
     }
 
     public float getAvg(CarIF[] cars) {
         return (float) Arrays.stream(cars)
                 .filter(car -> !car.isParking())
                 .mapToDouble(car -> car.getPrice())
-                .average().orElse(0.0)/100;
+                .average().orElse(0.0);
     }
 
     public int getCarCount(CarIF[] cars) {
