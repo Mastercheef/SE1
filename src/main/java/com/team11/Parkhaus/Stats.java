@@ -1,7 +1,7 @@
 package com.team11.Parkhaus;
 
 import java.util.Arrays;
-
+// Statistik
 public class Stats {
     public float getSum(CarIF[] cars) {
         return (float) Arrays.stream(cars)
