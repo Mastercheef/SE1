@@ -7,18 +7,9 @@
         <servlet-name>ParkhausServlet</servlet-name>
         <servlet-class>com.team11.Parkhaus.ParkhausServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>Context</servlet-name>
-        <servlet-class>com.team11.Parkhaus.Context</servlet-class>
-    </servlet>
 
     <servlet-mapping>
         <servlet-name>ParkhausServlet</servlet-name>
         <url-pattern>/api/</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>Context</servlet-name>
-        <url-pattern>/error/</url-pattern>
     </servlet-mapping>
 </web-app>
