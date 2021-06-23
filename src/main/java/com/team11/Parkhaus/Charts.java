@@ -96,7 +96,7 @@ public class Charts {
         for (String[] p : auslastungsListe) {
             prozent.add(Integer.parseInt(p[1]));
 
-            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SS");
+            SimpleDateFormat date = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
             date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
             Date time = new Date((Long.parseLong(p[0])));
             String java_date = date.format(time);
