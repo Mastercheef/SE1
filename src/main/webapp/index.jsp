@@ -35,8 +35,8 @@
 <ccm-parkhaus-10-2-3
         key='{"name":"CarHome",
                   "server_url":"./api/",
-                  "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen"],
-                  "extra_charts":["Diagramm", "FahrzeugtypenDiagramm"],
+                  "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen", "Auslastung"],
+                  "extra_charts":["Diagramm", "FahrzeugtypenDiagramm", "AuslastungDiagramm"],
                   "vehicle_types":["Limousine", "Kombi", "SUV"]
                   }'>
 </ccm-parkhaus-10-2-3>

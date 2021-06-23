@@ -13,4 +13,5 @@ public interface CarIF {
     String getArrival();
     int getSpace();
     String getClientType();
+    String getDeparture();
 }
