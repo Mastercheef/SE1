@@ -1,8 +1,7 @@
 package com.team11.Parkhaus;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Enumeration;
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +61,7 @@ public class ParkhausServlet extends HttpServlet {
                     out.println((auslastung.getAuslasung(getCars()) + "%"));
                     break;
                 case "AuslastungDiagramm":
-                    out.println((charts.getAuslasungDiagramm(getCars())));
+                    out.println((charts.getAuslasungDiagramm(getAuslastungsListe())));
                     break;
             }
         }
@@ -93,7 +92,7 @@ public class ParkhausServlet extends HttpServlet {
         return stringBuilder.toString();
     }
 
-    private ServletContext getContext() {
+    public ServletContext getContext()  {
         return getServletConfig().getServletContext();
     }
 
@@ -112,7 +111,9 @@ public class ParkhausServlet extends HttpServlet {
         System.out.println("enter:" + licensePlate);
 
         setCars(cars);
+        setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
     }
+
 
     private void leave(String ticketId, String duration, String price){
         CarIF[] cars = getCars();
@@ -123,6 +124,7 @@ public class ParkhausServlet extends HttpServlet {
             }
         }
         setCars(cars);
+        setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
     }
 
     private void delete(String nr) {
@@ -140,6 +142,20 @@ public class ParkhausServlet extends HttpServlet {
             cars = (CarIF[]) getContext().getAttribute("cars");
         }
         return cars;
+    }
+
+    private List<String[]> getAuslastungsListe() {
+        List<String[]> auslastungsListe;
+        if (getContext().getAttribute("auslastungsListe") == null) {
+            auslastungsListe = new ArrayList<String[]>();
+        } else {
+            auslastungsListe = (List<String[]>) getContext().getAttribute("auslastungsListe");
+        }
+        return auslastungsListe;
+    }
+
+    private void setAuslastung(List<String[]> auslastungsListe) {
+        getContext().setAttribute("auslastungsListe", auslastungsListe);
     }
 
     private void setCars(CarIF[] cars) {

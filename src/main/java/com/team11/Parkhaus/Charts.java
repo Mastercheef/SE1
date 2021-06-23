@@ -3,10 +3,9 @@ package com.team11.Parkhaus;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class Charts {
     public String getDiagram(CarIF[] cars){
@@ -84,61 +83,30 @@ public class Charts {
         return json.toString();
     }
 
-    public String getAuslasungDiagramm(CarIF[] cars) {
+    public String getAuslasungDiagramm(List<String[]> auslastungsListe) {
         Auslastung auslastung = new Auslastung();
-        int[] auslastungArray = auslastung.getAuslastung24H(cars);
 
         JsonObject json = new JsonObject();
         JsonObject auslastungJson = new JsonObject();
         JsonArray jArray = new JsonArray();
 
         JsonArray prozent = new JsonArray();
-        JsonArray hours = new JsonArray();
+        JsonArray zeit = new JsonArray();
 
-        for (int p : auslastungArray) {
-            prozent.add(p);
-        }
-        Date date = new Date();
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.setTime(date);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        int min = cal.get(Calendar.MINUTE);
+        for (String[] p : auslastungsListe) {
+            prozent.add(p[1]);
 
-        for (int i=0; i<24; i++) {
-            if (hour < 0) {hour += 24;}
-            String hourString = Integer.toString(hour);
-            String minSting = Integer.toString(min);
-            int hourEnd = hour - 1;
-            if (hourEnd < 0) {hourEnd += 24;}
-            String hourStringEnd = Integer.toString(hourEnd);
-            int minEnd = min - 1;
-            if (minEnd < 0) {minEnd += 60;}
-            String minStingEnd = Integer.toString(minEnd);
-
-
-            if (minSting.length() == 1) {
-                minSting = "0" + minSting;
-            }
-            if (minStingEnd.length() == 1) {
-                minStingEnd = "0" + minStingEnd;
-            }
-            if (hourStringEnd.length() == 1) {
-                hourStringEnd = "0" + hourStringEnd;
-            }
-
-            if (hourString.length() == 1) {
-                hourString = "0" + hourString + ":" + minSting + " - " + hourStringEnd + ":" + minStingEnd;
-            } else {
-                hourString = hourString + ":" + minSting + "-" + hourStringEnd + ":" + minStingEnd;
-            }
-            hours.add(hourString);
-            hour--;
+            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+            date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
+            Date time = new Date((Long.parseLong(p[0])));
+            String java_date = date.format(time);
+            zeit.add(java_date.toString());
         }
 
-        auslastungJson.add("x", hours);
+        auslastungJson.add("x", zeit);
         auslastungJson.add("y", prozent);
         auslastungJson.addProperty("type", "bar");
-        auslastungJson.addProperty("name", "Maximale Auslastung in Prozent");
+        auslastungJson.addProperty("name", "Maximale Auslastung");
 
         jArray.add(auslastungJson);
         json.add("data", jArray);
