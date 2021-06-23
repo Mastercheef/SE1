@@ -65,7 +65,7 @@ public class Car implements CarIF {
     public static String getSavedCarsCSV(CarIF[] cars){
         // Nr/Timer/Duration/Price/Hash/Color/Space/client_category/vehicle_type/license
         String csv = "";
-        for (int i = 0; i<cars.length; i++){
+        for (int i=0; i<cars.length; i++){
             int nr = cars[i].getNr();
             String timer = cars[i].getArrival();
             int duration = (int) (cars[i].getDuration()*60);

@@ -1,6 +1,7 @@
 package com.team11.Parkhaus;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Enumeration;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
@@ -21,9 +22,13 @@ public class ParkhausServlet extends HttpServlet {
         // leave
         } else if (postParams[0].equals("leave")){
             leave(postParams[5], postParams[3], postParams[4]);
-
+        }
+        // occupied
+        else if (postParams[0].equals("occupied")){
+            delete(postParams[1]);
         }
     }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -118,6 +123,13 @@ public class ParkhausServlet extends HttpServlet {
             }
         }
         setCars(cars);
+    }
+
+    private void delete(String nr) {
+        String carNr = nr.replaceAll("\\D+","");
+        CarIF[] cars = getCars();
+        setCars((CarIF[]) Arrays.stream(cars).filter(car -> car.getNr() != Integer.parseInt(carNr)).toArray(i -> new CarIF[i]));
+        System.out.println("delete:" + carNr);
     }
 
     private CarIF[] getCars(){

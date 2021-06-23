@@ -37,7 +37,8 @@
                   "server_url":"./api/",
                   "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen", "Auslastung"],
                   "extra_charts":["Diagramm", "FahrzeugtypenDiagramm", "AuslastungDiagramm"],
-                  "vehicle_types":["Limousine", "Kombi", "SUV"]
+                  "vehicle_types":["Limousine", "Kombi", "SUV"],
+                  "delay": 100
                   }'>
 </ccm-parkhaus-10-2-3>
 
