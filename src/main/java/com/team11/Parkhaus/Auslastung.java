@@ -2,42 +2,21 @@ package com.team11.Parkhaus;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Auslastung {
     int maxCars = 10;
-
     public int getAuslasung(CarIF[] cars) {
         return (int) (((float)Arrays.stream(cars)
                                 .filter(CarIF::isParking)
                                 .count()) / (float)maxCars * 100);
     }
 
-    public int[] getAuslastung24H(CarIF[] cars) {
-        int[] auslastungArray24H = new int[24];
-        for (int i=0; i<24; i++) {
-            auslastungArray24H[i] = getMaxAuslastungXUhr(cars, i);
-        }
-        return auslastungArray24H;
-    }
-
-    private int getMaxAuslastungXUhr(CarIF[] cars, int x) {
+    public List<String[]> setAuslastungNow(List<String[]> auslastungsListe, CarIF[] cars) {
         Date now = new Date();
-        long unixtimestamp = now.getTime()/100;
-        int max = 0;
-        long start = unixtimestamp - ((x + 1) * 36000L);
-        for (int i = 0; i <= 36000; i++) {
-            long timeToCheck = start + i;
-            int countNow =  (int)Arrays.stream(cars)
-                                .filter(car -> Long.parseLong(car.getArrival())/100L < timeToCheck)
-                                .filter(car -> car.isParking()).count() +
-                            (int) Arrays.stream(cars)
-                                .filter(car -> Long.parseLong(car.getArrival())/100L < timeToCheck)
-                                .filter(car -> Long.parseLong(car.getDeparture())/100L > timeToCheck).count();
-            if (countNow > max) {
-                max = countNow;
-            }
-        }
-
-        return (int)(max / (float) maxCars * 100);
+        long unixtimestamp = now.getTime();
+        String[] stat = new String[] {String.valueOf(unixtimestamp), String.valueOf(this.getAuslasung(cars))};
+        auslastungsListe.add(stat);
+        return auslastungsListe;
     }
 }
