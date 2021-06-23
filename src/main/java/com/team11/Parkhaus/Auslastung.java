@@ -22,17 +22,17 @@ public class Auslastung {
 
     private int getMaxAuslastungXUhr(CarIF[] cars, int x) {
         Date now = new Date();
-        long unixtimestamp = now.getTime()/1000;
+        long unixtimestamp = now.getTime()/100;
         int max = 0;
-        long start = unixtimestamp - ((x + 1) * 3600L);
-        for (int i = 0; i <= 3600; i++) {
+        long start = unixtimestamp - ((x + 1) * 36000L);
+        for (int i = 0; i <= 36000; i++) {
             long timeToCheck = start + i;
             int countNow =  (int)Arrays.stream(cars)
-                                .filter(car -> Long.parseLong(car.getArrival())/1000L < timeToCheck)
+                                .filter(car -> Long.parseLong(car.getArrival())/100L < timeToCheck)
                                 .filter(car -> car.isParking()).count() +
                             (int) Arrays.stream(cars)
-                                .filter(car -> Long.parseLong(car.getArrival())/1000L < timeToCheck)
-                                .filter(car -> Long.parseLong(car.getDeparture())/1000L > timeToCheck).count();
+                                .filter(car -> Long.parseLong(car.getArrival())/100L < timeToCheck)
+                                .filter(car -> Long.parseLong(car.getDeparture())/100L > timeToCheck).count();
             if (countNow > max) {
                 max = countNow;
             }
