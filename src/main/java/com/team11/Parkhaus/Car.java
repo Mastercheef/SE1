@@ -136,4 +136,8 @@ public class Car implements CarIF {
 
     @Override
     public String getClientType() { return this.clientType; }
+
+    public String getDeparture() {
+        return String.valueOf(Long.parseLong(this.getArrival()) + (int) this.duration);
+    }
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ParkhausServlet extends HttpServlet {
     Stats stats = new Stats();
     Charts charts = new Charts();
+    Auslastung auslastung = new Auslastung();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] postParams = getBody(req).split(",");
@@ -51,6 +52,13 @@ public class ParkhausServlet extends HttpServlet {
                     break;
                 case "cars":
                     out.println(Car.getSavedCarsCSV(getCars()));
+                    break;
+                case "Auslastung":
+                    out.println((auslastung.getAuslasung(getCars()) + "%"));
+                    break;
+                case "AuslastungDiagramm":
+                    out.println((charts.getAuslasungDiagramm(getCars())));
+                    break;
             }
         }
     }
