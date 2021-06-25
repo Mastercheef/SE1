@@ -143,6 +143,6 @@ public class Car implements CarIF {
 
     @Override
     public String toString() {
-        return "LP: " + licencePlate + " Dur: " + duration + " [Sek.]" +  " Price: " + price + " [Cent] ";
+        return "LP: " + licencePlate + " Dur: " + duration + " [Min.]" +  " Price: " + price + " [EUR] ";
     }
 }

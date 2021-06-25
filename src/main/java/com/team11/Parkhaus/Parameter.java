@@ -33,9 +33,6 @@ public class Parameter {
     public static void main(String[] args){
         Parameter p = new Parameter(0);
 
-        for (int i=0;i<100;++i){
-            System.out.println(p.nummer());
-        }
 
     }
 

@@ -126,8 +126,8 @@ public class ParkhausServlet extends HttpServlet {
 
             }
         }
-        System.out.println(investor.getGewinnTag());  // Tagesgewinn !
-        System.out.println(investor.rechner.returnInvest()); // ROI auf den Jahresgewinn !
+        // System.out.println(investor.getGewinnTag());          // Tagesgewinn !
+        System.out.println("ROI/Jahr:" + Math.round(investor.rechner.returnInvest()) + "%");  // ROI auf den extrapolierten Jahresgewinn !
 
         setCars(cars);
         setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
@@ -137,7 +137,7 @@ public class ParkhausServlet extends HttpServlet {
         String carNr = nr.replaceAll("\\D+","");
         CarIF[] cars = getCars();
         setCars((CarIF[]) Arrays.stream(cars).filter(car -> car.getNr() != Integer.parseInt(carNr)).toArray(i -> new CarIF[i]));
-        System.out.println("delete:" + carNr);
+        // System.out.println("delete:" + carNr);
     }
 
     private CarIF[] getCars(){

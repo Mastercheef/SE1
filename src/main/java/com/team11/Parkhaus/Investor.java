@@ -11,8 +11,10 @@ public class Investor {
 
     double getGewinnTag(){
         double gewinn_tag = stats.getSum(cars);
-        return gewinn_tag;
+        return Math.round(gewinn_tag*10000.0)/10000.0;
     }
+
+    // hier wir das Invest über einen Button übergeben, noch zu implementieren.
     private double getInvest(){
         return  100000.0;
     }

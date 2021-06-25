@@ -1,5 +1,7 @@
 package com.team11.Parkhaus;
 
+
+
 public class ROIRechner {
     private double gewinn_tag;
     private double umsatz;
@@ -10,18 +12,21 @@ public class ROIRechner {
         this.gewinn_tag = gewinn;
     }
 
-
     public double extrapolationJahr(){
         return gewinn_tag *365;
     }
 
+    // ROI in % pro Jahr.
     public double returnInvest(){
-        return (extrapolationJahr() / invest_kapital) * 100 ;
+        double roi = (extrapolationJahr() / invest_kapital) * 100 ;
+        return Math.round(roi*1000.0)/1000.0;
     }
 
     public double amortisationMonat(){
         return 0 ;
     }
+
+
 
 
 
