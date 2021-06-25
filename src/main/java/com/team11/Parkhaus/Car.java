@@ -140,4 +140,9 @@ public class Car implements CarIF {
     public String getDeparture() {
         return String.valueOf(Long.parseLong(this.getArrival()) + (int) this.duration);
     }
+
+    @Override
+    public String toString() {
+        return "LP: " + licencePlate + " Dur: " + duration + " [Sek.]" +  " Price: " + price + " [Cent] ";
+    }
 }

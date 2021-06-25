@@ -17,6 +17,7 @@ public class ParkhausServlet extends HttpServlet {
         String[] postParams = getBody(req).split(",");
         // enter
         if (postParams[0].equals("enter")){
+            //( licensePlate,    ticketId,          color,        carType,      nr,            arrival,      space,            clientType)
             enter(postParams[10], postParams[5], postParams[6], postParams[9], postParams[1], postParams[2],postParams[7], postParams[8]);
         // leave
         } else if (postParams[0].equals("leave")){
@@ -120,7 +121,7 @@ public class ParkhausServlet extends HttpServlet {
         for (int i=0; i<cars.length; i++){
             if(cars[i].getTicketId().equals(ticketId)){
                 cars[i].leave(duration, price);
-                System.out.println("leave:" + getCars()[i].getLicencePlate());
+                System.out.println("leave:" + getCars()[i].toString());
             }
         }
         setCars(cars);
