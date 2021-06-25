@@ -12,6 +12,7 @@ public class ParkhausServlet extends HttpServlet {
     Stats stats = new Stats();
     Charts charts = new Charts();
     Auslastung auslastung = new Auslastung();
+    Investor investor;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] postParams = getBody(req).split(",");
@@ -122,8 +123,12 @@ public class ParkhausServlet extends HttpServlet {
             if(cars[i].getTicketId().equals(ticketId)){
                 cars[i].leave(duration, price);
                 System.out.println("leave:" + getCars()[i].toString());
+
             }
         }
+        System.out.println(investor.getGewinnTag());  // Tagesgewinn !
+        System.out.println(investor.rechner.returnInvest()); // ROI auf den Jahresgewinn !
+
         setCars(cars);
         setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
     }
@@ -137,10 +142,13 @@ public class ParkhausServlet extends HttpServlet {
 
     private CarIF[] getCars(){
         CarIF[] cars;
+        CarIF[] copy;
         if(getContext().getAttribute("cars") == null){
             cars = new Car[0];
         } else{
             cars = (CarIF[]) getContext().getAttribute("cars");
+            copy = Arrays.copyOf(cars, cars.length);              // Hier bekommt der Investor eine Kopie der Autos.
+            investor = new Investor(copy);
         }
         return cars;
     }
