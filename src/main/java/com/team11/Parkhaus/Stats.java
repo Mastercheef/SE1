@@ -22,4 +22,11 @@ public class Stats {
                 .filter(car -> !car.isParking())
                 .count();
     }
+
+     
+
+
+
+
+
 }
