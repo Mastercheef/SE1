@@ -3,6 +3,12 @@
 <head>
     <title>SE1 - Parkhaus</title>
     <style><%@include file="WEB-INF/style.css"%></style>
+    <style> <%@include file="WEB-INF/lib/css/style.css"%></style>
+    <style><%@include file="WEB-INF/lib/css/navbar.css"%></style>
+    <style><%@include file="WEB-INF/lib/css/head.css"%></style>
+    <html><%@include file="WEB-INF/lib/html/head.html"%></html>
+    <!-- <html><%@include file="WEB-INF/lib/html/investor.html"%></html> -->
+    <html><%@include file="WEB-INF/lib/html/navbar.html"%></html></style>
     <script src="https://ccmjs.github.io/mkaul-components/parkhaus/versions/ccm.parkhaus-10.2.3.js"></script>
     <script>
         var resetPopup = document.getElementById('resetPopup');
