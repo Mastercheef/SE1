@@ -65,6 +65,14 @@ public class ParkhausServlet extends HttpServlet {
                 case "AuslastungDiagramm":
                     out.println((charts.getAuslasungDiagramm(getAuslastungsListe())));
                     break;
+                case "ROI":
+                    CarIF[]copy = Arrays.copyOf(getCars(), getCars().length);
+                    investor = new Investor(copy);
+                    out.println("ROI/Jahr:" + this.investor.rechner.returnInvest() + "%");
+                    break;
+                case "Autos/Tag":
+                    out.println((stats.getCarCount(getCars())));
+                    break;
             }
         }
     }
@@ -123,12 +131,8 @@ public class ParkhausServlet extends HttpServlet {
             if(cars[i].getTicketId().equals(ticketId)){
                 cars[i].leave(duration, price);
                 System.out.println("leave:" + getCars()[i].toString());
-
             }
         }
-        // System.out.println(investor.getGewinnTag());          // Tagesgewinn !
-        System.out.println("ROI/Jahr:" + Math.round(investor.rechner.returnInvest()) + "%");  // ROI auf den extrapolierten Jahresgewinn !
-
         setCars(cars);
         setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
     }
@@ -142,13 +146,10 @@ public class ParkhausServlet extends HttpServlet {
 
     private CarIF[] getCars(){
         CarIF[] cars;
-        CarIF[] copy;
         if(getContext().getAttribute("cars") == null){
             cars = new Car[0];
         } else{
             cars = (CarIF[]) getContext().getAttribute("cars");
-            copy = Arrays.copyOf(cars, cars.length);              // Hier bekommt der Investor eine Kopie der Autos.
-            investor = new Investor(copy);
         }
         return cars;
     }

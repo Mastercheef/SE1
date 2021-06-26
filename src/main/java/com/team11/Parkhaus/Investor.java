@@ -1,5 +1,7 @@
 package com.team11.Parkhaus;
 
+import java.util.Arrays;
+
 public class Investor {
     CarIF[] cars;
     ROIRechner rechner;
@@ -9,6 +11,7 @@ public class Investor {
         rechner = new ROIRechner(getInvest(), getGewinnTag());
     }
 
+
     double getGewinnTag(){
         double gewinn_tag = stats.getSum(cars);
         return Math.round(gewinn_tag*10000.0)/10000.0;
@@ -16,7 +19,7 @@ public class Investor {
 
     // hier wir das Invest über einen Button übergeben, noch zu implementieren.
     private double getInvest(){
-        return  100000.0;
+        return  1000000.0;
     }
 
 }

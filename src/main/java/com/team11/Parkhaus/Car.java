@@ -68,8 +68,8 @@ public class Car implements CarIF {
         for (int i=0; i<cars.length; i++){
             int nr = cars[i].getNr();
             String timer = cars[i].getArrival();
-            int duration = (int) (cars[i].getDuration()*60);
-            int price = (int) (cars[i].getPrice()*100);
+            int duration = (int) (cars[i].getDuration());
+            int price = (int) (cars[i].getPrice());
             String ticketId = cars[i].getTicketId();
             String color = cars[i].getColor();
             int space = cars[i].getSpace();
@@ -102,11 +102,11 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getPrice() { return this.price/100; }
+    public float getPrice() { return this.price/10; }
 
 
     @Override
-    public float getDuration() { return this.duration/60; }
+    public float getDuration() { return this.duration/100; }
 
 
     @Override
@@ -143,6 +143,6 @@ public class Car implements CarIF {
 
     @Override
     public String toString() {
-        return "LP: " + licencePlate + " Dur: " + duration + " [Min.]" +  " Price: " + price + " [EUR] ";
+        return "LP: " + getLicencePlate()  + " Dur: " + getDuration() + " [Min.]" +  " Price: " + getPrice() + " [EUR] ";
     }
 }
