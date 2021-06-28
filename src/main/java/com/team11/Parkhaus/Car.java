@@ -16,7 +16,7 @@ public class Car implements CarIF {
     String clientType;
 
 
-    Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType){
+    public Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType){
         this.isParking = true;
         this.nr = Integer.parseInt(nr);
         this.licencePlate = licensePlate;

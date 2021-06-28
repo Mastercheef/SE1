@@ -1,6 +1,7 @@
 package com.team11.Parkhaus;
 
 import com.team11.Parkhaus.Investor.Investor;
+import com.team11.Parkhaus.Manager.KostenGewinnRechner;
 import com.team11.Parkhaus.Manager.Manager;
 
 import java.io.*;
@@ -16,7 +17,9 @@ public class ParkhausServlet extends HttpServlet {
     Charts charts = new Charts();
     Auslastung auslastung = new Auslastung();
     Investor investor;
-    Manager manager;
+    Manager manager = new Manager();
+    double kostenFaktor = 0.15;
+    double invest = 100000;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,6 +44,10 @@ public class ParkhausServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         String cmd = req.getParameter("cmd");
+
+        manager.setkostenFaktor(kostenFaktor);
+
+
         if (cmd != null) {
             switch(cmd) {
                 case "Summe":
@@ -71,15 +78,12 @@ public class ParkhausServlet extends HttpServlet {
                     out.println((charts.getAuslasungDiagramm(getAuslastungsListe())));
                     break;
                 case "ROI":
-                    investor = new Investor(getCars());
-                    investor.generateRechner(1000000);   // hier müsste der Wert des Buttons übergeben werden.
+                    manager.createKGRechner(getCars());
+                    investor = new Investor(manager.getKGRechner().getGewinnTag());
+                    investor.generateRechner(invest);
                     out.println("ROI/Jahr:" + this.investor.getRechner().returnInvest() + "%");
-                    this.investor = null;
                     break;
                 case "Manager":
-                    double kostenFaktor = 0.15;   // Button Manager in %
-                    manager = new Manager();
-                    manager.setkostenFaktor(kostenFaktor);
                     manager.createKGRechner(getCars());
                     manager.getKGRechner().ausgabe(out);
                     break;

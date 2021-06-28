@@ -2,6 +2,8 @@ package com.team11.Parkhaus;
 
 import com.team11.Parkhaus.Investor.Investor;
 import com.team11.Parkhaus.Investor.ROIRechner;
+import com.team11.Parkhaus.Manager.KostenGewinnRechner;
+import com.team11.Parkhaus.Manager.Manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +15,8 @@ class InvestorTest {
     private CarIF[] cars = new Car[5];
     private CarIF[] cars2 = new Car[101];
     private Stats stats = new Stats();
+    private Manager manager11, manager2;
+    private KostenGewinnRechner kgrechner, kgrechner2;
 
 
     @BeforeEach
@@ -25,7 +29,12 @@ class InvestorTest {
 
         for(CarIF car:cars){ car.leave("0010","1000"); } // Preis wäre hier 10.00 EUR / Car
 
-        investor = new Investor(cars);
+
+        Manager manager1 = new Manager();
+        manager1.setkostenFaktor(0.0);
+        manager1.createKGRechner(cars);
+
+        investor = new Investor(manager1.getKGRechner().getGewinnTag());
         investor.generateRechner(invest);
 
         for(int i =0;i<=100;i++){
@@ -38,7 +47,10 @@ class InvestorTest {
             preis+="00";
             cars2[i].leave(preis,preis);
         }
-        investor2 = new Investor(cars2);
+        manager2 = new Manager();
+        manager2.setkostenFaktor(0.0);
+        manager2.createKGRechner(cars2);
+        investor2 = new Investor(manager2.getKGRechner().getGewinnTag());
         investor2.generateRechner(invest);
 
     }
@@ -50,16 +62,16 @@ class InvestorTest {
     }
     @Test
     void getGewinnTag() {
-        assertEquals(investor.getGewinnTag(),50.0);
+        assertEquals(investor.getGewinnTag(),40.5);
         int c=0;
         for(int i =0;i<=100;i++){c+=i;}
-        assertEquals(investor2.getGewinnTag(),c);
+        assertEquals(investor2.getGewinnTag(),c-(0.19*c));
     }
 
     @Test
     void returnInvest(){
         double roiInvestor = (((investor.getGewinnTag()*365.0)/investor.getInvest() ) *100.0);
-        assertEquals(investor.getRechner().returnInvest(),roiInvestor,0.3);
+        assertEquals(investor.getRechner().returnInvest(),roiInvestor, 0.2);
 
         double roiInvestor2 = (((investor2.getGewinnTag()*365.0)/investor2.getInvest() ) *100.0);
         assertEquals(investor2.getRechner().returnInvest(),roiInvestor2,0.1);
@@ -67,7 +79,7 @@ class InvestorTest {
 
     @Test
     void amortisationMonat(){
-        double ammoMonat= (10000.0/((50.0*365.0)/12.0));
+        double ammoMonat= (10000.0/((40.5*365.0)/12.0));
         assertEquals(investor.getRechner().amortisationMonat(), ammoMonat, 0.1);
 
         double ammoMonat2= (10000.0/((investor2.getGewinnTag()*365.0)/12.0));
