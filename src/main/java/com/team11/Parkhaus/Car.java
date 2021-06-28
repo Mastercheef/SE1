@@ -102,11 +102,11 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getPrice() { return this.price/10; }
+    public float getPrice() { return this.price/100; }
 
 
     @Override
-    public float getDuration() { return this.duration/100; }
+    public float getDuration() { return this.duration/1000; }
 
 
     @Override

@@ -2,12 +2,15 @@ package com.team11.Parkhaus;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.team11.Parkhaus.Manager.KostenGewinnRechner;
+import com.team11.Parkhaus.Manager.Manager;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 
 public class Charts {
+
     public String getDiagram(CarIF[] cars){
         JsonObject json = new JsonObject();
         JsonObject dataDurations = new JsonObject();
@@ -112,4 +115,40 @@ public class Charts {
         json.add("data", jArray);
         return json.toString();
     }
+
+
+    public String getUmsatzDiagram(CarIF[] cars, double faktor){
+        Manager manager = new Manager();
+        double kostenFaktor = 0.15;
+        manager.setkostenFaktor(kostenFaktor);
+        manager.createKGRechner(cars);
+        KostenGewinnRechner rechner = manager.getKGRechner();
+
+        JsonObject json = new JsonObject();
+        JsonArray data = new JsonArray();
+        JsonObject dataE = new JsonObject();
+        JsonArray labels = new JsonArray();
+        JsonArray values = new JsonArray();
+
+        String[] lab = {"Kosten", "Gewinn", "Steuer"};
+        for(String label:lab){ labels.add(label); }
+
+        values.add(rechner.roundThree(rechner.getKostenTag()));
+        values.add(rechner.roundThree(rechner.getGewinnTag()));
+        values.add(rechner.roundThree(rechner.getSteuerTag()));
+
+        dataE.add("labels", labels);
+        dataE.add("values", values);
+
+        dataE.addProperty("type", "pie");
+        dataE.addProperty("name", "Typ");
+        data.add(dataE);
+
+        json.add("data", data);
+        return json.toString();
+    }
+
+
+
+
 }

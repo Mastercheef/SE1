@@ -1,5 +1,8 @@
 package com.team11.Parkhaus;
 
+import com.team11.Parkhaus.Investor.Investor;
+import com.team11.Parkhaus.Manager.Manager;
+
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
@@ -13,12 +16,14 @@ public class ParkhausServlet extends HttpServlet {
     Charts charts = new Charts();
     Auslastung auslastung = new Auslastung();
     Investor investor;
+    Manager manager;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] postParams = getBody(req).split(",");
         // enter
         if (postParams[0].equals("enter")){
-            //( licensePlate,    ticketId,          color,        carType,      nr,            arrival,      space,            clientType)
+            //( licensePlate postParams[10],    ticketId,          color,        carType,      nr,            arrival,      space,            clientType)
             enter(postParams[10], postParams[5], postParams[6], postParams[9], postParams[1], postParams[2],postParams[7], postParams[8]);
         // leave
         } else if (postParams[0].equals("leave")){
@@ -66,12 +71,20 @@ public class ParkhausServlet extends HttpServlet {
                     out.println((charts.getAuslasungDiagramm(getAuslastungsListe())));
                     break;
                 case "ROI":
-                    CarIF[]copy = Arrays.copyOf(getCars(), getCars().length);
-                    investor = new Investor(copy);
-                    out.println("ROI/Jahr:" + this.investor.rechner.returnInvest() + "%");
+                    investor = new Investor(getCars());
+                    investor.generateRechner(1000000);   // hier müsste der Wert des Buttons übergeben werden.
+                    out.println("ROI/Jahr:" + this.investor.getRechner().returnInvest() + "%");
+                    this.investor = null;
                     break;
-                case "Autos/Tag":
-                    out.println((stats.getCarCount(getCars())));
+                case "Manager":
+                    double kostenFaktor = 0.15;   // Button Manager in %
+                    manager = new Manager();
+                    manager.setkostenFaktor(kostenFaktor);
+                    manager.createKGRechner(getCars());
+                    manager.getKGRechner().ausgabe(out);
+                    break;
+                case "Umsatzdiagramm":
+                    out.println((charts.getUmsatzDiagram(getCars(), 0.10)));
                     break;
             }
         }
