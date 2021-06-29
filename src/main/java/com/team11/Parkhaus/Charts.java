@@ -2,6 +2,9 @@ package com.team11.Parkhaus;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.team11.Parkhaus.Kunden.Abonnent;
+import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Standard;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -102,6 +105,36 @@ public class Charts {
 
         jArray.add(auslastungJson);
         json.add("data", jArray);
+        return json.toString();
+    }
+
+    public String getCustomerTypeDiagram(List<Ticket> tickets) {
+        int abonnent = 0, standard = 0;
+        for (Ticket ticket : tickets) {
+            Kunde customer = ticket.getCustomer();
+            if (customer instanceof Abonnent) abonnent++;
+            if (customer instanceof Standard) standard++;
+        }
+
+        JsonObject json = new JsonObject();
+        JsonArray data = new JsonArray();
+        JsonObject dataE = new JsonObject();
+        JsonArray labels = new JsonArray();
+        JsonArray values = new JsonArray();
+
+        labels.add("Abonnent");
+        labels.add("Standard");
+
+        values.add(abonnent);
+        values.add(standard);
+
+        dataE.add("labels", labels);
+        dataE.add("values", values);
+        dataE.addProperty("type", "pie");
+        dataE.addProperty("name", "Typ");
+        data.add(dataE);
+
+        json.add("data", data);
         return json.toString();
     }
 }

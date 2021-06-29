@@ -57,6 +57,9 @@ public class ParkhausServlet extends HttpServlet {
                 case "FahrzeugtypenDiagramm":
                     out.println((charts.getCarTypeDiagram(getCars())));
                     break;
+                case "KundentypenDiagramm":
+                    out.println(charts.getCustomerTypeDiagram(getTickets()));
+                    break;
                 case "reset":
                     out.println(reset());
                     break;
