@@ -1,34 +1,37 @@
 package com.team11.Parkhaus;
 
-import java.util.Arrays;
+import com.team11.Parkhaus.Kunden.Kunde;
+
 import java.util.List;
 
 public class Car implements CarIF {
     private boolean isParking;
-    private int nr;
-    private String arrival;
-    private String licencePlate;
-    private String ticketId;
-    private String color;
-    private String carType;
-    private float duration;
+    private final int nr;
+    private final long arrival;
+    private final String licencePlate;
+    private final String ticketId;
+    private final String color;
+    private final String carType;
+    private long duration;
     private float price;
-    private int space;
-    private String clientType;
+    private final int space;
+    private final String clientType;
+    private final Kunde customer;
 
 
-    Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType) {
+    public Car(String licensePlate, String ticketId, String color, String carType, int nr, String arrival, String space, String clientType, Kunde customer) {
         this.isParking = true;
-        this.nr = Integer.parseInt(nr);
+        this.nr = nr;
         this.licencePlate = licensePlate;
         this.ticketId = ticketId;
         this.color = color;
         this.carType = carType;
         this.price =  -1;
         this.duration = -1;
-        this.arrival = arrival;
+        this.arrival = Long.parseLong(arrival);
         this.space = Integer.parseInt(space);
         this.clientType = clientType;
+        this.customer = customer;
     }
 
 
@@ -64,7 +67,7 @@ public class Car implements CarIF {
         StringBuilder csv = new StringBuilder();
         for (CarIF car : cars) {
             int nr = car.getNr();
-            String timer = car.getArrival();
+            long timer = car.getArrival();
             int duration = (int) (car.getDuration()*60);
             int price = (int) (car.getPrice()*100);
             String ticketId = car.getTicketId();
@@ -97,10 +100,11 @@ public class Car implements CarIF {
 
 
     @Override
-    public void leave(String duration, String price) {
+    public Ticket leave(List<Ticket> tickets, String duration, String price) {
         this.isParking = false;
-        this.duration = Integer.parseInt(duration);
-        this.price = Integer.parseInt(price);
+        this.duration = Long.parseLong(duration);
+        this.price = customer.calculatePrice(tickets, Float.parseFloat(price) / 100, this.getDeparture());
+        return new Ticket(ticketId, nr, this.arrival, this.getDeparture(), this.price);
     }
 
 
@@ -111,11 +115,11 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getPrice() { return this.price/100; }
+    public float getPrice() { return this.price; }
 
 
     @Override
-    public float getDuration() { return this.duration/60; }
+    public float getDuration() { return this.duration/60f; }
 
 
     @Override
@@ -138,7 +142,7 @@ public class Car implements CarIF {
     public int getNr() { return this.nr; }
 
     @Override
-    public String getArrival() { return  this.arrival; }
+    public long getArrival() { return this.arrival; }
 
     @Override
     public int getSpace() { return this.space; }
@@ -146,7 +150,7 @@ public class Car implements CarIF {
     @Override
     public String getClientType() { return this.clientType; }
 
-    public String getDeparture() {
-        return String.valueOf(Long.parseLong(this.getArrival()) + (int) this.duration);
+    public long getDeparture() {
+        return this.arrival + this.duration;
     }
 }

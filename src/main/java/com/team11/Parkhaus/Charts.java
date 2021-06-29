@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.*;
 
 public class Charts {
@@ -79,8 +78,6 @@ public class Charts {
     }
 
     public String getAuslastungDiagramm(List<String[]> auslastungsListe) {
-        Auslastung auslastung = new Auslastung();
-
         JsonObject json = new JsonObject();
         JsonObject auslastungJson = new JsonObject();
         JsonArray jArray = new JsonArray();
