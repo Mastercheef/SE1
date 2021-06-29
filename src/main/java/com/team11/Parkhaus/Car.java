@@ -1,22 +1,23 @@
 package com.team11.Parkhaus;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Car implements CarIF {
-    boolean isParking;
-    int nr;
-    String arrival;
-    String licencePlate;
-    String ticketId;
-    String color;
-    String carType;
-    float duration;
-    float price;
-    int space;
-    String clientType;
+    private boolean isParking;
+    private int nr;
+    private String arrival;
+    private String licencePlate;
+    private String ticketId;
+    private String color;
+    private String carType;
+    private float duration;
+    private float price;
+    private int space;
+    private String clientType;
 
 
-    Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType){
+    Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType) {
         this.isParking = true;
         this.nr = Integer.parseInt(nr);
         this.licencePlate = licensePlate;
@@ -31,59 +32,67 @@ public class Car implements CarIF {
     }
 
 
-    public static double[] durationArray(CarIF[] cars){
-        return Arrays.stream(cars).filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
+    public static double[] durationArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
     }
 
 
-    public static double[] priceArray(CarIF[] cars){
-        return Arrays.stream(cars).filter(car -> !car.isParking()).mapToDouble(CarIF::getPrice).toArray();
+    public static double[] priceArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getPrice).toArray();
     }
 
 
-    public static String[] carTypeArray(CarIF[] cars){
-        String[] carTypeArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
-            carTypeArray[i] = cars[i].getCarType();
-        }
-        return carTypeArray;
+    public static String[] carTypeArray(List<CarIF> cars) {
+        return cars.stream().map(CarIF::getCarType).toArray(String[]::new);
     }
 
 
-    public static String[] ticketIdArray(CarIF[] cars){
+    public static String[] ticketIdArray(CarIF[] cars) {
         String[] ticketIdArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
+        for (int i=0; i<cars.length; i++) {
             ticketIdArray[i] = cars[i].getTicketId();
         }
         return ticketIdArray;
     }
 
-    public static String[] licencePlateArray(CarIF[] cars){
-        return Arrays.stream(cars).filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
+    public static String[] licencePlateArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
     }
 
-    public static String getSavedCarsCSV(CarIF[] cars){
+    public static String getSavedCarsCSV(List<CarIF> cars) {
         // Nr/Timer/Duration/Price/Hash/Color/Space/client_category/vehicle_type/license
-        String csv = "";
-        for (int i=0; i<cars.length; i++){
-            int nr = cars[i].getNr();
-            String timer = cars[i].getArrival();
-            int duration = (int) (cars[i].getDuration()*60);
-            int price = (int) (cars[i].getPrice()*100);
-            String ticketId = cars[i].getTicketId();
-            String color = cars[i].getColor();
-            int space = cars[i].getSpace();
-            String client_category = cars[i].getClientType();
-            String license = cars[i].getLicencePlate();
+        StringBuilder csv = new StringBuilder();
+        for (CarIF car : cars) {
+            int nr = car.getNr();
+            String timer = car.getArrival();
+            int duration = (int) (car.getDuration()*60);
+            int price = (int) (car.getPrice()*100);
+            String ticketId = car.getTicketId();
+            String color = car.getColor();
+            int space = car.getSpace();
+            String client_category = car.getClientType();
+            String license = car.getLicencePlate();
 
-            String csv_car = nr+"/"+timer+"/"+duration+"/"+price+"/"+ticketId+"/"
-                    +color+"/"+space+"/"+client_category+"/"+license;
-            csv += "," + csv_car;
-
-            System.out.println(price);
-            System.out.println(cars[i].getPrice());
+            csv.append(",")
+                .append(nr)
+                .append("/")
+                .append(timer)
+                .append("/")
+                .append(duration)
+                .append("/")
+                .append(price)
+                .append("/")
+                .append(ticketId)
+                .append("/")
+                .append(color)
+                .append("/")
+                .append(space)
+                .append("/")
+                .append(client_category)
+                .append("/")
+                .append(license);
         }
-        return csv.substring(1);
+        return csv.length() > 0 ? csv.substring(1) : csv.toString();
     }
 
 

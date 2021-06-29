@@ -1,24 +1,24 @@
 package com.team11.Parkhaus;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Stats {
-    public float getSum(CarIF[] cars) {
-        return (float) Arrays.stream(cars)
+    public float getSum(List<CarIF> cars) {
+        return (float) cars.stream()
                 .filter(car -> !car.isParking())
-                .mapToDouble(car -> car.getPrice())
+                .mapToDouble(CarIF::getPrice)
                 .sum();
     }
 
-    public float getAvg(CarIF[] cars) {
-        return (float) Arrays.stream(cars)
+    public float getAvg(List<CarIF> cars) {
+        return (float) cars.stream()
                 .filter(car -> !car.isParking())
-                .mapToDouble(car -> car.getPrice())
+                .mapToDouble(CarIF::getPrice)
                 .average().orElse(0.0);
     }
 
-    public int getCarCount(CarIF[] cars) {
-        return (int) Arrays.stream(cars)
+    public int getCarCount(List<CarIF> cars) {
+        return (int) cars.stream()
                 .filter(car -> !car.isParking())
                 .count();
     }

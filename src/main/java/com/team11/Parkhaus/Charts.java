@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.*;
 
 public class Charts {
-    public String getDiagram(CarIF[] cars){
+    public String getDiagram(List<CarIF> cars) {
         JsonObject json = new JsonObject();
         JsonObject dataDurations = new JsonObject();
         JsonObject dataPrices = new JsonObject();
@@ -45,18 +45,13 @@ public class Charts {
         return json.toString();
     }
 
-    public String getCarTypeDiagram(CarIF[] cars){
+    public String getCarTypeDiagram(List<CarIF> cars) {
         int suv = 0, limousine = 0, kombi = 0;
-        for (int i = 0; i< cars.length; i++){
-            if (Car.carTypeArray(cars)[i].equals("SUV")){
-                suv++;
-            }
-            if (Car.carTypeArray(cars)[i].equals("Limousine")){
-                limousine++;
-            }
-            if (Car.carTypeArray(cars)[i].equals("Kombi")){
-                kombi++;
-            }
+        String[] carTypeArray = Car.carTypeArray(cars);
+        for (String c : carTypeArray) {
+            if (c.equals("SUV")) suv++;
+            if (c.equals("Limousine")) limousine++;
+            if (c.equals("Kombi")) kombi++;
         }
 
         JsonObject json = new JsonObject();
@@ -83,7 +78,7 @@ public class Charts {
         return json.toString();
     }
 
-    public String getAuslasungDiagramm(List<String[]> auslastungsListe) {
+    public String getAuslastungDiagramm(List<String[]> auslastungsListe) {
         Auslastung auslastung = new Auslastung();
 
         JsonObject json = new JsonObject();
@@ -100,7 +95,7 @@ public class Charts {
             date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
             Date time = new Date((Long.parseLong(p[0])));
             String java_date = date.format(time);
-            zeit.add(java_date.toString());
+            zeit.add(java_date);
         }
 
         auslastungJson.add("x", zeit);

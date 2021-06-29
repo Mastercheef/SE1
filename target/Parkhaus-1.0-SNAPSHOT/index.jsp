@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>SE1 - Parkhaus</title>
@@ -37,11 +37,11 @@
                   "server_url":"./api/",
                   "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen", "Auslastung"],
                   "extra_charts":["Diagramm", "FahrzeugtypenDiagramm", "AuslastungDiagramm"],
+                  "client_categories":["Standard","Abo-1","Abo-2"],
                   "vehicle_types":["Limousine", "Kombi", "SUV"],
                   "delay": 100
                   }'>
 </ccm-parkhaus-10-2-3>
-
 
 </body>
 </html>
