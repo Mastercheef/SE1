@@ -5,6 +5,7 @@ import com.team11.Parkhaus.Kunden.Kunde;
 import com.team11.Parkhaus.Kunden.Standard;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.servlet.*;
@@ -59,6 +60,9 @@ public class ParkhausServlet extends HttpServlet {
                     break;
                 case "KundentypenDiagramm":
                     out.println(charts.getCustomerTypeDiagram(getTickets()));
+                    break;
+                case "AboParkdauerDiagramm":
+                    out.println(charts.getSubscriberDurationsDiagram(getSubscriberAvg()));
                     break;
                 case "reset":
                     out.println(reset());
@@ -147,6 +151,7 @@ public class ParkhausServlet extends HttpServlet {
             setTickets(tickets);
             setCars(cars);
             setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
+            updateSubscriberAvg();
             System.out.println("LEAVE: " + toLeave.getLicencePlate());
         }
     }
@@ -192,6 +197,25 @@ public class ParkhausServlet extends HttpServlet {
 
     private void setCars(List<CarIF> cars) {
         getContext().setAttribute("cars", cars);
+    }
+
+    private List<String[]> getSubscriberAvg() {
+        if (getContext().getAttribute("subscriberAvg") == null) {
+            return new ArrayList<>();
+        } else {
+            return (List<String[]>) getContext().getAttribute("subscriberAvg");
+        }
+    }
+
+    private void updateSubscriberAvg() {
+        List<String[]> subscriberAvg = getSubscriberAvg();
+        double avg = getTickets().stream().filter(ticket -> ticket.getCustomer() instanceof Abonnent).mapToLong(Ticket::getDuration).average().orElse(-1);
+        if (avg > -1) {
+            SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
+            format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
+            subscriberAvg.add(new String[]{String.valueOf(avg), format.format(new Date())});
+            getContext().setAttribute("subscriberAvg", subscriberAvg);
+        }
     }
 
     private List<String[]> getAuslastungsListe() {

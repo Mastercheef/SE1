@@ -5,8 +5,11 @@ import com.team11.Parkhaus.Kunden.Standard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,6 +17,7 @@ class ChartsTest {
     private final List<CarIF> cars = new ArrayList<>();
     private final Charts chart = new Charts();
     private final List<Ticket> tickets = new ArrayList<>();
+    private final List<String[]> subscriberAvg = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -25,6 +29,11 @@ class ChartsTest {
         cars.add(c3);
         tickets.add(cars.get(0).leave(tickets,"60000","500"));
         tickets.add(cars.get(2).leave(tickets,"120000","1000"));
+
+        double avg = tickets.stream().filter(ticket -> ticket.getCustomer() instanceof Abonnent).mapToLong(Ticket::getDuration).average().orElse(-1);
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
+        format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
+        subscriberAvg.add(new String[]{String.valueOf(avg), format.format(new Date(1623766990000L))});
     }
 
     @Test
@@ -80,5 +89,21 @@ class ChartsTest {
                         "}",
                 chart.getCustomerTypeDiagram(tickets)
         );
+
+       assertEquals("{" +
+                       "\"data\":[" +
+                       "{" +
+                       "\"x\":[\"06-15 16:23:10:00\"]," +
+                       "\"y\":[\"60000.0\"]," +
+                       "\"type\":\"line\"," +
+                       "\"name\":\"Durchschnittl. Parkdauer der Abonnenten\"" +
+                       "}" +
+                       "]," +
+                       "\"layout\":" +
+                       "{" +
+                       "\"title\":{\"text\":\"Durschnittliche Parkdauer der Abonnenten\"}," +
+                       "\"xaxis\":{\"title\":{\"text\":\"Zeitpunkt der Messung\"}}," +
+                       "\"yaxis\":{\"title\":{\"text\":\"Parkdauer (in ms)\"}}}}",
+               chart.getSubscriberDurationsDiagram(subscriberAvg));
     }
 }

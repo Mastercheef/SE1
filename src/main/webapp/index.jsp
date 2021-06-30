@@ -36,7 +36,7 @@
         key='{"name":"CarHome",
                   "server_url":"./api/",
                   "extra_buttons":["Summe", "Durchschnitt", "habenVerlassen", "Auslastung"],
-                  "extra_charts":["Diagramm", "FahrzeugtypenDiagramm", "AuslastungDiagramm", "KundentypenDiagramm"],
+                  "extra_charts":["Diagramm", "FahrzeugtypenDiagramm", "AuslastungDiagramm", "KundentypenDiagramm", "AboParkdauerDiagramm"],
                   "client_categories":["Standard","Abo-1","Abo-2"],
                   "vehicle_types":["Limousine", "Kombi", "SUV"],
                   "delay": 100

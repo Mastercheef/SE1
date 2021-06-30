@@ -137,4 +137,48 @@ public class Charts {
         json.add("data", data);
         return json.toString();
     }
+
+    public String getSubscriberDurationsDiagram(List<String[]> subscriberAvg) {
+        JsonObject json = new JsonObject();
+        JsonObject avgDurationJson = new JsonObject();
+        JsonArray jArray = new JsonArray();
+
+        JsonArray dauer = new JsonArray();
+        JsonArray zeit = new JsonArray();
+
+        for (String[] a : subscriberAvg) {
+            dauer.add(a[0]);
+            zeit.add(a[1]);
+        }
+
+        avgDurationJson.add("x", zeit);
+        avgDurationJson.add("y", dauer);
+        avgDurationJson.addProperty("type", "line");
+        avgDurationJson.addProperty("name", "Durchschnittl. Parkdauer der Abonnenten");
+
+        jArray.add(avgDurationJson);
+
+        JsonObject layout = new JsonObject();
+        JsonObject title = new JsonObject();
+        JsonObject xAxis = new JsonObject();
+        JsonObject yAxis = new JsonObject();
+        JsonObject xAxisTitle = new JsonObject();
+        JsonObject yAxisTitle = new JsonObject();
+
+        title.addProperty("text", "Durschnittliche Parkdauer der Abonnenten");
+        xAxisTitle.addProperty("text", "Zeitpunkt der Messung");
+        yAxisTitle.addProperty("text", "Parkdauer (in ms)");
+
+        xAxis.add("title", xAxisTitle);
+        yAxis.add("title", yAxisTitle);
+
+        layout.add("title", title);
+        layout.add("xaxis", xAxis);
+        layout.add("yaxis", yAxis);
+
+
+        json.add("data", jArray);
+        json.add("layout", layout);
+        return json.toString();
+    }
 }
