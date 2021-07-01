@@ -42,18 +42,21 @@ class ChartsTest {
                 "{" +
                         "\"data\":[" +
                         "{" +
-                        "\"x\":[\"SU-K 12\",\"SU-M 19\"]," +
+                        "\"x\":[\"20622e7202ff98f04cce072d21a42387\",\"573466f20334252981478621577421e3\"]," +
                         "\"y\":[1000.0,2000.0]," +
                         "\"type\":\"bar\"," +
                         "\"name\":\"Dauer\"" +
                         "}," +
                         "{" +
-                        "\"x\":[\"SU-K 12\",\"SU-M 19\"]," +
+                        "\"x\":[\"20622e7202ff98f04cce072d21a42387\",\"573466f20334252981478621577421e3\"]," +
                         "\"y\":[0.0,10.0]," +
                         "\"type\":\"bar\"," +
                         "\"name\":\"Preis\"" +
                         "}" +
-                        "]" +
+                        "]," +
+                        "\"layout\":{\"title\":{\"text\":\"Ueberischt ueber Parkzeit und Preis pro Ticket\"}," +
+                        "\"xaxis\":{\"title\":{\"text\":\"Ticket ID\"}}," +
+                        "\"yaxis\":{\"title\":{\"text\":\"Preis / Dauer\"}}}" +
                         "}",
                 chart.getDiagram(cars));
     }
@@ -72,6 +75,11 @@ class ChartsTest {
                         "]" +
                         "}",
                 chart.getCarTypeDiagram(cars));
+    }
+
+    @Test
+    void getAuslastungDiagramm() {
+
     }
 
     @Test
@@ -105,5 +113,9 @@ class ChartsTest {
                        "\"xaxis\":{\"title\":{\"text\":\"Zeitpunkt der Messung\"}}," +
                        "\"yaxis\":{\"title\":{\"text\":\"Parkdauer (in ms)\"}}}}",
                chart.getSubscriberDurationsDiagram(subscriberAvg));
+    }
+
+    void getSubscriberDurationsDiagram() {
+        /* TODO */
     }
 }

@@ -3,6 +3,7 @@ package com.team11.Parkhaus;
 import com.team11.Parkhaus.Kunden.Kunde;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Car implements CarIF {
     private boolean isParking;
@@ -51,9 +52,14 @@ public class Car implements CarIF {
 
 
     public static String[] ticketIdArray(List<CarIF> cars) {
-        String[] ticketIdArray = new String[cars.size()];
-        for (int i=0; i<cars.size(); i++) {
-            ticketIdArray[i] = cars.get(i).getTicketId();
+        int count = (int)cars.stream().filter(car -> !car.isParking()).count();
+        String[] ticketIdArray = new String[count];
+        for (int i=0; i<count; i++) {
+            ticketIdArray[i] = cars.stream().filter(car -> !car.isParking())
+                    .collect(Collectors
+                    .toList())
+                    .get(i)
+                    .getTicketId();
         }
         return ticketIdArray;
     }
