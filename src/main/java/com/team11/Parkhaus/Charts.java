@@ -2,13 +2,15 @@ package com.team11.Parkhaus;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.team11.Parkhaus.Kunden.Abonnent;
+import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Standard;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.*;
 
 public class Charts {
-    public String getDiagram(CarIF[] cars){
+    public String getDiagram(List<CarIF> cars) {
         JsonObject json = new JsonObject();
         JsonObject dataDurations = new JsonObject();
         JsonObject dataPrices = new JsonObject();
@@ -45,18 +47,13 @@ public class Charts {
         return json.toString();
     }
 
-    public String getCarTypeDiagram(CarIF[] cars){
+    public String getCarTypeDiagram(List<CarIF> cars) {
         int suv = 0, limousine = 0, kombi = 0;
-        for (int i = 0; i< cars.length; i++){
-            if (Car.carTypeArray(cars)[i].equals("SUV")){
-                suv++;
-            }
-            if (Car.carTypeArray(cars)[i].equals("Limousine")){
-                limousine++;
-            }
-            if (Car.carTypeArray(cars)[i].equals("Kombi")){
-                kombi++;
-            }
+        String[] carTypeArray = Car.carTypeArray(cars);
+        for (String c : carTypeArray) {
+            if (c.equals("SUV")) suv++;
+            if (c.equals("Limousine")) limousine++;
+            if (c.equals("Kombi")) kombi++;
         }
 
         JsonObject json = new JsonObject();
@@ -83,9 +80,7 @@ public class Charts {
         return json.toString();
     }
 
-    public String getAuslasungDiagramm(List<String[]> auslastungsListe) {
-        Auslastung auslastung = new Auslastung();
-
+    public String getAuslastungDiagramm(List<String[]> auslastungsListe) {
         JsonObject json = new JsonObject();
         JsonObject auslastungJson = new JsonObject();
         JsonArray jArray = new JsonArray();
@@ -100,7 +95,7 @@ public class Charts {
             date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
             Date time = new Date((Long.parseLong(p[0])));
             String java_date = date.format(time);
-            zeit.add(java_date.toString());
+            zeit.add(java_date);
         }
 
         auslastungJson.add("x", zeit);
@@ -110,6 +105,80 @@ public class Charts {
 
         jArray.add(auslastungJson);
         json.add("data", jArray);
+        return json.toString();
+    }
+
+    public String getCustomerTypeDiagram(List<Ticket> tickets) {
+        int abonnent = 0, standard = 0;
+        for (Ticket ticket : tickets) {
+            Kunde customer = ticket.getCustomer();
+            if (customer instanceof Abonnent) abonnent++;
+            if (customer instanceof Standard) standard++;
+        }
+
+        JsonObject json = new JsonObject();
+        JsonArray data = new JsonArray();
+        JsonObject dataE = new JsonObject();
+        JsonArray labels = new JsonArray();
+        JsonArray values = new JsonArray();
+
+        labels.add("Abonnent");
+        labels.add("Standard");
+
+        values.add(abonnent);
+        values.add(standard);
+
+        dataE.add("labels", labels);
+        dataE.add("values", values);
+        dataE.addProperty("type", "pie");
+        dataE.addProperty("name", "Typ");
+        data.add(dataE);
+
+        json.add("data", data);
+        return json.toString();
+    }
+
+    public String getSubscriberDurationsDiagram(List<String[]> subscriberAvg) {
+        JsonObject json = new JsonObject();
+        JsonObject avgDurationJson = new JsonObject();
+        JsonArray jArray = new JsonArray();
+
+        JsonArray dauer = new JsonArray();
+        JsonArray zeit = new JsonArray();
+
+        for (String[] a : subscriberAvg) {
+            dauer.add(a[0]);
+            zeit.add(a[1]);
+        }
+
+        avgDurationJson.add("x", zeit);
+        avgDurationJson.add("y", dauer);
+        avgDurationJson.addProperty("type", "line");
+        avgDurationJson.addProperty("name", "Durchschnittl. Parkdauer der Abonnenten");
+
+        jArray.add(avgDurationJson);
+
+        JsonObject layout = new JsonObject();
+        JsonObject title = new JsonObject();
+        JsonObject xAxis = new JsonObject();
+        JsonObject yAxis = new JsonObject();
+        JsonObject xAxisTitle = new JsonObject();
+        JsonObject yAxisTitle = new JsonObject();
+
+        title.addProperty("text", "Durschnittliche Parkdauer der Abonnenten");
+        xAxisTitle.addProperty("text", "Zeitpunkt der Messung");
+        yAxisTitle.addProperty("text", "Parkdauer (in ms)");
+
+        xAxis.add("title", xAxisTitle);
+        yAxis.add("title", yAxisTitle);
+
+        layout.add("title", title);
+        layout.add("xaxis", xAxis);
+        layout.add("yaxis", yAxis);
+
+
+        json.add("data", jArray);
+        json.add("layout", layout);
         return json.toString();
     }
 }

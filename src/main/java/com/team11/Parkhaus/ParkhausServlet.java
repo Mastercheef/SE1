@@ -1,7 +1,13 @@
 package com.team11.Parkhaus;
 
+import com.team11.Parkhaus.Kunden.Abonnent;
+import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Standard;
+
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,43 +19,50 @@ public class ParkhausServlet extends HttpServlet {
     Charts charts = new Charts();
     Auslastung auslastung = new Auslastung();
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] postParams = getBody(req).split(",");
-        // enter
-        if (postParams[0].equals("enter")){
-            enter(postParams[10], postParams[5], postParams[6], postParams[9], postParams[1], postParams[2],postParams[7], postParams[8]);
-        // leave
-        } else if (postParams[0].equals("leave")){
-            leave(postParams[5], postParams[3], postParams[4]);
-        }
-        // occupied
-        else if (postParams[0].equals("occupied")){
-            delete(postParams[1]);
+
+        switch (postParams[0]) { // Switch Case ist für String implementiert seit Java 7: https://stackoverflow.com/a/338230
+            case "enter":
+                enter(postParams[10], postParams[5], postParams[6], postParams[9], postParams[1], postParams[2], postParams[7], postParams[8]);
+                break;
+            case "leave":
+                leave(postParams[5], postParams[3], postParams[4]);
+                break;
+            case "occupied":
+                delete(postParams[1]);
+                break;
         }
     }
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         String cmd = req.getParameter("cmd");
         if (cmd != null) {
             switch(cmd) {
                 case "Summe":
-                    out.println(stats.getSum(getCars()));
+                    out.println(stats.getSum(getTickets()));
                     break;
                 case "Durchschnitt":
-                    out.println(stats.getAvg(getCars()));
+                    out.println(stats.getAvg(getTickets()));
                     break;
                 case "habenVerlassen":
-                    out.println(stats.getCarCount(getCars()));
+                    out.println(stats.getCarCount(getTickets()));
                     break;
                 case "Diagramm":
                     out.println((charts.getDiagram(getCars())));
                     break;
                 case "FahrzeugtypenDiagramm":
                     out.println((charts.getCarTypeDiagram(getCars())));
+                    break;
+                case "KundentypenDiagramm":
+                    out.println(charts.getCustomerTypeDiagram(getTickets()));
+                    break;
+                case "AboParkdauerDiagramm":
+                    out.println(charts.getSubscriberDurationsDiagram(getSubscriberAvg()));
                     break;
                 case "reset":
                     out.println(reset());
@@ -58,17 +71,16 @@ public class ParkhausServlet extends HttpServlet {
                     out.println(Car.getSavedCarsCSV(getCars()));
                     break;
                 case "Auslastung":
-                    out.println((auslastung.getAuslasung(getCars()) + "%"));
+                    out.println((auslastung.getAuslastung(getCars()) + "%"));
                     break;
                 case "AuslastungDiagramm":
-                    out.println((charts.getAuslasungDiagramm(getAuslastungsListe())));
+                    out.println((charts.getAuslastungDiagramm(getAuslastungsListe())));
                     break;
             }
         }
     }
 
     String getBody( HttpServletRequest request ) throws IOException {
-
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
 
@@ -77,12 +89,10 @@ public class ParkhausServlet extends HttpServlet {
             if ( inputStream != null ) {
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 char[] charBuffer = new char[128];
-                int bytesRead = -1;
+                int bytesRead;
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
                     stringBuilder.append(charBuffer, 0, bytesRead);
                 }
-            } else {
-                stringBuilder.append("");
             }
         } finally {
             if (bufferedReader != null) {
@@ -97,57 +107,121 @@ public class ParkhausServlet extends HttpServlet {
     }
 
     private void enter(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType) {
-        CarIF[] cars = getCars();
+        List<CarIF> cars = getCars();
+        List<Kunde> customers = getCustomers();
 
-        // extend array
-        CarIF[] tmpCars = new Car[cars.length+1];
-        for (int i=0; i<cars.length; i++){
-            tmpCars[i] = cars[i];
+        int parsedNr = Integer.parseInt(nr);
+
+        Kunde enteringCustomer = customers.stream().filter(customer -> customer.getNr() == parsedNr).findFirst().orElse(null);
+
+        // Neuen Kunden erstellen, falls nicht vorhanden
+        if (enteringCustomer == null) {
+            switch (clientType) {
+                case "Abo-1":
+                    enteringCustomer = new Abonnent(parsedNr, 0);
+                    break;
+                case "Abo-2":
+                    enteringCustomer = new Abonnent(parsedNr, 3);
+                    break;
+                default:
+                    enteringCustomer = new Standard(parsedNr);
+                    break;
+            }
+            customers.add(enteringCustomer);
+            setCustomers(customers);
         }
-        cars = tmpCars;
 
-        // add new car
-        cars[cars.length-1] = new Car(licensePlate,ticketId,color,carType, nr, arrival, space, clientType);
-        System.out.println("enter:" + licensePlate);
-
+        cars.add(new Car(licensePlate,ticketId,color,carType, parsedNr, arrival, space, clientType, enteringCustomer));
         setCars(cars);
+
         setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
+
+        System.out.println("ENTER: " + licensePlate);
     }
 
 
-    private void leave(String ticketId, String duration, String price){
-        CarIF[] cars = getCars();
-        for (int i=0; i<cars.length; i++){
-            if(cars[i].getTicketId().equals(ticketId)){
-                cars[i].leave(duration, price);
-                System.out.println("leave:" + getCars()[i].getLicencePlate());
-            }
+    private void leave(String ticketId, String duration, String price) {
+        List<CarIF> cars = getCars();
+        CarIF toLeave = cars.stream().filter(car -> car.getTicketId().equals(ticketId)).findFirst().orElse(null);
+
+        List<Ticket> tickets = getTickets();
+
+        if (toLeave != null) {
+            tickets.add(toLeave.leave(tickets, duration, price));
+            setTickets(tickets);
+            setCars(cars);
+            setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
+            updateSubscriberAvg();
+            System.out.println("LEAVE: " + toLeave.getLicencePlate());
         }
-        setCars(cars);
-        setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
     }
 
     private void delete(String nr) {
-        String carNr = nr.replaceAll("\\D+","");
-        CarIF[] cars = getCars();
-        setCars((CarIF[]) Arrays.stream(cars).filter(car -> car.getNr() != Integer.parseInt(carNr)).toArray(i -> new CarIF[i]));
-        System.out.println("delete:" + carNr);
+        List<CarIF> cars = getCars();
+        int toRemove = Integer.parseInt(nr.replaceAll("\\D+","")); // Übrige zeichen aus nr entfernen
+        setCars(cars.stream().filter(car -> car.getNr() != toRemove).collect(Collectors.toList())); // Alle übrigen Cars an setCars übergeben
+        System.out.println("DELETED: " + toRemove);
     }
 
-    private CarIF[] getCars(){
-        CarIF[] cars;
-        if(getContext().getAttribute("cars") == null){
-            cars = new Car[0];
-        } else{
-            cars = (CarIF[]) getContext().getAttribute("cars");
+    private List<Kunde> getCustomers() {
+        if (getContext().getAttribute("customers") == null) {
+            return new ArrayList<>();
+        } else {
+            return (List<Kunde>) getContext().getAttribute("customers");
         }
-        return cars;
+    }
+
+    private void setCustomers(List<Kunde> customers) {
+        getContext().setAttribute("customers", customers);
+    }
+
+    public List<Ticket> getTickets() {
+        if (getContext().getAttribute("tickets") == null) {
+            return new ArrayList<>();
+        } else {
+            return (List<Ticket>) getContext().getAttribute("tickets");
+        }
+    }
+
+    private void setTickets(List<Ticket> tickets) {
+        getContext().setAttribute("tickets", tickets);
+    }
+
+    private List<CarIF> getCars() {
+        if (getContext().getAttribute("cars") == null) {
+            return new ArrayList<>();
+        } else {
+            return (List<CarIF>) getContext().getAttribute("cars");
+        }
+    }
+
+    private void setCars(List<CarIF> cars) {
+        getContext().setAttribute("cars", cars);
+    }
+
+    private List<String[]> getSubscriberAvg() {
+        if (getContext().getAttribute("subscriberAvg") == null) {
+            return new ArrayList<>();
+        } else {
+            return (List<String[]>) getContext().getAttribute("subscriberAvg");
+        }
+    }
+
+    private void updateSubscriberAvg() {
+        List<String[]> subscriberAvg = getSubscriberAvg();
+        double avg = getTickets().stream().filter(ticket -> ticket.getCustomer() instanceof Abonnent).mapToLong(Ticket::getDuration).average().orElse(-1);
+        if (avg > -1) {
+            SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
+            format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
+            subscriberAvg.add(new String[]{String.valueOf(avg), format.format(new Date())});
+            getContext().setAttribute("subscriberAvg", subscriberAvg);
+        }
     }
 
     private List<String[]> getAuslastungsListe() {
         List<String[]> auslastungsListe;
         if (getContext().getAttribute("auslastungsListe") == null) {
-            auslastungsListe = new ArrayList<String[]>();
+            auslastungsListe = new ArrayList<>();
         } else {
             auslastungsListe = (List<String[]>) getContext().getAttribute("auslastungsListe");
         }
@@ -158,14 +232,10 @@ public class ParkhausServlet extends HttpServlet {
         getContext().setAttribute("auslastungsListe", auslastungsListe);
     }
 
-    private void setCars(CarIF[] cars) {
-        getContext().setAttribute("cars", cars);
-    }
-
     private String reset() {
-        Enumeration names = getContext().getAttributeNames();
-        while (names.hasMoreElements()){
-            getContext().removeAttribute(names.nextElement().toString());
+        Enumeration<String> names = getContext().getAttributeNames();
+        while (names.hasMoreElements()) {
+            getContext().removeAttribute(names.nextElement());
         }
         return "<meta http-equiv=\"refresh\" content=\"0; url=../\" />";
     }

@@ -1,97 +1,110 @@
 package com.team11.Parkhaus;
 
-import java.util.Arrays;
+import com.team11.Parkhaus.Kunden.Kunde;
+
+import java.util.List;
 
 public class Car implements CarIF {
-    boolean isParking;
-    int nr;
-    String arrival;
-    String licencePlate;
-    String ticketId;
-    String color;
-    String carType;
-    float duration;
-    float price;
-    int space;
-    String clientType;
+    private boolean isParking;
+    private final int nr;
+    private final long arrival;
+    private final String licencePlate;
+    private final String ticketId;
+    private final String color;
+    private final String carType;
+    private long duration;
+    private float price;
+    private final int space;
+    private final String clientType;
+    private final Kunde customer;
 
 
-    Car(String licensePlate, String ticketId, String color, String carType, String nr, String arrival, String space, String clientType){
+    public Car(String licensePlate, String ticketId, String color, String carType, int nr, String arrival, String space, String clientType, Kunde customer) {
         this.isParking = true;
-        this.nr = Integer.parseInt(nr);
+        this.nr = nr;
         this.licencePlate = licensePlate;
         this.ticketId = ticketId;
         this.color = color;
         this.carType = carType;
         this.price =  -1;
         this.duration = -1;
-        this.arrival = arrival;
+        this.arrival = Long.parseLong(arrival);
         this.space = Integer.parseInt(space);
         this.clientType = clientType;
+        this.customer = customer;
     }
 
 
-    public static double[] durationArray(CarIF[] cars){
-        return Arrays.stream(cars).filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
+    public static double[] durationArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
     }
 
 
-    public static double[] priceArray(CarIF[] cars){
-        return Arrays.stream(cars).filter(car -> !car.isParking()).mapToDouble(CarIF::getPrice).toArray();
+    public static double[] priceArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getPrice).toArray();
     }
 
 
-    public static String[] carTypeArray(CarIF[] cars){
-        String[] carTypeArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
-            carTypeArray[i] = cars[i].getCarType();
-        }
-        return carTypeArray;
+    public static String[] carTypeArray(List<CarIF> cars) {
+        return cars.stream().map(CarIF::getCarType).toArray(String[]::new);
     }
 
 
-    public static String[] ticketIdArray(CarIF[] cars){
+    public static String[] ticketIdArray(CarIF[] cars) {
         String[] ticketIdArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++){
+        for (int i=0; i<cars.length; i++) {
             ticketIdArray[i] = cars[i].getTicketId();
         }
         return ticketIdArray;
     }
 
-    public static String[] licencePlateArray(CarIF[] cars){
-        return Arrays.stream(cars).filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
+    public static String[] licencePlateArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
     }
 
-    public static String getSavedCarsCSV(CarIF[] cars){
+    public static String getSavedCarsCSV(List<CarIF> cars) {
         // Nr/Timer/Duration/Price/Hash/Color/Space/client_category/vehicle_type/license
-        String csv = "";
-        for (int i=0; i<cars.length; i++){
-            int nr = cars[i].getNr();
-            String timer = cars[i].getArrival();
-            int duration = (int) (cars[i].getDuration()*60);
-            int price = (int) (cars[i].getPrice()*100);
-            String ticketId = cars[i].getTicketId();
-            String color = cars[i].getColor();
-            int space = cars[i].getSpace();
-            String client_category = cars[i].getClientType();
-            String license = cars[i].getLicencePlate();
+        StringBuilder csv = new StringBuilder();
+        for (CarIF car : cars) {
+            int nr = car.getNr();
+            long timer = car.getArrival();
+            int duration = (int) (car.getDuration()*60);
+            int price = (int) (car.getPrice()*100);
+            String ticketId = car.getTicketId();
+            String color = car.getColor();
+            int space = car.getSpace();
+            String client_category = car.getClientType();
+            String license = car.getLicencePlate();
 
-            String csv_car = nr+"/"+timer+"/"+duration+"/"+price+"/"+ticketId+"/"
-                    +color+"/"+space+"/"+client_category+"/"+license;
-            csv += "," + csv_car;
-
-            System.out.println(price);
-            System.out.println(cars[i].getPrice());
+            csv.append(",")
+                .append(nr)
+                .append("/")
+                .append(timer)
+                .append("/")
+                .append(duration)
+                .append("/")
+                .append(price)
+                .append("/")
+                .append(ticketId)
+                .append("/")
+                .append(color)
+                .append("/")
+                .append(space)
+                .append("/")
+                .append(client_category)
+                .append("/")
+                .append(license);
         }
-        return csv.substring(1);
+        return csv.length() > 0 ? csv.substring(1) : csv.toString();
     }
 
 
     @Override
-    public void leave(String duration, String price) {
+    public Ticket leave(List<Ticket> tickets, String duration, String price) {
         this.isParking = false;
-        this.duration = Integer.parseInt(duration);
-        this.price = Integer.parseInt(price);
+        this.duration = Long.parseLong(duration);
+        this.price = customer.calculatePrice(tickets, Float.parseFloat(price) / 100, this.getDeparture());
+        return new Ticket(ticketId, nr, this.arrival, this.getDeparture(), this.price, this.customer);
     }
 
 
@@ -102,11 +115,11 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getPrice() { return this.price/100; }
+    public float getPrice() { return this.price; }
 
 
     @Override
-    public float getDuration() { return this.duration/60; }
+    public float getDuration() { return this.duration/60f; }
 
 
     @Override
@@ -129,7 +142,7 @@ public class Car implements CarIF {
     public int getNr() { return this.nr; }
 
     @Override
-    public String getArrival() { return  this.arrival; }
+    public long getArrival() { return this.arrival; }
 
     @Override
     public int getSpace() { return this.space; }
@@ -137,7 +150,7 @@ public class Car implements CarIF {
     @Override
     public String getClientType() { return this.clientType; }
 
-    public String getDeparture() {
-        return String.valueOf(Long.parseLong(this.getArrival()) + (int) this.duration);
+    public long getDeparture() {
+        return this.arrival + this.duration;
     }
 }
