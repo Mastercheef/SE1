@@ -15,9 +15,28 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class ParkhausServlet extends HttpServlet {
+    /*
+     * config:
+     *
+     * webcomponent defaults:
+     *      default_max = 10;
+     *      default_open_from = 6;
+     *      default_open_to = 24;
+     *      default_delay = 100;
+     *      default_price_factor = 10;
+     */
+
+    int default_max = 20;
+    int default_open_from = 0;
+    int default_open_to = 24;
+    int default_delay = 100;
+    int default_price_factor = 10;
+
+
+
     Stats stats = new Stats();
     Charts charts = new Charts();
-    Auslastung auslastung = new Auslastung();
+    Auslastung auslastung = new Auslastung(default_max);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] postParams = getBody(req).split(",");
@@ -32,8 +51,19 @@ public class ParkhausServlet extends HttpServlet {
             case "occupied":
                 delete(postParams[1]);
                 break;
+            case "change_max":
+                setConfig("cfg_max", postParams[2]);
+                break;
+            case "change_open_from":
+                setConfig("cfg_from", postParams[2]);
+                break;
+            case "change_open_to":
+                setConfig("cfg_to", postParams[2]);
+                break;
         }
     }
+
+
 
 
     @Override
@@ -71,10 +101,13 @@ public class ParkhausServlet extends HttpServlet {
                     out.println(Car.getSavedCarsCSV(getCars()));
                     break;
                 case "Auslastung":
-                    out.println((auslastung.getAuslastung(getCars()) + "%"));
+                    out.println((auslastung.getAuslastung(getCars(), getContext()) + "%"));
                     break;
                 case "AuslastungDiagramm":
                     out.println((charts.getAuslastungDiagramm(getAuslastungsListe())));
+                    break;
+                case "config":
+                    out.println(getConfig());
                     break;
             }
         }
@@ -134,9 +167,9 @@ public class ParkhausServlet extends HttpServlet {
         cars.add(new Car(licensePlate,ticketId,color,carType, parsedNr, arrival, space, clientType, enteringCustomer));
         setCars(cars);
 
-        setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
+        setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars(), getContext()));
 
-        System.out.println("ENTER: " + licensePlate);
+        System.out.println("ENTER: " + nr);
     }
 
 
@@ -150,13 +183,14 @@ public class ParkhausServlet extends HttpServlet {
             tickets.add(toLeave.leave(tickets, duration, price));
             setTickets(tickets);
             setCars(cars);
-            setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars()));
+            setAuslastung(auslastung.setAuslastungNow(getAuslastungsListe(), getCars(), getContext()));
             updateSubscriberAvg();
-            System.out.println("LEAVE: " + toLeave.getLicencePlate());
+            System.out.println("LEAVE: " + toLeave.getNr());
         }
     }
 
     private void delete(String nr) {
+        deleteAuslastung();
         List<CarIF> cars = getCars();
         int toRemove = Integer.parseInt(nr.replaceAll("\\D+","")); // Übrige zeichen aus nr entfernen
         setCars(cars.stream().filter(car -> car.getNr() != toRemove).collect(Collectors.toList())); // Alle übrigen Cars an setCars übergeben
@@ -230,6 +264,49 @@ public class ParkhausServlet extends HttpServlet {
 
     private void setAuslastung(List<String[]> auslastungsListe) {
         getContext().setAttribute("auslastungsListe", auslastungsListe);
+    }
+
+    private void deleteAuslastung() {
+        List<String[]> auslastungsListe = (List<String[]>)getContext().getAttribute("auslastungsListe");
+        auslastungsListe.remove(auslastungsListe.size()-1);
+        getContext().setAttribute("auslastungsListe", auslastungsListe);
+    }
+
+    private void setConfig(String key, String value) {
+        getContext().setAttribute(key, value);
+    }
+
+    private String getConfig() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String cfg_max, cfg_from, cfg_to;
+        if (getContext().getAttribute("cfg_max") == null) {
+            cfg_max = String.valueOf(default_max);
+        } else {
+            cfg_max = (String)(getContext().getAttribute("cfg_max"));
+        }
+
+        if (getContext().getAttribute("cfg_from") == null) {
+            cfg_from = String.valueOf(default_open_from);
+        } else {
+            cfg_from = (String)(getContext().getAttribute("cfg_from"));
+        }
+
+        if (getContext().getAttribute("cfg_to") == null) {
+            cfg_to = String.valueOf(default_open_to);
+        } else {
+            cfg_to = (String)(getContext().getAttribute("cfg_to"));
+        }
+
+        stringBuilder.append(cfg_max);
+        stringBuilder.append(",");
+        stringBuilder.append(cfg_from);
+        stringBuilder.append(",");
+        stringBuilder.append(cfg_to);
+        stringBuilder.append(",");
+        stringBuilder.append(String.valueOf(default_delay)); // Verzögerung in ms
+        stringBuilder.append(",");
+        stringBuilder.append(String.valueOf(default_price_factor)); // Preisfaktor
+        return stringBuilder.toString();
     }
 
     private String reset() {
