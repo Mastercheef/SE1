@@ -50,16 +50,12 @@ public class Car implements CarIF {
     }
 
 
-    public static String[] ticketIdArray(CarIF[] cars) {
-        String[] ticketIdArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++) {
-            ticketIdArray[i] = cars[i].getTicketId();
+    public static String[] ticketIdArray(List<CarIF> cars) {
+        String[] ticketIdArray = new String[cars.size()];
+        for (int i=0; i<cars.size(); i++) {
+            ticketIdArray[i] = cars.get(i).getTicketId();
         }
         return ticketIdArray;
-    }
-
-    public static String[] licencePlateArray(List<CarIF> cars) {
-        return cars.stream().filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
     }
 
     public static String getSavedCarsCSV(List<CarIF> cars) {

@@ -16,12 +16,12 @@ public class Charts {
         JsonObject dataPrices = new JsonObject();
         JsonArray jArray = new JsonArray();
 
-        JsonArray licencePlates = new JsonArray();
+        JsonArray ticket_ids = new JsonArray();
         JsonArray durations = new JsonArray();
         JsonArray prices = new JsonArray();
 
-        for (String s : Car.licencePlateArray(cars)) {
-            licencePlates.add(s);
+        for (String s : Car.ticketIdArray(cars)) {
+            ticket_ids.add(s);
         }
         for (double d : Car.durationArray(cars)) {
             durations.add(d);
@@ -30,20 +30,40 @@ public class Charts {
             prices.add(p);
         }
 
-        dataDurations.add("x", licencePlates);
+        dataDurations.add("x", ticket_ids);
         dataDurations.add("y", durations);
         dataDurations.addProperty("type", "bar");
         dataDurations.addProperty("name", "Dauer");
 
-        dataPrices.add("x", licencePlates);
+        dataPrices.add("x", ticket_ids);
         dataPrices.add("y", prices);
         dataPrices.addProperty("type", "bar");
         dataPrices.addProperty("name", "Preis");
+
+        JsonObject layout = new JsonObject();
+        JsonObject title = new JsonObject();
+        JsonObject xAxis = new JsonObject();
+        JsonObject yAxis = new JsonObject();
+        JsonObject xAxisTitle = new JsonObject();
+        JsonObject yAxisTitle = new JsonObject();
+
+        title.addProperty("text", "Ueberischt ueber Parkzeit und Preis pro Ticket");
+        xAxisTitle.addProperty("text", "Ticket ID");
+        yAxisTitle.addProperty("text", "Preis / Dauer");
+
+        xAxis.add("title", xAxisTitle);
+        yAxis.add("title", yAxisTitle);
+
+        layout.add("title", title);
+        layout.add("xaxis", xAxis);
+        layout.add("yaxis", yAxis);
+
 
         jArray.add(dataDurations);
         jArray.add(dataPrices);
 
         json.add("data", jArray);
+        json.add("layout", layout);
         return json.toString();
     }
 
@@ -103,8 +123,27 @@ public class Charts {
         auslastungJson.addProperty("type", "line");
         auslastungJson.addProperty("name", "Maximale Auslastung");
 
+        JsonObject layout = new JsonObject();
+        JsonObject title = new JsonObject();
+        JsonObject xAxis = new JsonObject();
+        JsonObject yAxis = new JsonObject();
+        JsonObject xAxisTitle = new JsonObject();
+        JsonObject yAxisTitle = new JsonObject();
+
+        title.addProperty("text", "Momentane Auslastung des Parkhauses");
+        xAxisTitle.addProperty("text", "Zeitpunkt der Messung");
+        yAxisTitle.addProperty("text", "Auslastung (in %)");
+
+        xAxis.add("title", xAxisTitle);
+        yAxis.add("title", yAxisTitle);
+
+        layout.add("title", title);
+        layout.add("xaxis", xAxis);
+        layout.add("yaxis", yAxis);
+
         jArray.add(auslastungJson);
         json.add("data", jArray);
+        json.add("layout", layout);
         return json.toString();
     }
 
