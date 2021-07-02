@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
-    "build": "react-scripts --max_old_space_size=4096 build && rimraf ../src/main/webapp/static && rimraf ../src/main/webapp/*.* && copyfiles -f ./build/* ../src/main/webapp/ && copyfiles ./build/static ../src/main/webapp/ && copyfiles -f \"./build/static/**\" ../src/main/webapp/static",
+    "build": "react-scripts --max_old_space_size=4096 build && rimraf ../src/main/webapp/static && rimraf ../src/main/webapp/*.* && cpx \"build/**/*\" ../src/main/webapp",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,7 +42,7 @@
   },
   "homepage": "./",
   "devDependencies": {
-    "copyfiles": "^2.4.1",
+    "cpx": "^1.5.0",
     "rimraf": "^3.0.2"
   }
 }

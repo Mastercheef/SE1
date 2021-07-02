@@ -40,7 +40,7 @@ const Home = () => {
     const parkhaus = "<ccm-parkhaus-10-2-3 " +
         "key='{\"name\":\"CarHome\"," +
         "\"server_url\":\"./api/\"," +
-        "\"extra_charts\":[\"Diagramm\", \"FahrzeugtypenDiagramm\", \"AuslastungDiagramm\", \"KundentypenDiagramm\", \"AboParkdauerDiagramm\"],\"client_categories\":[\"Standard\",\"Abo-1\",\"Abo-2\"]," +
+        "\"client_categories\":[\"Standard\",\"Abo-1\",\"Abo-2\"]," +
         "\"vehicle_types\":[\"Limousine\", \"Kombi\", \"SUV\"]," +
         "\"delay\": 100," +
         "\"hide_table\": true}'>" +
@@ -69,10 +69,8 @@ const Home = () => {
             }
         }).catch(() => {
             if (isDiagram) {
-                /*setDiagramError(true);
-                setDiagramResult(`${text}: Fehler!`);*/
-                setDiagramError(false);
-                setDiagramResult({ "data": [{ "x": ["07-01 02:01:48:912", "07-01 02:01:49:614", "07-01 02:01:50:21", "07-01 02:01:50:620", "07-01 02:01:50:821", "07-01 02:01:52:17", "07-01 02:01:52:214", "07-01 02:01:52:427", "07-01 02:01:52:614", "07-01 02:01:52:820", "07-01 02:02:15:725", "07-01 02:02:16:943", "07-01 02:02:17:316", "07-01 02:02:17:534", "07-01 02:02:18:120", "07-01 02:02:31:401"], "y": ["207.0", "400.0", "800.0", "800.0", "759.4", "698.6666666666666", "855.4285714285714", "923.5", "909.6666666666666", "1345.1", "3614.4545454545455", "3396.25", "3396.25", "3396.25", "3166.5384615384614", "3902.6428571428573"], "type": "line", "name": "Durchschnittl. Parkdauer der Abonnenten" }], "layout": { "title": { "text": "Durschnittliche Parkdauer der Abonnenten" }, "xaxis": { "title": { "text": "Zeitpunkt der Messung" } }, "yaxis": { "title": { "text": "Parkdauer (in ms)" } } } });
+                setDiagramError(true);
+                setDiagramResult(`${text}: Fehler!`);
             } else {
                 setCmdError(true);
                 setCmdResult(`${text}: Fehler!`);
@@ -154,9 +152,11 @@ const Home = () => {
                                 {diagramResult}
                             </Typography>
                         )}
-                        <PlotComponent
-                            data={diagramResult.data}
-                        />
+                        {(!diagramError && diagramResult) && (
+                            <PlotComponent
+                                data={diagramResult.data}
+                            />
+                        )}
                     </Grid>
                     <Grid item>
                         <Grid
