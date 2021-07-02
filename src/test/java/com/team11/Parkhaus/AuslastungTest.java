@@ -8,17 +8,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuslastungTest {
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         /* TODO */
     }
 
     @Test
-    void getAuslastung() {
+    public void getAuslastung() {
         /* TODO */
     }
 
     @Test
-    void setAuslastungNow() {
+    public void setAuslastungNow() {
         /* TODO */
     }
 }

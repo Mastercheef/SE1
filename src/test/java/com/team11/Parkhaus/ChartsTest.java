@@ -21,7 +21,7 @@ class ChartsTest {
     private List<String[]> auslastungsListe = new ArrayList<>();
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         Car c1 = new Car("SU-K 12", "20622e7202ff98f04cce072d21a42387", "#4b96f1", "Kombi", 1, "1623766786071", "7", "_", new Abonnent(1, 0));
         Car c2 = new Car("SU-L 24", "114fe2ed725e9988285bbc4c5c8d6145", "#4b96f1", "SUV", 2, "1623766789000", "6", "_", new Abonnent(2, 0));
         Car c3 = new Car("SU-M 19", "573466f20334252981478621577421e3", "#f5a852", "Limousine", 3, "1623766890000", "5", "_", new Standard(3));
@@ -43,7 +43,7 @@ class ChartsTest {
     }
 
     @Test
-    void getDiagram() {
+    public void getDiagram() {
         assertEquals(
                 "{" +
                         "\"data\":[" +
@@ -68,7 +68,7 @@ class ChartsTest {
     }
 
     @Test
-    void getCarTypeDiagram() {
+    public void getCarTypeDiagram() {
         assertEquals(
                 "{" +
                         "\"data\":[" +
@@ -84,7 +84,7 @@ class ChartsTest {
     }
 
     @Test
-    void getAuslastungDiagramm() {
+    public void getAuslastungDiagramm() {
         assertEquals(
                 "{\"data\":[" +
                         "{\"x\":[\"07-02 01:28:13:464\",\"07-02 01:28:39:937\",\"07-02 01:28:40:177\"]," +
@@ -98,7 +98,7 @@ class ChartsTest {
     }
 
     @Test
-    void getCustomerTypeDiagram() {
+    public void getCustomerTypeDiagram() {
         assertEquals(
                 "{" +
                         "\"data\":[" +
@@ -115,7 +115,7 @@ class ChartsTest {
     }
 
     @Test
-    void getSubscriberDurationsDiagram() {
+    public void getSubscriberDurationsDiagram() {
        assertEquals("{" +
                        "\"data\":[" +
                        "{" +

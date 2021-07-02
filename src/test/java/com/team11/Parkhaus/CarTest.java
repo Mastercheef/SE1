@@ -16,7 +16,7 @@ class CarTest {
     List<Ticket> ticketList;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         c1 = new Car("SU-K 12", "20622e7202ff98f04cce072d21a42387", "#4b96f1", "Kombi", 1, "1623766786071", "7", "_", new Standard(1));
         c2 = new Car("SU-L 24", "114fe2ed725e9988285bbc4c5c8d6145", "#4b96f1", "SUV", 2, "1623766789000", "6", "_", new Abonnent(2, 0));
         c3 = new Car("SU-M 19", "573466f20334252981478621577421e3", "#f5a852", "Limousine", 3, "1623766890000", "5", "_", new Standard(3));
@@ -38,7 +38,7 @@ class CarTest {
     }
 
     @Test
-    void durationArray() {
+    public void durationArray() {
         assertArrayEquals(
                 new double[]{
                         8000d, 2000d, 4000d
@@ -48,7 +48,7 @@ class CarTest {
     }
 
     @Test
-    void priceArray() {
+    public void priceArray() {
         assertArrayEquals(
                 new double[]{
                         40d, 0d, 20d
@@ -58,7 +58,7 @@ class CarTest {
     }
 
     @Test
-    void carTypeArray() {
+    public void carTypeArray() {
         assertArrayEquals(
                 new String[]{
                         "Kombi", "SUV",  "Limousine", "Kombi" , "SUV"
@@ -68,7 +68,7 @@ class CarTest {
     }
 
     @Test
-    void ticketIdArray() {
+    public void ticketIdArray() {
         assertArrayEquals(
                 new String[]{
                         "20622e7202ff98f04cce072d21a42387",
@@ -80,7 +80,7 @@ class CarTest {
     }
 
     @Test
-    void getSavedCarsCSV() {
+    public void getSavedCarsCSV() {
         assertEquals(
                 "1/1623766786071/480000/4000/20622e7202ff98f04cce072d21a42387/#4b96f1/7/_/SU-K 12," +
                         "2/1623766789000/120000/0/114fe2ed725e9988285bbc4c5c8d6145/#4b96f1/6/_/SU-L 24," +
@@ -92,7 +92,7 @@ class CarTest {
     }
 
     @Test
-    void leave() {
+    public void leave() {
         Ticket t1 = c4.leave(ticketList, "60000", "100");
         Ticket t2 = c5.leave(ticketList, "1200000", "1000");
         assertEquals(
@@ -117,62 +117,62 @@ class CarTest {
     }
 
     @Test
-    void getCarType() {
+    public void getCarType() {
         /* TODO */
     }
 
     @Test
-    void getPrice() {
+    public void getPrice() {
         /* TODO */
     }
 
     @Test
-    void getDuration() {
+    public void getDuration() {
         /* TODO */
     }
 
     @Test
-    void getTicketId() {
+    public void getTicketId() {
         /* TODO */
     }
 
     @Test
-    void getLicencePlate() {
+    public void getLicencePlate() {
         /* TODO */
     }
 
     @Test
-    void getColor() {
+    public void getColor() {
         /* TODO */
     }
 
     @Test
-    void isParking() {
+    public void isParking() {
         /* TODO */
     }
 
     @Test
-    void getNr() {
+    public void getNr() {
         /* TODO */
     }
 
     @Test
-    void getArrival() {
+    public void getArrival() {
         /* TODO */
     }
 
     @Test
-    void getSpace() {
+    public void getSpace() {
         /* TODO */
     }
 
     @Test
-    void getClientType() {
+    public void getClientType() {
         /* TODO */
     }
 
     @Test
-    void getDeparture() {
+    public void getDeparture() {
         /* TODO */
     }
 }

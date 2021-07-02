@@ -16,7 +16,7 @@ class StatsTest {
     List<Ticket> ticketList;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         stats = new Stats();
         ticketList = new ArrayList<Ticket>();
         CarIF c1, c2, c3;
@@ -30,17 +30,17 @@ class StatsTest {
     }
 
     @Test
-    void getSum() {
+    public void getSum() {
         assertEquals(60f, stats.getSum(ticketList));
     }
 
     @Test
-    void getAvg() {
+    public void getAvg() {
         assertEquals(20f,stats.getAvg(ticketList));
     }
 
     @Test
-    void getCarCount() {
+    public void getCarCount() {
         assertEquals(3,stats.getCarCount(ticketList));
     }
 }
