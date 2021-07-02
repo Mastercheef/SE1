@@ -15,7 +15,7 @@ class KundeTest {
     private Standard s1, s2;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         tickets = new ArrayList<>();
         a1 = new Abonnent(1, 0);
         a2 = new Abonnent(2, 3);
@@ -25,7 +25,7 @@ class KundeTest {
     }
 
     @Test
-    void calculatePrice() {
+    public void calculatePrice() {
         tickets.add(new Ticket("_", 1, 1625000000001L, 1625000000010L, 0f, a1));
         tickets.add(new Ticket("_", 2, 1625000000001L, 1625000000020L, 0f, a2));
         tickets.add(new Ticket("_", 2, 1625000000001L, 1625000000030L, 0f, a2));
@@ -44,7 +44,7 @@ class KundeTest {
     }
 
     @Test
-    void getNr() {
+    public void getNr() {
         assertEquals(1, a1.getNr());
         assertEquals(2, a2.getNr());
         assertEquals(3, a3.getNr());

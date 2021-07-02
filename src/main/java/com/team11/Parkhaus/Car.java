@@ -3,6 +3,7 @@ package com.team11.Parkhaus;
 import com.team11.Parkhaus.Kunden.Kunde;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Car implements CarIF {
     private boolean isParking;
@@ -50,16 +51,17 @@ public class Car implements CarIF {
     }
 
 
-    public static String[] ticketIdArray(CarIF[] cars) {
-        String[] ticketIdArray = new String[cars.length];
-        for (int i=0; i<cars.length; i++) {
-            ticketIdArray[i] = cars[i].getTicketId();
+    public static String[] ticketIdArray(List<CarIF> cars) {
+        int count = (int)cars.stream().filter(car -> !car.isParking()).count();
+        String[] ticketIdArray = new String[count];
+        for (int i=0; i<count; i++) {
+            ticketIdArray[i] = cars.stream().filter(car -> !car.isParking())
+                    .collect(Collectors
+                    .toList())
+                    .get(i)
+                    .getTicketId();
         }
         return ticketIdArray;
-    }
-
-    public static String[] licencePlateArray(List<CarIF> cars) {
-        return cars.stream().filter(car -> !car.isParking()).map(CarIF::getLicencePlate).toArray(String[]::new);
     }
 
     public static String getSavedCarsCSV(List<CarIF> cars) {
@@ -73,7 +75,7 @@ public class Car implements CarIF {
             String ticketId = car.getTicketId();
             String color = car.getColor();
             int space = car.getSpace();
-            String client_category = car.getClientType();
+            String clientCategory = car.getClientType();
             String license = car.getLicencePlate();
 
             csv.append(",")
@@ -91,7 +93,7 @@ public class Car implements CarIF {
                 .append("/")
                 .append(space)
                 .append("/")
-                .append(client_category)
+                .append(clientCategory)
                 .append("/")
                 .append(license);
         }
