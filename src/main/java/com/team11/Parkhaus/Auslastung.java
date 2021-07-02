@@ -1,23 +1,22 @@
 package com.team11.Parkhaus;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import java.util.Date;
 import java.util.List;
 
 public class Auslastung {
     float maxCars;
-    int default_max;
+    int defaultMax;
 
-    Auslastung(int default_max){
-        this.default_max = default_max;
+    Auslastung(int defaultMax){
+        this.defaultMax = defaultMax;
     }
 
     public int getAuslastung(List<CarIF> cars, ServletContext context) {
-        if (context.getAttribute("cfg_max") == null) {
-            maxCars = default_max;
+        if (context.getAttribute("cfgMax") == null) {
+            maxCars = defaultMax;
         } else {
-            maxCars = Integer.parseInt((String)(context.getAttribute("cfg_max")));
+            maxCars = Integer.parseInt((String)(context.getAttribute("cfgMax")));
         }
         float currentCars = cars.stream().filter(CarIF::isParking).count();
         return (int) (currentCars / maxCars * 100);

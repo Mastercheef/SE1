@@ -75,7 +75,7 @@ public class Car implements CarIF {
             String ticketId = car.getTicketId();
             String color = car.getColor();
             int space = car.getSpace();
-            String client_category = car.getClientType();
+            String clientCategory = car.getClientType();
             String license = car.getLicencePlate();
 
             csv.append(",")
@@ -93,7 +93,7 @@ public class Car implements CarIF {
                 .append("/")
                 .append(space)
                 .append("/")
-                .append(client_category)
+                .append(clientCategory)
                 .append("/")
                 .append(license);
         }

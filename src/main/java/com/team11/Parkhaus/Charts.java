@@ -16,12 +16,12 @@ public class Charts {
         JsonObject dataPrices = new JsonObject();
         JsonArray jArray = new JsonArray();
 
-        JsonArray ticket_ids = new JsonArray();
+        JsonArray ticketIds = new JsonArray();
         JsonArray durations = new JsonArray();
         JsonArray prices = new JsonArray();
 
         for (String s : Car.ticketIdArray(cars)) {
-            ticket_ids.add(s);
+            ticketIds.add(s);
         }
         for (double d : Car.durationArray(cars)) {
             durations.add(d);
@@ -30,12 +30,12 @@ public class Charts {
             prices.add(p);
         }
 
-        dataDurations.add("x", ticket_ids);
+        dataDurations.add("x", ticketIds);
         dataDurations.add("y", durations);
         dataDurations.addProperty("type", "bar");
         dataDurations.addProperty("name", "Dauer");
 
-        dataPrices.add("x", ticket_ids);
+        dataPrices.add("x", ticketIds);
         dataPrices.add("y", prices);
         dataPrices.addProperty("type", "bar");
         dataPrices.addProperty("name", "Preis");
@@ -114,8 +114,8 @@ public class Charts {
             SimpleDateFormat date = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
             date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
             Date time = new Date((Long.parseLong(p[0])));
-            String java_date = date.format(time);
-            zeit.add(java_date);
+            String javaDate = date.format(time);
+            zeit.add(javaDate);
         }
 
         auslastungJson.add("x", zeit);

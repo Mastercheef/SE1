@@ -26,17 +26,17 @@ public class ParkhausServlet extends HttpServlet {
      *      default_price_factor = 10;
      */
 
-    int default_max = 20;
-    int default_open_from = 0;
-    int default_open_to = 24;
-    int default_delay = 100;
-    int default_price_factor = 10;
+    private int defaultMax = 20;
+    private int defaultOpenFrom = 0;
+    private int defaultOpenTo = 24;
+    private int defaultDelay = 100;
+    private int defaultPriceFactor = 10;
 
 
 
     Stats stats = new Stats();
     Charts charts = new Charts();
-    Auslastung auslastung = new Auslastung(default_max);
+    Auslastung auslastung = new Auslastung(defaultMax);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] postParams = getBody(req).split(",");
@@ -52,13 +52,13 @@ public class ParkhausServlet extends HttpServlet {
                 delete(postParams[1]);
                 break;
             case "change_max":
-                setConfig("cfg_max", postParams[2]);
+                setConfig("cfgMax", postParams[2]);
                 break;
             case "change_open_from":
-                setConfig("cfg_from", postParams[2]);
+                setConfig("cfgFrom", postParams[2]);
                 break;
             case "change_open_to":
-                setConfig("cfg_to", postParams[2]);
+                setConfig("cfgTo", postParams[2]);
                 break;
         }
     }
@@ -278,34 +278,34 @@ public class ParkhausServlet extends HttpServlet {
 
     private String getConfig() {
         StringBuilder stringBuilder = new StringBuilder();
-        String cfg_max, cfg_from, cfg_to;
-        if (getContext().getAttribute("cfg_max") == null) {
-            cfg_max = String.valueOf(default_max);
+        String cfgMax, cfgFrom, cfgTo;
+        if (getContext().getAttribute("cfgMax") == null) {
+            cfgMax = String.valueOf(defaultMax);
         } else {
-            cfg_max = (String)(getContext().getAttribute("cfg_max"));
+            cfgMax = (String)(getContext().getAttribute("cfgMax"));
         }
 
-        if (getContext().getAttribute("cfg_from") == null) {
-            cfg_from = String.valueOf(default_open_from);
+        if (getContext().getAttribute("cfgFrom") == null) {
+            cfgFrom = String.valueOf(defaultOpenFrom);
         } else {
-            cfg_from = (String)(getContext().getAttribute("cfg_from"));
+            cfgFrom = (String)(getContext().getAttribute("cfgFrom"));
         }
 
-        if (getContext().getAttribute("cfg_to") == null) {
-            cfg_to = String.valueOf(default_open_to);
+        if (getContext().getAttribute("cfgTo") == null) {
+            cfgTo = String.valueOf(defaultOpenTo);
         } else {
-            cfg_to = (String)(getContext().getAttribute("cfg_to"));
+            cfgTo = (String)(getContext().getAttribute("cfgTo"));
         }
 
-        stringBuilder.append(cfg_max);
+        stringBuilder.append(cfgMax);
         stringBuilder.append(",");
-        stringBuilder.append(cfg_from);
+        stringBuilder.append(cfgFrom);
         stringBuilder.append(",");
-        stringBuilder.append(cfg_to);
+        stringBuilder.append(cfgTo);
         stringBuilder.append(",");
-        stringBuilder.append(String.valueOf(default_delay)); // Verzögerung in ms
+        stringBuilder.append(String.valueOf(defaultDelay)); // Verzögerung in ms
         stringBuilder.append(",");
-        stringBuilder.append(String.valueOf(default_price_factor)); // Preisfaktor
+        stringBuilder.append(String.valueOf(defaultPriceFactor)); // Preisfaktor
         return stringBuilder.toString();
     }
 
