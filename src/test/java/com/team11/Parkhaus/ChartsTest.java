@@ -18,6 +18,7 @@ class ChartsTest {
     private final Charts chart = new Charts();
     private final List<Ticket> tickets = new ArrayList<>();
     private final List<String[]> subscriberAvg = new ArrayList<>();
+    private List<String[]> auslastungsListe = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -34,6 +35,11 @@ class ChartsTest {
         SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
         format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
         subscriberAvg.add(new String[]{String.valueOf(avg), format.format(new Date(1623766990000L))});
+
+
+        auslastungsListe.add(new String[]{"1625185693464", "10"});
+        auslastungsListe.add(new String[]{"1625185719937", "20"});
+        auslastungsListe.add(new String[]{"1625185720177", "30"});
     }
 
     @Test
@@ -79,7 +85,16 @@ class ChartsTest {
 
     @Test
     void getAuslastungDiagramm() {
-
+        assertEquals(
+                "{\"data\":[" +
+                        "{\"x\":[\"07-02 01:28:13:464\",\"07-02 01:28:39:937\",\"07-02 01:28:40:177\"]," +
+                        "\"y\":[10,20,30],\"type\":\"line\",\"name\":\"Maximale Auslastung\"}]," +
+                        "\"layout\":{\"title\":{\"text\":\"Momentane Auslastung des Parkhauses\"}," +
+                        "\"xaxis\":{\"title\":{\"text\":\"Zeitpunkt der Messung\"}}," +
+                        "\"yaxis\":{\"title\":{\"text\":\"Auslastung (in %)\"}}}" +
+                        "}",
+                chart.getAuslastungDiagramm(auslastungsListe)
+        );
     }
 
     @Test
@@ -97,7 +112,10 @@ class ChartsTest {
                         "}",
                 chart.getCustomerTypeDiagram(tickets)
         );
+    }
 
+    @Test
+    void getSubscriberDurationsDiagram() {
        assertEquals("{" +
                        "\"data\":[" +
                        "{" +
@@ -113,9 +131,5 @@ class ChartsTest {
                        "\"xaxis\":{\"title\":{\"text\":\"Zeitpunkt der Messung\"}}," +
                        "\"yaxis\":{\"title\":{\"text\":\"Parkdauer (in ms)\"}}}}",
                chart.getSubscriberDurationsDiagram(subscriberAvg));
-    }
-
-    void getSubscriberDurationsDiagram() {
-        /* TODO */
     }
 }
