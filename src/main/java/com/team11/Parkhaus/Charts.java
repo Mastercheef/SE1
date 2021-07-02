@@ -10,6 +10,20 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Charts {
+    private String getJson(int i, int j, JsonObject json, JsonArray data, JsonObject dataE, JsonArray labels, JsonArray values) {
+        values.add(i);
+        values.add(j);
+
+        dataE.add("labels", labels);
+        dataE.add("values", values);
+        dataE.addProperty("type", "pie");
+        dataE.addProperty("name", "Typ");
+        data.add(dataE);
+
+        json.add("data", data);
+        return json.toString();
+    }
+
     public String getDiagram(List<CarIF> cars) {
         JsonObject json = new JsonObject();
         JsonObject dataDurations = new JsonObject();
@@ -87,17 +101,7 @@ public class Charts {
         labels.add("Kombi");
 
         values.add(suv);
-        values.add(limousine);
-        values.add(kombi);
-
-        dataE.add("labels", labels);
-        dataE.add("values", values);
-        dataE.addProperty("type", "pie");
-        dataE.addProperty("name", "Typ");
-        data.add(dataE);
-
-        json.add("data", data);
-        return json.toString();
+        return getJson(limousine, kombi, json, data, dataE, labels, values);
     }
 
     public String getAuslastungDiagramm(List<String[]> auslastungsListe) {
@@ -164,17 +168,7 @@ public class Charts {
         labels.add("Abonnent");
         labels.add("Standard");
 
-        values.add(abonnent);
-        values.add(standard);
-
-        dataE.add("labels", labels);
-        dataE.add("values", values);
-        dataE.addProperty("type", "pie");
-        dataE.addProperty("name", "Typ");
-        data.add(dataE);
-
-        json.add("data", data);
-        return json.toString();
+        return getJson(abonnent, standard, json, data, dataE, labels, values);
     }
 
     public String getSubscriberDurationsDiagram(List<String[]> subscriberAvg) {

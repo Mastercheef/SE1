@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class AbonnentTest {
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         /* TODO */
     }
 
     @Test
-    void calculatePrice() {
+    public void calculatePrice() {
         /* TODO */
     }
 }

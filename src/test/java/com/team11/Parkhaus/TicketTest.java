@@ -8,42 +8,42 @@ import static org.junit.jupiter.api.Assertions.*;
 class TicketTest {
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         /* TODO */
     }
 
     @Test
-    void getId() {
+    public void getId() {
         /* TODO */
     }
 
     @Test
-    void getArrival() {
+    public void getArrival() {
         /* TODO */
     }
 
     @Test
-    void getDeparture() {
+    public void getDeparture() {
         /* TODO */
     }
 
     @Test
-    void getDuration() {
+    public void getDuration() {
         /* TODO */
     }
 
     @Test
-    void getPrice() {
+    public void getPrice() {
         /* TODO */
     }
 
     @Test
-    void getNr() {
+    public void getNr() {
         /* TODO */
     }
 
     @Test
-    void getCustomer() {
+    public void getCustomer() {
         /* TODO */
     }
 }
