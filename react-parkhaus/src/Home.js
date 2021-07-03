@@ -1,8 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { Button, Divider, Grid, makeStyles, Typography } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid, deDE } from "@material-ui/data-grid";
 import PlotComponent from "./PlotComponent";
+import moment from "moment";
+
+moment.locale("de");
 
 const useStyles = makeStyles((theme) => ({
     parkhausContainer: {
@@ -14,15 +17,15 @@ const useStyles = makeStyles((theme) => ({
         width: "100%"
     },
     tableContainer: {
-        height: "400px",
+        height: "650px",
         width: "100%"
     }
 }));
 
 const cmdButtons = [
-    ["Summe", "Summe"],
-    ["Ø Ticketpreis", "Durchschnitt"],
-    ["Verkäufe", "habenVerlassen"],
+    ["Summe", "Summe", "€"],
+    ["Ø Ticketpreis", "Durchschnitt", "€"],
+    ["Gedruckte Tickets", "habenVerlassen"],
     ["Aktuelle Auslastung", "Auslastung"]
 ];
 
@@ -34,23 +37,23 @@ const diagramButtons = [
     ["Ø Parkdauer Abonnenten", "AboParkdauerDiagramm"]
 ];
 
+const momentTimeFormat = "DD.MM.YY HH:mm:ss";
+const momentDurationFormat = "HH:mm:ss";
+
 const Home = () => {
     const classes = useStyles();
 
-    const parkhaus = "<ccm-parkhaus-10-2-3 " +
-        "key='{\"name\":\"CarHome\"," +
-        "\"server_url\":\"./api/\"," +
-        "\"client_categories\":[\"Standard\",\"Abo-1\",\"Abo-2\"]," +
-        "\"vehicle_types\":[\"Limousine\", \"Kombi\", \"SUV\"]," +
-        "\"delay\": 100," +
-        "\"hide_table\": true}'>" +
-        "</ccm-parkhaus-10-2-3>";
-
     const columns = [
-        { field: "nr", headerName: "Nr", width: 100 }
+        { field: "nr", headerName: "Nr", width: 75 },
+        { field: "arrival", headerName: "Ankunft", width: 200 },
+        { field: "departure", headerName: "Abfahrt", width: 200 },
+        { field: "duration", headerName: "Dauer", width: 100 },
+        { field: "licensePlate", headerName: "Kennzeichen", width: 140 },
+        { field: "vehicleType", headerName: "Fahrzeugtyp", width: 140 },
+        { field: "customerType", headerName: "Kundentyp", width: 130 },
+        { field: "price", headerName: "Preis", width: 90 },
+        { field: "ticketId", headerName: "Ticket ID", width: 300 }
     ];
-
-    const rows = [];
 
     const [diagramError, setDiagramError] = React.useState(false);
     const [diagramResult, setDiagramResult] = React.useState();
@@ -58,14 +61,71 @@ const Home = () => {
     const [cmdError, setCmdError] = React.useState(false);
     const [cmdResult, setCmdResult] = React.useState("Klicke einen Button an");
 
-    const getCmd = (text, cmd, isDiagram) => {
+    const [rows, setRows] = React.useState([]);
+
+    const updateRows = (id) => {
+        axios.get(`./api/?cmd=ticket&id=${id}`).then((response) => {
+            let windowRows;
+            if (window.rows) {
+                windowRows = window.rows;
+            } else {
+                windowRows = [];
+            }
+            const newRows = windowRows.concat({
+                id: windowRows.length + 1,
+                nr: response.data.nr,
+                arrival: moment(response.data.arrival).format(momentTimeFormat),
+                departure: moment(response.data.departure).format(momentTimeFormat),
+                duration: moment.utc(moment.duration(response.data.duration).asMilliseconds()).format(momentDurationFormat),
+                licensePlate: response.data.licensePlate,
+                vehicleType: response.data.vehicleType,
+                customerType: response.data.customerType,
+                price: `${response.data.price} €`,
+                ticketId: response.data.ticketId
+            });
+            window.rows = newRows;
+            setRows(newRows);
+        });
+    };
+
+    const parkhausPost = (request) => {
+        const params = request.split(",");
+        if (params[0] === "leave") {
+            updateRows(params[5]);
+        }
+    };
+
+    React.useEffect(() => {
+        window.parkhausPost = parkhausPost;
+    }, []);
+
+    const parkhaus = "<ccm-parkhaus-10-2-3 " +
+        "key='{\"name\":\"CarHome\"," +
+        "\"server_url\":\"./api/\"," +
+        "\"client_categories\":[\"Standard\",\"Abo-1\",\"Abo-2\"]," +
+        "\"vehicle_types\":[\"Limousine\", \"Kombi\", \"SUV\"]," +
+        "\"delay\": 100," +
+        "\"hide_table\": true," +
+        "\"css\": [\"ccm.load\",\"./css/parkhaus.css\"]," +
+        "\"images\":{" +
+            "\"car\":\"./img/car.png\"," +
+            "\"parking_garage\":\"./img/parkhaus.png\"," +
+            "\"empty\":\"./img/space.png\"" +
+        "}}'>" +
+        "</ccm-parkhaus-10-2-3>";
+
+    const getCmd = (text, cmd, unit, isDiagram) => {
         axios.get(`./api/?cmd=${cmd}`).then((response) => {
             if (isDiagram) {
                 setDiagramError(false);
                 setDiagramResult(response.data);
             } else {
                 setCmdError(false);
-                setCmdResult(`${text}: ${response.data}`);
+                if (unit) {
+                    setCmdResult(`${text}: ${response.data} ${unit}`);
+                } else {
+                    setCmdResult(`${text}: ${response.data}`);
+                }
             }
         }).catch(() => {
             if (isDiagram) {
@@ -123,7 +183,7 @@ const Home = () => {
                                         <Button
                                             color="primary"
                                             variant="contained"
-                                            onClick={() => getCmd(btn[0], btn[1], false)}
+                                            onClick={() => getCmd(btn[0], btn[1], btn[2], false)}
                                         >{btn[0]}</Button>
                                     </Grid>
                                 );
@@ -172,7 +232,7 @@ const Home = () => {
                                         <Button
                                             color="primary"
                                             variant="contained"
-                                            onClick={() => getCmd(btn[0], btn[1], true)}
+                                            onClick={() => getCmd(btn[0], btn[1], null, true)}
                                         >{btn[0]}</Button>
                                     </Grid>
                                 );
@@ -185,7 +245,15 @@ const Home = () => {
                 <Divider variant="fullWidth" />
             </Grid>
             <Grid className={classes.tableContainer} item>
-                <DataGrid rows={rows} columns={columns} />
+                <DataGrid
+                    disableColumnMenu={true}
+                    disableSelectionOnClick={true}
+                    pageSize={10}
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                    localeText={deDE.props.MuiDataGrid.localeText}
+                    rows={rows}
+                    columns={columns}
+                />
             </Grid>
         </Grid>
     );

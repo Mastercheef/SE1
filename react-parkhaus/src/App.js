@@ -3,9 +3,16 @@ import { Container, createMuiTheme, CssBaseline, makeStyles, Paper, ThemeProvide
 import Home from "./Home";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3)
+    container: {
+        [theme.breakpoints.up("md")]: {
+            maxWidth: "90%"
+        }
+    },
+    homePaper: {
+        margin: theme.spacing(3),
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
+        minWidth: "1000px"
     }
 }));
 
@@ -15,8 +22,7 @@ const App = () => {
     const theme = React.useMemo(
         () => createMuiTheme({
             palette: {
-                //type: prefersDarkMode ? "dark" : "light"
-                type: "light"
+                type: prefersDarkMode ? "dark" : "light"
             }
         }),
         [prefersDarkMode]
@@ -27,9 +33,9 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Container>
-                <Paper className={classes.root} elevation={3}>
-                    <Container>
+            <Container className={classes.container}>
+                <Paper className={classes.homePaper} elevation={3}>
+                    <Container className={classes.container}>
                         <Home />
                     </Container>
                 </Paper>
