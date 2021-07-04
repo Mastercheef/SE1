@@ -1,0 +1,30 @@
+- Digitalisierungskonzept
+- User Stories
+- [Kanban-Board](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/boards)
+- Priorisierung der User Stories
+- Story Map
+- Minimum Viable Product (MVP)
+- Diagramme
+    - UML Use Case-Diagramm
+    - Robustheitsdiagramm
+    - UML Klassendiagramme
+    - UML Sequenzdiagramme
+    - UML Aktivitätsdiagramme
+    - UML Verteilungsdiagramm (deployment diagram)
+- gute Java-Interfaces
+    - ...
+- lauffähige JUnit-Tests
+    - ...
+- lauffähige Java-Klassen
+    - ...
+- Verzeichnis der eingesetzten Patterns
+    - Singleton
+        - ...
+    - Template
+        - ...
+- Zielkonflikte
+- Iterationsbericht
+- Summarisches Projektprotokoll
+- Gesamt-Retrospektive
+- 3 Min. Video Team-Präsentation und Demo des Produkts
+- 10 Min. Video Team-Präsentation des Projekts mit Schwerpunkt "Professionelles Software Engineering"
