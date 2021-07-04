@@ -106,7 +106,7 @@ public class Car implements CarIF {
         this.isParking = false;
         this.duration = Long.parseLong(duration);
         this.price = customer.calculatePrice(tickets, Float.parseFloat(price) / 100, this.getDeparture());
-        return new Ticket(ticketId, nr, this.arrival, this.getDeparture(), this.price, this.customer);
+        return new Ticket(this, this.customer);
     }
 
 
