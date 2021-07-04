@@ -82,7 +82,7 @@ const Home = () => {
                 licensePlate: response.data.licensePlate,
                 vehicleType: response.data.vehicleType,
                 customerType: response.data.customerType,
-                price: `${response.data.price} €`,
+                price: `${response.data.price.toFixed(2)} €`,
                 ticketId: response.data.ticketId
             });
             window.rows = newRows;
@@ -127,20 +127,22 @@ const Home = () => {
         fetchAllRows();
     }, []);
 
-    const parkhaus = "<ccm-parkhaus-10-2-3 " +
+    const parkhaus = "<ccm-parkhaus-10-5-0 " +
         "key='{\"name\":\"CarHome\"," +
         "\"server_url\":\"./api/\"," +
-        "\"client_categories\":[\"Standard\",\"Abo-1\",\"Abo-2\"]," +
+        "\"client_categories\":[\"Standard\",\"Abonnent\", \"Senior\", \"Student\", \"Familie\"]," +
         "\"vehicle_types\":[\"Limousine\", \"Kombi\", \"SUV\"]," +
-        "\"delay\": 100," +
+        "\"delay\": 200," +
         "\"hide_table\": true," +
+        "\"price_factor\": 0.15," +
+        "\"simulation_speed\": 2700," +
         "\"css\": [\"ccm.load\",\"./css/parkhaus.css\"]," +
         "\"images\":{" +
         "\"car\":\"./img/car.png\"," +
         "\"parking_garage\":\"./img/parkhaus.png\"," +
         "\"empty\":\"./img/space.png\"" +
         "}}'>" +
-        "</ccm-parkhaus-10-2-3>";
+        "</ccm-parkhaus-10-5-0>";
 
     const getCmd = (text, cmd, unit, isDiagram) => {
         axios.get(`./api/?cmd=${cmd}`).then((response) => {

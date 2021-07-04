@@ -2,6 +2,7 @@ package com.team11.Parkhaus;
 
 import com.team11.Parkhaus.Kunden.Abonnent;
 import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Rabattiert;
 import com.team11.Parkhaus.Kunden.Standard;
 
 public class Ticket {
@@ -60,6 +61,8 @@ public class Ticket {
             customerType = "Standard";
         } else if (this.customer instanceof Abonnent) {
             customerType = "Abonnent";
+        } else if (this.customer instanceof Rabattiert) {
+            customerType = ((Rabattiert) this.customer).getType();
         }
 
         stringBuilder
