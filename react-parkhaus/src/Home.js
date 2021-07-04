@@ -63,6 +63,8 @@ const Home = () => {
 
     const [rows, setRows] = React.useState([]);
 
+    const [tableLoading, setTableLoading] = React.useState(true);
+
     const updateRows = (id) => {
         axios.get(`./api/?cmd=ticket&id=${id}`).then((response) => {
             let windowRows;
@@ -88,6 +90,31 @@ const Home = () => {
         });
     };
 
+    const fetchAllRows = () => {
+        setTimeout(() => {
+            axios.get("./api/?cmd=allTickets").then((response) => {
+                const newRows = [];
+                response.data.forEach((ticket, index) => {
+                    newRows.push({
+                        id: index + 1,
+                        nr: ticket.nr,
+                        arrival: moment(ticket.arrival).format(momentTimeFormat),
+                        departure: moment(ticket.departure).format(momentTimeFormat),
+                        duration: moment.utc(moment.duration(ticket.duration).asMilliseconds()).format(momentDurationFormat),
+                        licensePlate: ticket.licensePlate,
+                        vehicleType: ticket.vehicleType,
+                        customerType: ticket.customerType,
+                        price: `${ticket.price} €`,
+                        ticketId: ticket.ticketId
+                    });
+                });
+                window.rows = newRows;
+                setRows(newRows);
+                setTableLoading(false);
+            });
+        }, 1000);
+    };
+
     const parkhausPost = (request) => {
         const params = request.split(",");
         if (params[0] === "leave") {
@@ -97,6 +124,7 @@ const Home = () => {
 
     React.useEffect(() => {
         window.parkhausPost = parkhausPost;
+        fetchAllRows();
     }, []);
 
     const parkhaus = "<ccm-parkhaus-10-2-3 " +
@@ -108,9 +136,9 @@ const Home = () => {
         "\"hide_table\": true," +
         "\"css\": [\"ccm.load\",\"./css/parkhaus.css\"]," +
         "\"images\":{" +
-            "\"car\":\"./img/car.png\"," +
-            "\"parking_garage\":\"./img/parkhaus.png\"," +
-            "\"empty\":\"./img/space.png\"" +
+        "\"car\":\"./img/car.png\"," +
+        "\"parking_garage\":\"./img/parkhaus.png\"," +
+        "\"empty\":\"./img/space.png\"" +
         "}}'>" +
         "</ccm-parkhaus-10-2-3>";
 
@@ -248,6 +276,7 @@ const Home = () => {
                 <DataGrid
                     disableColumnMenu={true}
                     disableSelectionOnClick={true}
+                    loading={tableLoading}
                     pageSize={10}
                     rowsPerPageOptions={[10, 25, 50, 100]}
                     localeText={deDE.props.MuiDataGrid.localeText}

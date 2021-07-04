@@ -109,6 +109,9 @@ public class ParkhausServlet extends HttpServlet {
                 case "ticket":
                     out.println(getTicketJsonById(req.getParameter("id")));
                     break;
+                case "allTickets":
+                    out.println(allTicketsAsJson());
+                    break;
                 case "config":
                     out.println(getConfig());
                     break;
@@ -210,6 +213,12 @@ public class ParkhausServlet extends HttpServlet {
 
     private void setCustomers(List<Kunde> customers) {
         getContext().setAttribute("customers", customers);
+    }
+
+    public String allTicketsAsJson() {
+        List<Ticket> tickets = getTickets();
+        final String collect = tickets.stream().map(Ticket::getAsJson).collect(Collectors.joining(","));
+        return "[" + collect + "]";
     }
 
     public String getTicketJsonById(String id) {

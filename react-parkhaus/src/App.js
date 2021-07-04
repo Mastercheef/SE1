@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, createMuiTheme, CssBaseline, makeStyles, Paper, ThemeProvider, useMediaQuery } from "@material-ui/core";
 import Home from "./Home";
+import ResetButton from "./ResetButton";
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -22,7 +24,10 @@ const App = () => {
     const theme = React.useMemo(
         () => createMuiTheme({
             palette: {
-                type: prefersDarkMode ? "dark" : "light"
+                type: prefersDarkMode ? "dark" : "light",
+                secondary: {
+                    main: red["800"]
+                }
             }
         }),
         [prefersDarkMode]
@@ -40,6 +45,7 @@ const App = () => {
                     </Container>
                 </Paper>
             </Container>
+            <ResetButton />
         </ThemeProvider >
     );
 }
