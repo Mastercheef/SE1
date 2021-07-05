@@ -11,7 +11,17 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Charts {
-    private String getJson(int[] ints, JsonObject json, JsonArray data, JsonObject dataE, JsonArray labels, JsonArray values) {
+    private String getJson(int[] ints, JsonObject json, JsonArray data, JsonObject dataE, JsonArray labels, JsonArray values, String chartTitle) {
+        JsonObject layout = new JsonObject();
+        JsonObject font = new JsonObject();
+        JsonObject title = new JsonObject();
+        title.addProperty("text", chartTitle);
+        font.addProperty("color", "black");
+        layout.add("title", title);
+        layout.add("font", font);
+        layout.addProperty("paper_bgcolor", "rgba(0,0,0,0)");
+        layout.addProperty("plot_bgcolor", "rgba(0,0,0,0)");
+
         for (int i : ints) {
             values.add(i);
         }
@@ -23,7 +33,35 @@ public class Charts {
         data.add(dataE);
 
         json.add("data", data);
+        json.add("layout", layout);
         return json.toString();
+    }
+
+    private JsonObject getLayout(String chartTitle, String xTitle, String yTitle) {
+        JsonObject layout = new JsonObject();
+        JsonObject title = new JsonObject();
+        JsonObject xAxis = new JsonObject();
+        JsonObject yAxis = new JsonObject();
+        JsonObject xAxisTitle = new JsonObject();
+        JsonObject yAxisTitle = new JsonObject();
+        JsonObject font = new JsonObject();
+
+        font.addProperty("color", "black");
+        title.addProperty("text", chartTitle);
+        xAxisTitle.addProperty("text", xTitle);
+        yAxisTitle.addProperty("text", yTitle);
+
+        xAxis.add("title", xAxisTitle);
+        yAxis.add("title", yAxisTitle);
+
+        layout.add("title", title);
+        layout.add("xaxis", xAxis);
+        layout.add("yaxis", yAxis);
+        layout.add("font", font);
+
+        layout.addProperty("paper_bgcolor", "rgba(0,0,0,0)");
+        layout.addProperty("plot_bgcolor", "rgba(0,0,0,0)");
+        return layout;
     }
 
     public String getDiagram(List<CarIF> cars) {
@@ -56,30 +94,16 @@ public class Charts {
         dataPrices.addProperty("type", "bar");
         dataPrices.addProperty("name", "Preis");
 
-        JsonObject layout = new JsonObject();
-        JsonObject title = new JsonObject();
-        JsonObject xAxis = new JsonObject();
-        JsonObject yAxis = new JsonObject();
-        JsonObject xAxisTitle = new JsonObject();
-        JsonObject yAxisTitle = new JsonObject();
-
-        title.addProperty("text", "Ueberischt ueber Parkzeit und Preis pro Ticket");
-        xAxisTitle.addProperty("text", "Ticket ID");
-        yAxisTitle.addProperty("text", "Preis / Dauer");
-
-        xAxis.add("title", xAxisTitle);
-        yAxis.add("title", yAxisTitle);
-
-        layout.add("title", title);
-        layout.add("xaxis", xAxis);
-        layout.add("yaxis", yAxis);
 
 
         jArray.add(dataDurations);
         jArray.add(dataPrices);
 
         json.add("data", jArray);
-        json.add("layout", layout);
+        json.add("layout", getLayout(
+                "Übersicht über Parkzeit und Ticket",
+                "Ticket ID",
+                "Preis / Dauer"));
         return json.toString();
     }
 
@@ -101,7 +125,7 @@ public class Charts {
         labels.add("SUV");
         labels.add("Limousine");
         labels.add("Kombi");
-        return getJson(new int[]{suv, limousine, kombi}, json, data, dataE, labels, values);
+        return getJson(new int[]{suv, limousine, kombi}, json, data, dataE, labels, values, "Fahrzeugtypen");
     }
 
     public String getAuslastungDiagramm(List<String[]> auslastungsListe) {
@@ -127,27 +151,12 @@ public class Charts {
         auslastungJson.addProperty("type", "line");
         auslastungJson.addProperty("name", "Maximale Auslastung");
 
-        JsonObject layout = new JsonObject();
-        JsonObject title = new JsonObject();
-        JsonObject xAxis = new JsonObject();
-        JsonObject yAxis = new JsonObject();
-        JsonObject xAxisTitle = new JsonObject();
-        JsonObject yAxisTitle = new JsonObject();
-
-        title.addProperty("text", "Momentane Auslastung des Parkhauses");
-        xAxisTitle.addProperty("text", "Zeitpunkt der Messung");
-        yAxisTitle.addProperty("text", "Auslastung (in %)");
-
-        xAxis.add("title", xAxisTitle);
-        yAxis.add("title", yAxisTitle);
-
-        layout.add("title", title);
-        layout.add("xaxis", xAxis);
-        layout.add("yaxis", yAxis);
-
         jArray.add(auslastungJson);
         json.add("data", jArray);
-        json.add("layout", layout);
+        json.add("layout", getLayout(
+                "Momentane Auslastung des Parkhauses",
+                "Zeitpunkt der Messung",
+                "Auslastung (in %)"));
         return json.toString();
     }
 
@@ -162,7 +171,7 @@ public class Charts {
                     case "Senior":
                         senior++;
                         break;
-                    case "Stundent":
+                    case "Student":
                         student++;
                         break;
                     case "Familie":
@@ -184,7 +193,7 @@ public class Charts {
         labels.add("Student");
         labels.add("Familie");
 
-        return getJson(new int[]{abonnent, standard, senior, student, familie}, json, data, dataE, labels, values);
+        return getJson(new int[]{abonnent, standard, senior, student, familie}, json, data, dataE, labels, values, "Kundentypen");
     }
 
     public String getSubscriberDurationsDiagram(List<String[]> subscriberAvg) {
@@ -207,27 +216,11 @@ public class Charts {
 
         jArray.add(avgDurationJson);
 
-        JsonObject layout = new JsonObject();
-        JsonObject title = new JsonObject();
-        JsonObject xAxis = new JsonObject();
-        JsonObject yAxis = new JsonObject();
-        JsonObject xAxisTitle = new JsonObject();
-        JsonObject yAxisTitle = new JsonObject();
-
-        title.addProperty("text", "Durschnittliche Parkdauer der Abonnenten");
-        xAxisTitle.addProperty("text", "Zeitpunkt der Messung");
-        yAxisTitle.addProperty("text", "Parkdauer (in ms)");
-
-        xAxis.add("title", xAxisTitle);
-        yAxis.add("title", yAxisTitle);
-
-        layout.add("title", title);
-        layout.add("xaxis", xAxis);
-        layout.add("yaxis", yAxis);
-
-
         json.add("data", jArray);
-        json.add("layout", layout);
+        json.add("layout", getLayout(
+                "Durschnittliche Parkdauer der Abonnenten",
+                "Zeitpunkt der Messung",
+                "Parkdauer (in ms)"));
         return json.toString();
     }
 }

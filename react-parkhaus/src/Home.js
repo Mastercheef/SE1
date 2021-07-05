@@ -245,6 +245,7 @@ const Home = () => {
                         {(!diagramError && diagramResult) && (
                             <PlotComponent
                                 data={diagramResult.data}
+                                layout={diagramResult.layout}
                             />
                         )}
                     </Grid>
