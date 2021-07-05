@@ -4,15 +4,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.team11.Parkhaus.Kunden.Abonnent;
 import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Rabattiert;
 import com.team11.Parkhaus.Kunden.Standard;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Charts {
-    private String getJson(int i, int j, JsonObject json, JsonArray data, JsonObject dataE, JsonArray labels, JsonArray values) {
-        values.add(i);
-        values.add(j);
+    private String getJson(int[] ints, JsonObject json, JsonArray data, JsonObject dataE, JsonArray labels, JsonArray values) {
+        for (int i : ints) {
+            values.add(i);
+        }
 
         dataE.add("labels", labels);
         dataE.add("values", values);
@@ -99,9 +101,7 @@ public class Charts {
         labels.add("SUV");
         labels.add("Limousine");
         labels.add("Kombi");
-
-        values.add(suv);
-        return getJson(limousine, kombi, json, data, dataE, labels, values);
+        return getJson(new int[]{suv, limousine, kombi}, json, data, dataE, labels, values);
     }
 
     public String getAuslastungDiagramm(List<String[]> auslastungsListe) {
@@ -152,11 +152,24 @@ public class Charts {
     }
 
     public String getCustomerTypeDiagram(List<Ticket> tickets) {
-        int abonnent = 0, standard = 0;
+        int abonnent = 0, standard = 0, senior = 0, student = 0, familie = 0;
         for (Ticket ticket : tickets) {
             Kunde customer = ticket.getCustomer();
             if (customer instanceof Abonnent) abonnent++;
             if (customer instanceof Standard) standard++;
+            if (customer instanceof Rabattiert) {
+                switch(((Rabattiert) customer).getType()) {
+                    case "Senior":
+                        senior++;
+                        break;
+                    case "Stundent":
+                        student++;
+                        break;
+                    case "Familie":
+                        familie++;
+                        break;
+                }
+            }
         }
 
         JsonObject json = new JsonObject();
@@ -167,8 +180,11 @@ public class Charts {
 
         labels.add("Abonnent");
         labels.add("Standard");
+        labels.add("Senior");
+        labels.add("Student");
+        labels.add("Familie");
 
-        return getJson(abonnent, standard, json, data, dataE, labels, values);
+        return getJson(new int[]{abonnent, standard, senior, student, familie}, json, data, dataE, labels, values);
     }
 
     public String getSubscriberDurationsDiagram(List<String[]> subscriberAvg) {
