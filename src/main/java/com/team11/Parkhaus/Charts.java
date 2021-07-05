@@ -16,7 +16,7 @@ public class Charts {
         JsonObject font = new JsonObject();
         JsonObject title = new JsonObject();
         title.addProperty("text", chartTitle);
-        font.addProperty("color", "black");
+        font.addProperty("color", "#2196f3");
         layout.add("title", title);
         layout.add("font", font);
         layout.addProperty("paper_bgcolor", "rgba(0,0,0,0)");
@@ -46,7 +46,7 @@ public class Charts {
         JsonObject yAxisTitle = new JsonObject();
         JsonObject font = new JsonObject();
 
-        font.addProperty("color", "black");
+        font.addProperty("color", "#2196f3");
         title.addProperty("text", chartTitle);
         xAxisTitle.addProperty("text", xTitle);
         yAxisTitle.addProperty("text", yTitle);
