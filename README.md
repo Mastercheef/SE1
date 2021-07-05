@@ -1,9 +1,9 @@
-- Digitalisierungskonzept
-- User Stories
+- [Digitalisierungskonzept](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Digitalisierungskonzept)
+- [User Stories](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UserStories)
 - [Kanban-Board](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/boards)
-- Priorisierung der User Stories
+- [Priorisierung der User Stories](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Priorisierte-User-Storys)
 - Story Map
-- Minimum Viable Product (MVP)
+- [Minimum Viable Product (MVP)](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UserStories)
 - Diagramme
     - UML Use Case-Diagramm
     - Robustheitsdiagramm
