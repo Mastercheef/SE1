@@ -2,6 +2,7 @@ package com.team11.Parkhaus;
 
 import com.team11.Parkhaus.Kunden.Abonnent;
 import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Rabattiert;
 import com.team11.Parkhaus.Kunden.Standard;
 
 import java.io.*;
@@ -29,8 +30,8 @@ public class ParkhausServlet extends HttpServlet {
     private int defaultMax = 20;
     private int defaultOpenFrom = 0;
     private int defaultOpenTo = 24;
-    private int defaultDelay = 100;
-    private int defaultPriceFactor = 10;
+    private int defaultDelay = 200;
+    private int defaultSimulationSpeed = 2700;
 
 
 
@@ -106,6 +107,12 @@ public class ParkhausServlet extends HttpServlet {
                 case "AuslastungDiagramm":
                     out.println((charts.getAuslastungDiagramm(getAuslastungsListe())));
                     break;
+                case "ticket":
+                    out.println(getTicketJsonById(req.getParameter("id")));
+                    break;
+                case "allTickets":
+                    out.println(allTicketsAsJson());
+                    break;
                 case "config":
                     out.println(getConfig());
                     break;
@@ -150,14 +157,14 @@ public class ParkhausServlet extends HttpServlet {
         // Neuen Kunden erstellen, falls nicht vorhanden
         if (enteringCustomer == null) {
             switch (clientType) {
-                case "Abo-1":
+                case "Abonnent":
                     enteringCustomer = new Abonnent(parsedNr, 0);
                     break;
-                case "Abo-2":
-                    enteringCustomer = new Abonnent(parsedNr, 3);
+                case "Standard":
+                    enteringCustomer = new Standard(parsedNr);
                     break;
                 default:
-                    enteringCustomer = new Standard(parsedNr);
+                    enteringCustomer = new Rabattiert(parsedNr, clientType);
                     break;
             }
             customers.add(enteringCustomer);
@@ -207,6 +214,17 @@ public class ParkhausServlet extends HttpServlet {
 
     private void setCustomers(List<Kunde> customers) {
         getContext().setAttribute("customers", customers);
+    }
+
+    public String allTicketsAsJson() {
+        List<Ticket> tickets = getTickets();
+        final String collect = tickets.stream().map(Ticket::getAsJson).collect(Collectors.joining(","));
+        return "[" + collect + "]";
+    }
+
+    public String getTicketJsonById(String id) {
+        Ticket t = getTickets().stream().filter(ticket -> ticket.getId().equals(id)).findFirst().get();
+        return t.getAsJson();
     }
 
     public List<Ticket> getTickets() {
@@ -297,15 +315,12 @@ public class ParkhausServlet extends HttpServlet {
             cfgTo = (String)(getContext().getAttribute("cfgTo"));
         }
 
-        stringBuilder.append(cfgMax);
-        stringBuilder.append(",");
-        stringBuilder.append(cfgFrom);
-        stringBuilder.append(",");
-        stringBuilder.append(cfgTo);
-        stringBuilder.append(",");
-        stringBuilder.append(String.valueOf(defaultDelay)); // Verzögerung in ms
-        stringBuilder.append(",");
-        stringBuilder.append(String.valueOf(defaultPriceFactor)); // Preisfaktor
+        stringBuilder
+                .append(cfgMax).append(",")
+                .append(cfgFrom).append(",")
+                .append(cfgTo).append(",")
+                .append(defaultDelay).append(",")
+                .append(defaultSimulationSpeed);
         return stringBuilder.toString();
     }
 

@@ -1,0 +1,159 @@
+/**
+ * @overview default layout of ccm component parkhaus
+ * @author Manfred Kaul <manfred.kaul@h-brs.de> 2017
+ * @license The MIT License (MIT)
+ */
+
+:host * {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+input {
+    padding: 0.1rem;
+    font-size: x-large;
+    font-weight: bold;
+    text-align: center;
+    border: thin solid white;
+    border-radius: 4px;
+    box-shadow: 0.1rem 0.1rem #666;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin:0 auto;
+}
+
+th,
+td {
+    padding: 2px;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+th {
+    color: white;
+    background-color: black;
+}
+
+caption {
+    font-size: larger;
+    font-weight:  200;
+}
+
+.button_container {
+    min-height: 2rem;
+}
+
+button {
+    display: inline-block;
+    font-size: large;
+    margin: 4px;
+    padding: 0.4rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #3f51b5;
+}
+
+button:hover {
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(4px);
+}
+
+.garage {
+    margin: 24px;
+    padding: 24px;
+    max-width: 100%;
+    min-height: 2rem;
+    background-color: transparent;
+}
+
+.exit_car_container {
+    display: inline-block;
+}
+
+.car, .space {
+    height: 60px;
+    width: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.car {
+    cursor: pointer;
+}
+
+.max {
+    width: 3rem;
+}
+
+.counter {
+    width: 1.5rem;
+}
+
+.errors {
+    margin: 1rem;
+    padding: 1rem;
+    border: thick solid red;
+    color: red;
+}
+
+h3 {
+    background-color: transparent;
+    padding: 1rem;
+    margin: 2px;
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .space polygon {
+        fill: rgb(255, 255, 255) !important;
+    }
+    .space text  {
+        fill: rgb(255, 255, 255) !important;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .space polygon {
+        fill: rgb(0, 0, 0) !important;
+    }
+    .space text  {
+        fill: rgb(0, 0, 0) !important;
+    }
+}
+
+.entry {
+    height: 75px;
+    width: 75px;
+}
+
+.car g path {
+    stroke: none !important;
+}
+
+.car rect {
+    fill: rgb(255, 255, 255) !important;
+    stroke: none !important;
+}
+
+.car text {
+    fill: rgb(0, 0, 0) !important;
+}

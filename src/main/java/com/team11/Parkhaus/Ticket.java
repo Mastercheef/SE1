@@ -1,21 +1,28 @@
 package com.team11.Parkhaus;
 
+import com.team11.Parkhaus.Kunden.Abonnent;
 import com.team11.Parkhaus.Kunden.Kunde;
+import com.team11.Parkhaus.Kunden.Rabattiert;
+import com.team11.Parkhaus.Kunden.Standard;
 
 public class Ticket {
     private final String id;
     private final int nr;
     private final long arrival;
     private final long departure;
+    private final String licensePlate;
+    private final String vehicleType;
     private final float price;
     private final Kunde customer;
 
-    public Ticket(String id, int nr, long arrival, long departure, float price, Kunde customer) {
-        this.id = id;
-        this.nr = nr;
-        this.arrival = arrival;
-        this.departure = departure;
-        this.price = price;
+    public Ticket(CarIF car, Kunde customer) {
+        this.id = car.getTicketId();
+        this.nr = car.getNr();
+        this.arrival = car.getArrival();
+        this.departure = car.getDeparture();
+        this.licensePlate = car.getLicencePlate();
+        this.vehicleType = car.getCarType();
+        this.price = car.getPrice();
         this.customer = customer;
     }
 
@@ -45,5 +52,31 @@ public class Ticket {
 
     public Kunde getCustomer() {
         return customer;
+    }
+
+    public String getAsJson() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String customerType = "";
+        if (this.customer instanceof Standard) {
+            customerType = "Standard";
+        } else if (this.customer instanceof Abonnent) {
+            customerType = "Abonnent";
+        } else if (this.customer instanceof Rabattiert) {
+            customerType = ((Rabattiert) this.customer).getType();
+        }
+
+        stringBuilder
+                .append("{")
+                .append("\"nr\": ").append(this.getNr()).append(",")
+                .append("\"arrival\": ").append(this.getArrival()).append(",")
+                .append("\"departure\": ").append(this.getDeparture()).append(",")
+                .append("\"duration\": ").append(this.getDuration()).append(",")
+                .append("\"licensePlate\": \"").append(this.licensePlate).append("\",")
+                .append("\"vehicleType\": \"").append(this.vehicleType).append("\",")
+                .append("\"customerType\": \"").append(customerType).append("\",")
+                .append("\"price\": ").append(this.getPrice()).append(",")
+                .append("\"ticketId\": \"").append(this.getId()).append("\"")
+                .append("}");
+        return stringBuilder.toString();
     }
 }

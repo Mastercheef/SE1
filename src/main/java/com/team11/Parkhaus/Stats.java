@@ -8,7 +8,7 @@ public class Stats {
     }
 
     public float getAvg(List<Ticket> tickets) {
-        return (float) tickets.stream().mapToDouble(Ticket::getPrice).average().orElse(0.0);
+        return (float) tickets.stream().filter(ticket -> ticket.getPrice() > 0).mapToDouble(Ticket::getPrice).average().orElse(0.0);
     }
 
     public int getCarCount(List<Ticket> tickets) {
