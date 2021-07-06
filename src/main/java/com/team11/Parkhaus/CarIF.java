@@ -1,7 +1,9 @@
 package com.team11.Parkhaus;
 
+import java.util.List;
+
 public interface CarIF {
-    void leave(String duration, String price);
+    Ticket leave(List<Ticket> tickets, String duration, String price);
     String getCarType();
     float getPrice();
     float getDuration();
@@ -10,9 +12,8 @@ public interface CarIF {
     String getColor();
     boolean isParking();
     int getNr();
-    String getArrival();
+    long getArrival();
     int getSpace();
     String getClientType();
-    String getDeparture();
-    String toString();
+    long getDeparture();
 }

@@ -1,16 +1,9 @@
 package com.team11.Parkhaus;
 
-import com.team11.Parkhaus.Investor.Investor;
-import com.team11.Parkhaus.Investor.ROIRechner;
-import com.team11.Parkhaus.Manager.KostenGewinnRechner;
+import com.team11.Parkhaus.Management.KostenGewinnRechner;
 import com.team11.Parkhaus.Manager.Manager;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class InvestorTest {
-    Investor investor, investor2;
     double invest = 10000.0;
     private CarIF[] cars = new Car[5];
     private CarIF[] cars2 = new Car[101];
@@ -18,7 +11,7 @@ class InvestorTest {
     private Manager manager11, manager2;
     private KostenGewinnRechner kgrechner, kgrechner2;
 
-
+    /*
     @BeforeEach
     void setUp() {
         cars[0] =  new Car("SU-K 1", "0", "#4b96f1", "Kombi", "0", "1624711610503", "1", "_");
@@ -93,9 +86,5 @@ class InvestorTest {
 
 
     }
-
-
-
-
-
+    */
 }
