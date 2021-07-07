@@ -51,7 +51,12 @@ const Home = () => {
         { field: "licensePlate", headerName: "Kennzeichen", width: 140 },
         { field: "vehicleType", headerName: "Fahrzeugtyp", width: 140 },
         { field: "customerType", headerName: "Kundentyp", width: 130 },
-        { field: "price", headerName: "Preis", width: 90 },
+        {
+            field: "price",
+            headerName: "Preis",
+            width: 90,
+            sortComparator: (v1, v2) => parseFloat(v1) - parseFloat(v2),
+        },
         { field: "ticketId", headerName: "Ticket ID", width: 300 }
     ];
 
