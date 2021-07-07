@@ -4,6 +4,8 @@ import com.team11.Parkhaus.Kunden.Abonnent;
 import com.team11.Parkhaus.Kunden.Kunde;
 import com.team11.Parkhaus.Kunden.Rabattiert;
 import com.team11.Parkhaus.Kunden.Standard;
+import com.team11.Parkhaus.Management.IncomeStatement;
+import com.team11.Parkhaus.Management.ROICalculator;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -27,20 +29,20 @@ public class ParkhausServlet extends HttpServlet {
      *      default_price_factor = 10;
      */
 
-    private int defaultMax = 20;
-    private int defaultOpenFrom = 0;
-    private int defaultOpenTo = 24;
-    private int defaultDelay = 200;
-    private int defaultSimulationSpeed = 2700;
-
-
+    private final int defaultMax = 20;
+    private final int defaultOpenFrom = 0;
+    private final int defaultOpenTo = 24;
+    private final int defaultDelay = 200;
+    private final int defaultSimulationSpeed = 2700;
 
     Stats stats = new Stats();
     Charts charts = new Charts();
     Auslastung auslastung = new Auslastung(defaultMax);
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] postParams = getBody(req).split(",");
+        PrintWriter out = resp.getWriter();
 
         switch (postParams[0]) { // Switch Case ist für String implementiert seit Java 7: https://stackoverflow.com/a/338230
             case "enter":
@@ -61,11 +63,14 @@ public class ParkhausServlet extends HttpServlet {
             case "change_open_to":
                 setConfig("cfgTo", postParams[2]);
                 break;
+            case "roi":
+                out.println(calcRoi(postParams[1], postParams[2], postParams[3]));
+                break;
+            case "incomestatement":
+                out.println(createIncomeStatement(postParams[1]));
+                break;
         }
     }
-
-
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -288,6 +293,15 @@ public class ParkhausServlet extends HttpServlet {
         List<String[]> auslastungsListe = (List<String[]>)getContext().getAttribute("auslastungsListe");
         auslastungsListe.remove(auslastungsListe.size()-1);
         getContext().setAttribute("auslastungsListe", auslastungsListe);
+    }
+
+    private String calcRoi(String investment, String share, String costPerCar) {
+        String dailyProfit = new IncomeStatement(getTickets(), costPerCar).getProfit();
+        return new ROICalculator(investment, dailyProfit, share).getAsJson();
+    }
+
+    private String createIncomeStatement(String costPerCar) {
+        return new IncomeStatement(getTickets(), costPerCar).getAsJson();
     }
 
     private void setConfig(String key, String value) {
