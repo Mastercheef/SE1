@@ -52,12 +52,6 @@ public class ParkingGarageServlet extends HttpServlet {
     private final Utilization utilization = Utilization.getInstance();
     private static Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
 
-
-
-    public ParkingGarageServlet() {
-        logger.setLevel(Level.INFO);
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] postParams = getBody(req).split(",");
@@ -153,9 +147,9 @@ public class ParkingGarageServlet extends HttpServlet {
 
     String getBody( HttpServletRequest request ) {
         StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
 
         try {
+            BufferedReader bufferedReader = null;
             InputStream inputStream = request.getInputStream();
             if ( inputStream != null ) {
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

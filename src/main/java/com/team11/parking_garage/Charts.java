@@ -30,9 +30,7 @@ public class Charts {
     private static final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
     private static final Logger logger = Logger.getLogger("parking_garage.Charts");
 
-    private Charts() {
-        logger.setLevel(Level.INFO);
-    }
+    private Charts() { }
 
     public static Charts getInstance() {
         return instance;
