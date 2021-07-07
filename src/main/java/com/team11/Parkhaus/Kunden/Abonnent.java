@@ -2,6 +2,7 @@ package com.team11.Parkhaus.Kunden;
 
 import com.team11.Parkhaus.Ticket;
 
+import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +16,12 @@ public class Abonnent extends Kunde {
     }
 
     @Override
-    public float calculatePrice(List<Ticket> tickets, float price, long departure) {
+    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price, long departure) {
         if (maxVisits > 0) {
             long yesterday = new Date(departure).toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli();
 
-            return tickets.stream().filter(ticket -> ticket.getNr() == this.getNr() && ticket.getDeparture() > yesterday && ticket.getPrice() == 0f).count() < maxVisits ? 0 : price;
+            return tickets.stream().filter(ticket -> ticket.getNr() == this.getNr() && ticket.getDeparture() > yesterday && ticket.getPrice().floatValue() == 0f).count() < maxVisits ? BigDecimal.valueOf(0) : price;
         }
-        return 0;
+        return BigDecimal.valueOf(0);
     }
 }

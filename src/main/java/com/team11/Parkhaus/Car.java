@@ -2,6 +2,7 @@ package com.team11.Parkhaus;
 
 import com.team11.Parkhaus.Kunden.Kunde;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ public class Car implements CarIF {
     private final String color;
     private final String carType;
     private long duration;
-    private float price;
+    private BigDecimal price;
     private final int space;
     private final String clientType;
     private final Kunde customer;
@@ -27,7 +28,7 @@ public class Car implements CarIF {
         this.ticketId = ticketId;
         this.color = color;
         this.carType = carType;
-        this.price =  -1;
+        this.price = new BigDecimal(-1);
         this.duration = -1;
         this.arrival = Long.parseLong(arrival);
         this.space = Integer.parseInt(space);
@@ -41,8 +42,8 @@ public class Car implements CarIF {
     }
 
 
-    public static double[] priceArray(List<CarIF> cars) {
-        return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getPrice).toArray();
+    public static BigDecimal[] priceArray(List<CarIF> cars) {
+        return cars.stream().filter(car -> !car.isParking()).map(CarIF::getPrice).toArray(BigDecimal[]::new);
     }
 
 
@@ -71,7 +72,7 @@ public class Car implements CarIF {
             int nr = car.getNr();
             long timer = car.getArrival();
             int duration = (int) (car.getDuration()*60);
-            int price = (int) (car.getPrice()*100);
+            int price = car.getPrice().multiply(BigDecimal.valueOf(100)).intValue();
             String ticketId = car.getTicketId();
             String color = car.getColor();
             int space = car.getSpace();
@@ -105,7 +106,7 @@ public class Car implements CarIF {
     public Ticket leave(List<Ticket> tickets, String duration, String price) {
         this.isParking = false;
         this.duration = Long.parseLong(duration);
-        this.price = customer.calculatePrice(tickets, Float.parseFloat(price), this.getDeparture());
+        this.price = customer.calculatePrice(tickets, new BigDecimal(price), this.getDeparture());
         return new Ticket(this, this.customer);
     }
 
@@ -117,7 +118,7 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getPrice() { return this.price; }
+    public BigDecimal getPrice() { return this.price; }
 
 
     @Override

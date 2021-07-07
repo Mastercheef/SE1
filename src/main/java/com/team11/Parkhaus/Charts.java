@@ -7,6 +7,7 @@ import com.team11.Parkhaus.Kunden.Kunde;
 import com.team11.Parkhaus.Kunden.Rabattiert;
 import com.team11.Parkhaus.Kunden.Standard;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -80,8 +81,8 @@ public class Charts {
         for (double d : Car.durationArray(cars)) {
             durations.add(d);
         }
-        for (double p : Car.priceArray(cars)) {
-            prices.add(p);
+        for (BigDecimal p : Car.priceArray(cars)) {
+            prices.add(p.floatValue());
         }
 
         dataDurations.add("x", ticketIds);

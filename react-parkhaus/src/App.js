@@ -1,20 +1,25 @@
 import React from "react";
-import { Container, createMuiTheme, CssBaseline, makeStyles, Paper, ThemeProvider, useMediaQuery } from "@material-ui/core";
+import { Container, createMuiTheme, CssBaseline, Grid, makeStyles, Paper, ThemeProvider, useMediaQuery } from "@material-ui/core";
 import Home from "./Home";
 import ResetButton from "./ResetButton";
 import { red } from "@material-ui/core/colors";
+import Investor from "./Investor";
+import Manager from "./Manager";
 
 const useStyles = makeStyles((theme) => ({
     container: {
-        [theme.breakpoints.up("md")]: {
-            maxWidth: "90%"
-        }
+        [theme.breakpoints.up("lg")]: {
+            maxWidth: "1450px"
+        },
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(5)
     },
-    homePaper: {
-        margin: theme.spacing(3),
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-        minWidth: "1000px"
+    paper: {
+        padding: theme.spacing(2)
+    },
+    sameHeight: {
+        height: "470px",
+        padding: theme.spacing(2)
     }
 }));
 
@@ -39,14 +44,32 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Container className={classes.container}>
-                <Paper className={classes.homePaper} elevation={3}>
-                    <Container className={classes.container}>
-                        <Home />
-                    </Container>
-                </Paper>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={3}
+                >
+                    <Grid item sm={12}>
+                        <Paper className={classes.paper}>
+                            <Home />
+                        </Paper>
+                    </Grid>
+                    <Grid item sm={12} md={6}>
+                        <Paper className={classes.sameHeight}>
+                            <Investor />
+                        </Paper>
+                    </Grid>
+                    <Grid item sm={12} md={6}>
+                        <Paper className={classes.sameHeight}>
+                            <Manager />
+                        </Paper>
+                    </Grid>
+                </Grid>
+                <ResetButton />
             </Container>
-            <ResetButton />
-        </ThemeProvider >
+        </ThemeProvider>
     );
 }
 

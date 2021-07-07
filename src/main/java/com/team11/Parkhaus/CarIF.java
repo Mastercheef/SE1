@@ -1,11 +1,12 @@
 package com.team11.Parkhaus;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CarIF {
     Ticket leave(List<Ticket> tickets, String duration, String price);
     String getCarType();
-    float getPrice();
+    BigDecimal getPrice();
     float getDuration();
     String getTicketId();
     String getLicencePlate();
