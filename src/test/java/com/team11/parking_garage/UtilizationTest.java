@@ -11,12 +11,12 @@ class UtilizationTest {
     }
 
     @Test
-    public void getAuslastung() {
+    public void getUtilization() {
         /* TODO */
     }
 
     @Test
-    public void setAuslastungNow() {
+    public void getUtilizationNow() {
         /* TODO */
     }
 }

@@ -1,7 +1,7 @@
 package com.team11.parking_garage;
 
 class ManagerTest {
-    private CarIF[] cars = new Car[2];
+    private final CarIF[] cars = new Car[2];
     double kF1 = 0.01 ;
     double kF2 = 0.8;
 

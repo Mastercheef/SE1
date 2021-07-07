@@ -53,7 +53,7 @@ public class Charts {
         return json.toString();
     }
 
-    private JsonObject getLayout(String chartTitle, String xTitle, String yTitle) {
+    private JsonObject getLayout(String chartTitle, String yTitle) {
         JsonObject layout = new JsonObject();
         JsonObject title = new JsonObject();
         JsonObject xAxis = new JsonObject();
@@ -65,7 +65,7 @@ public class Charts {
         font.addProperty("color", "#2196f3");
         title.addProperty("text", chartTitle);
 
-        xAxisTitle.addProperty("text", xTitle);
+        xAxisTitle.addProperty("text", "Zeitpunkt der Messung");
         yAxisTitle.addProperty("text", yTitle);
         xAxis.add(TITLE, xAxisTitle);
         yAxis.add(TITLE, yAxisTitle);
@@ -79,7 +79,7 @@ public class Charts {
         return layout;
     }
 
-    public String getAveragePriceDuration(List<Ticket> tickets) {
+    public String getAveragePriceDurationDiagram(List<Ticket> tickets) {
         JsonObject json = new JsonObject();
         JsonObject priceJson = new JsonObject();
         JsonObject durationJson = new JsonObject();
@@ -120,7 +120,6 @@ public class Charts {
         json.add(DATA, data);
         json.add(LAYOUT, getLayout(
                 "Durschnittlicher Preis und Parkdauer",
-                "Zeitpunkt der Messung",
                 "Preis / Parkdauer"));
         return json.toString();
     }
@@ -143,7 +142,7 @@ public class Charts {
         return getPieChart(new int[]{suv, limousine, kombi}, labels, "Fahrzeugtypen");
     }
 
-    public String getUtilizationPlot(List<String[]> utilizationList) {
+    public String getUtilizationDiagram(List<String[]> utilizationList) {
         JsonObject json = new JsonObject();
         JsonObject utilization = new JsonObject();
         JsonArray data = new JsonArray();
@@ -169,7 +168,6 @@ public class Charts {
         json.add(DATA, data);
         json.add(LAYOUT, getLayout(
                 "Momentane Auslastung des Parkhauses",
-                "Zeitpunkt der Messung",
                 "Auslastung (in %)"));
         return json.toString();
     }
@@ -235,7 +233,6 @@ public class Charts {
         json.add(DATA, data);
         json.add(LAYOUT, getLayout(
                 "Durschnittliche Parkdauer der Abonnenten",
-                "Zeitpunkt der Messung",
                 "Parkdauer (in ms)"));
         return json.toString();
     }

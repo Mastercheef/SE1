@@ -36,16 +36,9 @@ public class Car implements CarIF {
         this.customer = customer;
     }
 
-
     public static double[] durationArray(List<CarIF> cars) {
         return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
     }
-
-
-    public static BigDecimal[] priceArray(List<CarIF> cars) {
-        return cars.stream().filter(car -> !car.isParking()).map(CarIF::getPrice).toArray(BigDecimal[]::new);
-    }
-
 
     public static String[] carTypeArray(List<CarIF> cars) {
         return cars.stream().map(CarIF::getCarType).toArray(String[]::new);

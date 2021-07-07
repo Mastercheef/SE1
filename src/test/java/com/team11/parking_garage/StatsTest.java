@@ -17,7 +17,7 @@ class StatsTest {
     @BeforeEach
     public void setUp() {
         stats = new Stats();
-        ticketList = new ArrayList<Ticket>();
+        ticketList = new ArrayList<>();
         CarIF c1, c2, c3;
 
         c1 = new Car(new String[]{"1", "1625669537797","_","_","b308440e557abf7523364dded9692e24","#44c4f1","4","Student","Kombi","SU-F 94"}, new Standard(1));

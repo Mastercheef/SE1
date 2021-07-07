@@ -44,7 +44,7 @@ class ChartsTest {
     }
 
     @Test
-    public void getDiagram() {
+    public void getAveragePriceDurationDiagram() {
         assertEquals(
                 "{" +
                         DATA +
@@ -65,7 +65,7 @@ class ChartsTest {
                         "\"xaxis\":{\"title\":{\"text\":\"Ticket ID\"}}," +
                         "\"yaxis\":{\"title\":{\"text\":\"Preis / Dauer\"}}}" +
                         "}",
-                chart.getAveragePriceDuration(tickets));
+                chart.getAveragePriceDurationDiagram(tickets));
     }
 
     @Test
@@ -85,7 +85,7 @@ class ChartsTest {
     }
 
     @Test
-    public void getAuslastungDiagramm() {
+    public void getUtilizationDiagramm() {
         assertEquals(
                 "{" +
                         DATA +
@@ -95,7 +95,7 @@ class ChartsTest {
                         "\"xaxis\":{\"title\":{\"text\":\"Zeitpunkt der Messung\"}}," +
                         "\"yaxis\":{\"title\":{\"text\":\"Auslastung (in %)\"}}}" +
                         "}",
-                chart.getUtilizationPlot(utilizationList)
+                chart.getUtilizationDiagram(utilizationList)
         );
     }
 

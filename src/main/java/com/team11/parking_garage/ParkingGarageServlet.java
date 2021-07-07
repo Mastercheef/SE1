@@ -99,7 +99,7 @@ public class ParkingGarageServlet extends HttpServlet {
                     out.println(stats.getCarCount(getTickets()));
                     break;
                 case "averageDiagram":
-                    out.println((charts.getAveragePriceDuration(getTickets())));
+                    out.println((charts.getAveragePriceDurationDiagram(getTickets())));
                     break;
                 case "carTypeDiagram":
                     out.println((charts.getCarTypeDiagram(getCars())));
@@ -114,7 +114,7 @@ public class ParkingGarageServlet extends HttpServlet {
                     out.println((utilization.getUtilization(getCars(), getContext()) + "%"));
                     break;
                 case "utilizationDiagram":
-                    out.println((charts.getUtilizationPlot(getUtilizationList())));
+                    out.println((charts.getUtilizationDiagram(getUtilizationList())));
                     break;
                 case "ticket":
                     out.println(getTicketJsonById(req.getParameter("id")));
