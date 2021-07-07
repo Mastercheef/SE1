@@ -17,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -48,6 +50,13 @@ public class ParkingGarageServlet extends HttpServlet {
     private final Stats stats = Stats.getInstance();
     private final Charts charts = Charts.getInstance();
     private final Utilization utilization = Utilization.getInstance();
+    private static Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
+
+
+
+    public ParkingGarageServlet() {
+        logger.setLevel(Level.INFO);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -80,7 +89,7 @@ public class ParkingGarageServlet extends HttpServlet {
                 out.println(createIncomeStatement(postParams[1]));
                 break;
             default:
-                System.out.println("Post Parameter \"" + postParams[0] + "\" detected.");
+                logger.log(Level.INFO, "Unknown POST: \"" + postParams[0] + "\" detected.");
                 break;
         }
     }
@@ -135,14 +144,14 @@ public class ParkingGarageServlet extends HttpServlet {
                     reset();
                     break;
                 default:
-                    System.out.println("Command \""+ cmd + "\" detected.");
+                    logger.log(Level.INFO, "Unknown GET: \""+ cmd + "\" detected.");
             }
         }
     }
 
 
 
-    String getBody( HttpServletRequest request ) throws IOException {
+    String getBody( HttpServletRequest request ) {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
 
@@ -155,11 +164,12 @@ public class ParkingGarageServlet extends HttpServlet {
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
                     stringBuilder.append(charBuffer, 0, bytesRead);
                 }
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
             }
-        } finally {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
+        } catch (IOException e) {
+            logger.log(Level.INFO,"Invalid POST Body");
         }
         return stringBuilder.toString();
     }
@@ -199,7 +209,7 @@ public class ParkingGarageServlet extends HttpServlet {
 
         setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));
 
-        System.out.println("ENTER: " + parsedNr);
+        logger.log(Level.INFO,"New Car with Nr: " + parsedNr + " entered");
     }
 
 
@@ -215,7 +225,7 @@ public class ParkingGarageServlet extends HttpServlet {
             setCars(cars);
             setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));
             updateSubscriberAvg();
-            System.out.println("LEAVE: " + toLeave.getNr());
+            logger.log(Level.INFO,"Car with Nr: " + toLeave.getNr() + " left");
         }
     }
 
@@ -224,7 +234,7 @@ public class ParkingGarageServlet extends HttpServlet {
         List<CarIF> cars = getCars();
         int toRemove = Integer.parseInt(nr.replaceAll("\\D+","")); // Übrige zeichen aus nr entfernen
         setCars(cars.stream().filter(car -> car.getNr() != toRemove).collect(Collectors.toList())); // Alle übrigen Cars an setCars übergeben
-        System.out.println("DELETED: " + toRemove);
+        logger.log(Level.INFO,"Car with Nr: " + toRemove + " deleted");
     }
 
     private List<Customer> getCustomers() {

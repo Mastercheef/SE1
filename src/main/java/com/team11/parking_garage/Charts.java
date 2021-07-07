@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Charts {
@@ -26,8 +28,11 @@ public class Charts {
     private static final String LAYOUT = "layout";
     private static final String DATA = "data";
     private static final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
+    private static final Logger logger = Logger.getLogger("parking_garage.Charts");
 
-    private Charts() {}
+    private Charts() {
+        logger.setLevel(Level.INFO);
+    }
 
     public static Charts getInstance() {
         return instance;
@@ -222,7 +227,7 @@ public class Charts {
                         family++;
                         break;
                     default:
-                        System.out.println("Unrecognised Client Type: " + ((Discounted) customer).getType());
+                        logger.log(Level.INFO,"Unrecognised Client Type: " + ((Discounted) customer).getType());
                         break;
                 }
             }
