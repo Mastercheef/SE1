@@ -23,18 +23,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const cmdButtons = [
-    ["Summe", "Summe", "€"],
-    ["Ø Ticketpreis", "Durchschnitt", "€"],
-    ["Gedruckte Tickets", "habenVerlassen"],
-    ["Aktuelle Auslastung", "Auslastung"]
+    ["Summe", "sum", "€"],
+    ["Ø Ticketpreis", "averagePrice", "€"],
+    ["Gedruckte Tickets", "ticketCount"],
+    ["Aktuelle Auslastung", "utilization"]
 ];
 
 const diagramButtons = [
-    ["Tickets", "Diagramm"],
-    ["Fahrzeugtypen", "FahrzeugtypenDiagramm"],
-    ["Auslastung", "AuslastungDiagramm"],
-    ["Kundentypen", "KundentypenDiagramm"],
-    ["Ø Parkdauer Abonnenten", "AboParkdauerDiagramm"]
+    ["Ø Dauer & Ticketpreis", "averageDiagram"],
+    ["Fahrzeugtypen", "carTypeDiagram"],
+    ["Auslastung", "utilizationDiagram"],
+    ["Kundentypen", "customerDiagram"],
+    ["Ø Parkdauer Abonnenten", "subDurationDiagram"]
 ];
 
 const momentTimeFormat = "DD.MM.YY HH:mm:ss";
