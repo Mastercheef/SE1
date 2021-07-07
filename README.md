@@ -1,19 +1,30 @@
 
-## Parkhaus Team 11
+## <center>Parkhaus Team 11
+___
+#### <center>Praxisprojekt Software Engineering I (SE1)</center>
 
+
+> #### Programmierung eines Web-Servers in Java zur Parkhaus-Automation
+
+**Autoren:** <center>*Emre Cetin* (ecetin2s) <br>
+*Erik Autenrieth (eauten2s)*  <br>
+*Marian Hoenscheid (mhoens2s)*</center>   
+<center>SoSe 2021, Hochschule Bonn-Rhein-Sieg (H-BRS)</center>
+
+___
 ### Inhaltsverzeichnis
 ___
 1. [Beschreibung des Projektes](#beschreibung des Projektes)
 2. [Projektverzeichnis](#projektverzeichnis)
 3. [Benutzung](#benutzung)
-
-
-
-
-
-###  Beschreibung des Projektes
+4. [Lizens](#lizenz)
+5. [Kontakt](#kontakt)
 ___
 
+### Beschreibung des Projektes
+hier steht eine Beschreibung.
+
+___
 
 
 
@@ -28,21 +39,21 @@ ___
 6. Ein [MVP](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/MVP) (Minimum Viable Product).
 7. Ein [UML Use Case-Diagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Use-Case-Diagramm).
 8. Auswahl an UML-Diagrammen.
-  - [Robustheitsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Robustheitsdiagramm)
-  - UML Klassendiagramme
-  - UML Sequenzdiagramme
-  - UML Aktivitätsdiagramme
-  - UML Verteilungsdiagramm (deployment diagram)
-  - [UML Zustandsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Zustandsdiagramm)
+    - [Robustheitsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Robustheitsdiagramm)
+    - UML Klassendiagramme
+    - UML Sequenzdiagramme
+    - UML Aktivitätsdiagramme
+    - UML Verteilungsdiagramm (deployment diagram)
+    - [UML Zustandsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Zustandsdiagramm)
 
-9.  gute Java-Interfaces
-  - ...
-10. lauffähige JUnit-Tests
-  - ...
-11. lauffähige Java-Klassen
-  - ...
-12.  Patternverzeichnis
-13.  Eine Beschreibung unserer [Zielkonflikte](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Zielkonflikte).
+9. Java-Interfaces
+   - .....
+10. JUnit-Tests 
+    - ....
+11. Java-Klassen
+    - ....
+12. Patternverzeichnis
+13. Eine Beschreibung unserer [Zielkonflikte](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Zielkonflikte).
 14. Iterationsbericht
 15. Summarisches Projektprotokoll
 16. Gesamt-[Retrospektive](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Retrospektive) des Projektes.
@@ -53,12 +64,12 @@ ___
 
 ### Lizenz
 ___
+Academic Free License v3.0   `afl-3.0`
 
 
-
-### Contact
+### Kontakt
 ___
-Emre Cetin&emsp; &emsp; &emsp;&nbsp;  (ecetin2s)&emsp; &emsp;&nbsp;&nbsp;   [emre.cetin@smail.inf.h-brs.de](erik.autenrieth@smail.inf.h-brs.de)<br>
-Erik Autenrieth&emsp; &emsp;  (eauten2s) &emsp;&emsp;&nbsp;            [erik.autenrieth@smail.inf.h-brs.de](erik.autenrieth@smail.inf.h-brs.de) <br>
-Marian Hoenscheid&nbsp; (mhoens2s)&emsp;&emsp;                  [marian.hoenscheid@smail.inf.h-brs.de](erik.autenrieth@smail.inf.h-brs.de)
+Emre Cetin&emsp; &emsp; &emsp;&nbsp;&emsp;&emsp;&nbsp;   [emre.cetin@smail.inf.h-brs.de](erik.autenrieth@smail.inf.h-brs.de)<br>
+Erik Autenrieth&emsp; &emsp;&emsp;&emsp;&nbsp;     [erik.autenrieth@smail.inf.h-brs.de](erik.autenrieth@smail.inf.h-brs.de) <br>
+Marian Hoenscheid&nbsp; &emsp;&emsp;           [marian.hoenscheid@smail.inf.h-brs.de](erik.autenrieth@smail.inf.h-brs.de)
 
