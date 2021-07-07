@@ -91,10 +91,9 @@ public class Charts {
         JsonObject json = new JsonObject();
         JsonObject priceJson = new JsonObject();
         JsonObject durationJson = new JsonObject();
-        JsonObject layout = new JsonObject();
         JsonObject yaxisLayout = new JsonObject();
+        JsonObject layout;
         JsonArray data = new JsonArray();
-
         JsonArray price = new JsonArray();
         JsonArray duration = new JsonArray();
         JsonArray timeJson = new JsonArray();

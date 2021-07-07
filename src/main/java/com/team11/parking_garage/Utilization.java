@@ -6,8 +6,7 @@ import java.util.List;
 
 public class Utilization {
     private static Utilization instance = new Utilization();
-    private float maxCars;
-    private final int defaultMax = ParkingGarageServlet.DEFAULT_MAX;
+    private static final int defaultMax = ParkingGarageServlet.DEFAULT_MAX;
 
     private Utilization(){}
 
@@ -16,6 +15,7 @@ public class Utilization {
     }
 
     public int getUtilization(List<CarIF> cars, ServletContext context) {
+        int maxCars;
         if (context.getAttribute("cfgMax") == null) {
             maxCars = defaultMax;
         } else {
