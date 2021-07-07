@@ -96,7 +96,7 @@ public class Charts {
             sumPrice = sumPrice.add(ticket.getPrice());
             sumDuration += ticket.getDuration();
             carCount++;
-            price.add((sumPrice.divide(new BigDecimal(carCount), mc)).floatValue());
+            price.add((sumPrice.divide(BigDecimal.valueOf(carCount), mc)).floatValue());
             duration.add(sumDuration/carCount/1000/60   );
             SimpleDateFormat date = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
             date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
