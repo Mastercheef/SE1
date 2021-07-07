@@ -6,7 +6,14 @@ import java.math.RoundingMode;
 import java.util.List;
 
 public class Stats {
+    private static Stats instance = new Stats();
     private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
+
+    private Stats() {}
+
+    public static Stats getInstance() {
+        return instance;
+    }
 
     public float getSum(List<Ticket> tickets) {
         return tickets.stream().map(Ticket::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add).round(mc).floatValue();

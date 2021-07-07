@@ -29,22 +29,22 @@ public class ParkingGarageServlet extends HttpServlet {
      *      defaultSimulationSpeed: 10
      */
 
-    private static final int defaultMax = 20;
-    private static final int defaultOpenFrom = 0;
-    private static final int defaultOpenTo = 24;
-    private static final int defaultDelay = 200;
-    private static final int defaultSimulationSpeed = 2700;
+    static final int DEFAULT_MAX = 20;
+    private static final int DEFAULT_OPEN_FROM = 0;
+    private static final int DEFAULT_OPEN_TO = 24;
+    private static final int DEFAULT_DELAY = 200;
+    private static final int DEFAULT_SIMULATION_SPEED = 2700;
     private static final String CFG_MAX = "cfgMax";
     private static final String CFG_FROM = "cfgFrom";
     private static final String CFG_TO = "cfgTo";
-    public static final String CUSTOMERS = "customers";
-    public static final String TICKETS = "tickets";
-    public static final String SUBSCRIBER_AVG = "subscriberAvg";
-    public static final String UTILIZATION_LIST = "utilizationList";
+    private static final String CUSTOMERS = "customers";
+    private static final String TICKETS = "tickets";
+    private static final String SUBSCRIBER_AVG = "subscriberAvg";
+    private static final String UTILIZATION_LIST = "utilizationList";
 
-    Stats stats = new Stats();
-    Charts charts = new Charts();
-    Utilization utilization = new Utilization(defaultMax);
+    private final Stats stats = Stats.getInstance();
+    private final Charts charts = Charts.getInstance();
+    private final Utilization utilization = Utilization.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -329,19 +329,19 @@ public class ParkingGarageServlet extends HttpServlet {
         String cfgFrom;
         String cfgTo;
         if (getContext().getAttribute(CFG_MAX) == null) {
-            cfgMax = String.valueOf(defaultMax);
+            cfgMax = String.valueOf(DEFAULT_MAX);
         } else {
             cfgMax = (String)(getContext().getAttribute(CFG_MAX));
         }
 
         if (getContext().getAttribute(CFG_FROM) == null) {
-            cfgFrom = String.valueOf(defaultOpenFrom);
+            cfgFrom = String.valueOf(DEFAULT_OPEN_FROM);
         } else {
             cfgFrom = (String)(getContext().getAttribute(CFG_FROM));
         }
 
         if (getContext().getAttribute(CFG_TO) == null) {
-            cfgTo = String.valueOf(defaultOpenTo);
+            cfgTo = String.valueOf(DEFAULT_OPEN_TO);
         } else {
             cfgTo = (String)(getContext().getAttribute(CFG_TO));
         }
@@ -350,8 +350,8 @@ public class ParkingGarageServlet extends HttpServlet {
                 .append(cfgMax).append(",")
                 .append(cfgFrom).append(",")
                 .append(cfgTo).append(",")
-                .append(defaultDelay).append(",")
-                .append(defaultSimulationSpeed);
+                .append(DEFAULT_DELAY).append(",")
+                .append(DEFAULT_SIMULATION_SPEED);
         return stringBuilder.toString();
     }
 

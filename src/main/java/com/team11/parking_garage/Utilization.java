@@ -5,11 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Utilization {
-    float maxCars;
-    int defaultMax;
+    private static Utilization instance = new Utilization();
+    private float maxCars;
+    private final int defaultMax = ParkingGarageServlet.DEFAULT_MAX;
 
-    Utilization(int defaultMax){
-        this.defaultMax = defaultMax;
+    private Utilization(){}
+
+    public static Utilization getInstance() {
+        return instance;
     }
 
     public int getUtilization(List<CarIF> cars, ServletContext context) {

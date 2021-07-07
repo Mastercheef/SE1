@@ -16,7 +16,7 @@ class StatsTest {
 
     @BeforeEach
     public void setUp() {
-        stats = new Stats();
+        stats = Stats.getInstance();
         ticketList = new ArrayList<>();
         Car c1 = new Car(new String[]{"","1", "1625669537797","_","_","b308440e557abf7523364dded9692e24","#44c4f1","4","Student","Kombi","SU-F 94"}, new Standard(1));
         Car c2 = new Car(new String[]{"","2","1625669536598","_","_","62f0972e64e5f32484e8d129ebbdb1d9","#f492a5","17","Student","Limousine","SU-Q 57"}, new Subscriber(2, 0));

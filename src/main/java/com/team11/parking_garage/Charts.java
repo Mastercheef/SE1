@@ -12,15 +12,23 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Charts {
+    private static Charts instance = new Charts();
     private static final String TITLE = "title";
     private static final String FONT = "font";
     private static final String VALUES = "values";
     private static final String ALPHA_BG = "rgba(0,0,0,0)";
     private static final String LAYOUT = "layout";
     private static final String DATA = "data";
-    private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
+    private static final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
+
+    private Charts() {}
+
+    public static Charts getInstance() {
+        return instance;
+    }
 
     private String getPieChart(int[] ints, JsonArray labels, String chartTitle) {
         JsonArray data = new JsonArray();
@@ -83,6 +91,8 @@ public class Charts {
         JsonObject json = new JsonObject();
         JsonObject priceJson = new JsonObject();
         JsonObject durationJson = new JsonObject();
+        JsonObject layout = new JsonObject();
+        JsonObject yaxisLayout = new JsonObject();
         JsonArray data = new JsonArray();
 
         JsonArray price = new JsonArray();
@@ -92,7 +102,10 @@ public class Charts {
         long sumDuration = 0;
         float carCount = 0;
 
-        for (Ticket ticket : tickets) {
+
+        for (Ticket ticket : tickets.stream()
+                .filter(ticket -> (ticket.getPrice().floatValue() > 0))
+                .collect(Collectors.toList())) {
             sumPrice = sumPrice.add(ticket.getPrice());
             sumDuration += ticket.getDuration();
             carCount++;
@@ -108,6 +121,7 @@ public class Charts {
         priceJson.add("x", timeJson);
         priceJson.add("y", price);
         priceJson.addProperty("type", "line");
+        priceJson.addProperty("yaxis", "y2");
         priceJson.addProperty("name", "Preis");
 
         durationJson.add("x", timeJson);
@@ -117,10 +131,20 @@ public class Charts {
 
         data.add(priceJson);
         data.add(durationJson);
+
+        yaxisLayout.addProperty(TITLE,"Preis in Euro");
+        yaxisLayout.addProperty("showgrid", false);
+        yaxisLayout.addProperty("overlaying", "y");
+        yaxisLayout.addProperty("side", "right");
+
+        layout = getLayout(
+                "Durschnittlicher Preis und Parkdauer von nicht Abonnenten",
+                "Parkdauer in Minuten");
+        layout.add("yaxis2", yaxisLayout);
+
         json.add(DATA, data);
-        json.add(LAYOUT, getLayout(
-                "Durschnittlicher Preis und Parkdauer",
-                "Preis / Parkdauer"));
+        json.add(LAYOUT, layout);
+
         return json.toString();
     }
 

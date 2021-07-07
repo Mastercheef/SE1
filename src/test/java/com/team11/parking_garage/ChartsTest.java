@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ChartsTest {
     public static final String DATA = "\"data\":[";
     private final List<CarIF> cars = new ArrayList<>();
-    private final Charts chart = new Charts();
+    private final Charts chart = Charts.getInstance();
     private final List<Ticket> tickets = new ArrayList<>();
     private final List<String[]> subscriberAvg = new ArrayList<>();
     private final List<String[]> utilizationList = new ArrayList<>();
