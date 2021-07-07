@@ -11,6 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
+    /*
     CarIF c1, c2 ,c3 ,c4, c5;
     List<CarIF> cars;
     List<Ticket> ticketList;
@@ -115,6 +116,7 @@ class CarTest {
         );
 
     }
+    */
 
     @Test
     public void getCarType() {

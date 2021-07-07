@@ -13,10 +13,10 @@ public abstract class Kunde {
         this.nr = nr;
     }
 
-    public float calculatePrice(List<Ticket> tickets, float price, long departure) {
-        return BigDecimal.valueOf(price)
+    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price, long departure) {
+        return price
                 .divide(BigDecimal.valueOf(100))
-                .setScale(2, RoundingMode.HALF_UP).floatValue();
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     public int getNr() {

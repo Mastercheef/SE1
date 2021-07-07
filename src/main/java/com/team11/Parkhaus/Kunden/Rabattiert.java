@@ -15,11 +15,10 @@ public class Rabattiert extends Kunde {
     }
 
     @Override
-    public float calculatePrice(List<Ticket> tickets, float price, long departure) {
-        return BigDecimal.valueOf(super.calculatePrice(tickets, price, departure))
-                .multiply(BigDecimal.valueOf(0.85))
-                .setScale(2, RoundingMode.HALF_UP)
-                .floatValue();
+    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price, long departure) {
+        return super.calculatePrice(tickets, price, departure)
+                .multiply(new BigDecimal("0.85"))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getType() {

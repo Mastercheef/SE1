@@ -1,12 +1,6 @@
 package com.team11.Parkhaus;
 
-import com.team11.Parkhaus.Management.KostenGewinnRechner;
-import com.team11.Parkhaus.Manager.Manager;
-
 class ManagerTest {
-    private Manager manager = new Manager();
-    private Manager manager2 = new Manager();
-    private KostenGewinnRechner k1, k2;
     private CarIF[] cars = new Car[2];
     double kF1 = 0.01 ;
     double kF2 = 0.8;

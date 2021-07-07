@@ -5,6 +5,8 @@ import com.team11.Parkhaus.Kunden.Kunde;
 import com.team11.Parkhaus.Kunden.Rabattiert;
 import com.team11.Parkhaus.Kunden.Standard;
 
+import java.math.BigDecimal;
+
 public class Ticket {
     private final String id;
     private final int nr;
@@ -12,7 +14,7 @@ public class Ticket {
     private final long departure;
     private final String licensePlate;
     private final String vehicleType;
-    private final float price;
+    private final BigDecimal price;
     private final Kunde customer;
 
     public Ticket(CarIF car, Kunde customer) {
@@ -42,7 +44,7 @@ public class Ticket {
         return departure - arrival;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

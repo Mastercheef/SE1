@@ -1,15 +1,11 @@
 package com.team11.Parkhaus;
 
-import com.team11.Parkhaus.Management.KostenGewinnRechner;
-import com.team11.Parkhaus.Manager.Manager;
 
 class InvestorTest {
     double invest = 10000.0;
     private CarIF[] cars = new Car[5];
     private CarIF[] cars2 = new Car[101];
     private Stats stats = new Stats();
-    private Manager manager11, manager2;
-    private KostenGewinnRechner kgrechner, kgrechner2;
 
     /*
     @BeforeEach
