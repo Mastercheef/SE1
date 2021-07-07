@@ -2,12 +2,13 @@ package com.team11.Parkhaus.Management;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 
 public class ROICalculator {
     private final String dailyProfit;
     private final String investment;
     private final String share;
-    private final MathContext mc = new MathContext(3);
+    private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
 
     public ROICalculator(String investment, String dailyProfit, String share) {
         this.dailyProfit = dailyProfit;
@@ -25,7 +26,7 @@ public class ROICalculator {
     }
 
     public float amortisationMonths() {
-        BigDecimal monthly = extrapolationYear().divide(BigDecimal.valueOf(12));
+        BigDecimal monthly = extrapolationYear().divide(BigDecimal.valueOf(12), mc);
         return new BigDecimal(investment).divide(monthly, mc).floatValue();
     }
 

@@ -152,7 +152,7 @@ const Home = () => {
             } else {
                 setCmdError(false);
                 if (unit) {
-                    setCmdResult(`${text}: ${response.data} ${unit}`);
+                    setCmdResult(`${text}: ${response.data.toFixed(2)} ${unit}`);
                 } else {
                     setCmdResult(`${text}: ${response.data}`);
                 }

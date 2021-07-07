@@ -17,20 +17,18 @@ public class IncomeStatement {
 
     public IncomeStatement(List<Ticket> tickets, String costFactor) {
         MathContext mc = new MathContext(3);
-        long lastMonth = new Date().toInstant().minus(30, ChronoUnit.DAYS).toEpochMilli();
+        long yesterday = new Date().toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli();
         turnover = tickets.stream().
-                    filter(ticket -> ticket.getDeparture() > lastMonth)
+                    filter(ticket -> ticket.getDeparture() > yesterday)
                     .map(Ticket::getPrice)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .round(mc);
 
         taxes = turnover.multiply(new BigDecimal("0.19")).round(mc);
 
-        long visitors = tickets.stream().filter(ticket -> ticket.getDeparture() > lastMonth).count();
+        long visitors = tickets.stream().filter(ticket -> ticket.getDeparture() > yesterday).count();
         cost = new BigDecimal(visitors).multiply(new BigDecimal(costFactor)).round(mc);
 
-        System.out.println(turnover);
-        System.out.println(taxes);
         turnoverAfterTax = turnover.subtract(taxes).round(mc);
         profit = turnoverAfterTax.subtract(cost).round(mc);
     }
