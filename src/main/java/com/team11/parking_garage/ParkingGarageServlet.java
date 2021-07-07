@@ -1,20 +1,23 @@
 package com.team11.parking_garage;
 
-import com.team11.parking_garage.customers.Subscriber;
 import com.team11.parking_garage.customers.Customer;
 import com.team11.parking_garage.customers.Discounted;
 import com.team11.parking_garage.customers.Standard;
+import com.team11.parking_garage.customers.Subscriber;
 import com.team11.parking_garage.management.IncomeStatement;
 import com.team11.parking_garage.management.ROICalculator;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
-import javax.servlet.*;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ParkingGarageServlet extends HttpServlet {
@@ -283,9 +286,9 @@ public class ParkingGarageServlet extends HttpServlet {
         List<String[]> subscriberAvg = getSubscriberAvg();
         double avg = getTickets().stream().filter(ticket -> ticket.getCustomer() instanceof Subscriber).mapToLong(Ticket::getDuration).average().orElse(-1);
         if (avg > -1) {
-            SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
-            format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
-            subscriberAvg.add(new String[]{String.valueOf(avg), format.format(new Date())});
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
+            subscriberAvg.add(new String[]{String.valueOf(avg), LocalDateTime.now().format(formatter)});
             getContext().setAttribute(SUBSCRIBER_AVG, subscriberAvg);
         }
     }

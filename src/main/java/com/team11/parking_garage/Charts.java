@@ -10,7 +10,10 @@ import com.team11.parking_garage.customers.Standard;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -110,10 +113,11 @@ public class Charts {
             carCount++;
             price.add((sumPrice.divide(BigDecimal.valueOf(carCount), mc)).floatValue());
             duration.add(sumDuration/carCount/1000/60   );
-            SimpleDateFormat date = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
-            date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
-            Date time = new Date((ticket.getDeparture()));
-            String javaDate = date.format(time);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
+            String javaDate = LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(ticket.getDeparture()),
+                    ZoneId.systemDefault())
+                    .format(formatter);
             timeJson.add(javaDate);
         }
 
@@ -175,10 +179,11 @@ public class Charts {
 
         for (String[] p : utilizationList) {
             percent.add(Integer.parseInt(p[1]));
-            SimpleDateFormat date = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
-            date.setTimeZone(TimeZone.getTimeZone("GMT+1"));
-            Date time = new Date((Long.parseLong(p[0])));
-            String javaDate = date.format(time);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
+            String javaDate = LocalDateTime.ofInstant(
+                    Instant.ofEpochMilli(Long.parseLong(p[0])),
+                    ZoneId.systemDefault())
+                    .format(formatter);
             timeJson.add(javaDate);
         }
 
@@ -242,7 +247,7 @@ public class Charts {
         JsonArray time = new JsonArray();
 
         for (String[] a : subscriberAvg) {
-            duration.add(a[0]);
+            duration.add(Float.parseFloat(a[0])/1000/60);
             time.add(a[1]);
         }
 
@@ -256,7 +261,7 @@ public class Charts {
         json.add(DATA, data);
         json.add(LAYOUT, getLayout(
                 "Durschnittliche Parkdauer der Abonnenten",
-                "Parkdauer (in ms)"));
+                "Parkdauer in Minuten"));
         return json.toString();
     }
 }

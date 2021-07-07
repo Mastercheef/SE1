@@ -4,8 +4,9 @@ import com.team11.parking_garage.Ticket;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
 
 public class IncomeStatement {
@@ -17,7 +18,7 @@ public class IncomeStatement {
 
     public IncomeStatement(List<Ticket> tickets, String costFactor) {
         MathContext mc = new MathContext(3);
-        long yesterday = new Date().toInstant().minus(1, ChronoUnit.DAYS).toEpochMilli();
+        long yesterday = LocalDateTime.now().toInstant(ZoneOffset.ofHours(0)).minus(1, ChronoUnit.DAYS).toEpochMilli();
         turnover = tickets.stream().
                     filter(ticket -> ticket.getDeparture() > yesterday)
                     .map(Ticket::getPrice)
