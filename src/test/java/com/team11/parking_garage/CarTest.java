@@ -1,5 +1,5 @@
 package com.team11.parking_garage;
-import com.team11.parking_garage.customers.Discounted;
+
 import com.team11.parking_garage.customers.Standard;
 import com.team11.parking_garage.customers.Subscriber;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,10 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class CarTest {
-    CarIF c1, c2 ,c3 ,c4, c5,c6, c7,c8, emptyCar;
+    CarIF c1;
+    CarIF c2;
+    CarIF c3;
+    CarIF c4;
+    CarIF c5;
+    CarIF emptyCar;
     List<CarIF> cars, emptyList;
 
 
@@ -175,7 +179,6 @@ class CarTest {
 
     @Test
     public void getSpace() {
-        int i = 7;
         for(CarIF car:cars){
             assertEquals(7, car.getSpace());
         }

@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +11,6 @@ class SubscriberTest {
     Subscriber c1;
     Subscriber c2;
     Subscriber c3;
-    private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
 
     @BeforeEach
     void setUp() {
@@ -29,6 +26,7 @@ class SubscriberTest {
         );
     }
 
+    @Test
     void getNr() {
         assertEquals(1, c1.getNr());
         assertEquals(2, c2.getNr());
