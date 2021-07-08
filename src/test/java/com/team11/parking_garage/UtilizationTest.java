@@ -37,11 +37,11 @@ class UtilizationTest {
         String t4 = t + "59000";
         String t5 = t + "60000";
 
-        Car c1 = new Car(new String[]{ENTER,"1",t1,"_","_","36fb95b76d5a5315cb501ca5abadaa53","#8d9171","14", STUDENT,"Kombi","SU-B 26"}, new Standard(1));
-        Car c2 = new Car(new String[]{ENTER,"2",t2,"_","_","0678fd574b14db79f35a5b8dff7f24ed","#bda477","4", STUDENT,"SUV","SU-G 93"}, new Subscriber(2));
-        Car c3 = new Car(new String[]{ENTER,"3",t3,"_","_","517df966c5e5b280f18585efa411601e","#8aaa2f","1","Familie","Limousine","SU-A 14"}, new Discounted(3, STUDENT));
-        Car c4 = new Car(new String[]{ENTER,"4",t4,"_","_","81607fe4e3b6fede95ab8d8ec99b511e","#c4d291","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
-        Car c5 = new Car(new String[]{ENTER,"5",t5,"_","_","5ef7f4d31c1b37808dbfe800d29b76af","#f39ca9","12", STUDENT,"SUV","SU-Q 66"}, new Discounted(5, "Familie"));
+        Car c1 = new Car(new String[]{ENTER,"1",t1,"_","_","36fb95b76d5a5315cb501ca5abadaa53","#8d9171","14", STUDENT,"SUV","SU-U 75"}, new Standard(1));
+        Car c2 = new Car(new String[]{ENTER,"2",t2,"_","_","0678fd574b14db79f35a5b8dff7f24ed","#bda477","4", STUDENT,"Kombi","SU-Y 4"}, new Subscriber(2));
+        Car c3 = new Car(new String[]{ENTER,"3",t3,"_","_","517df966c5e5b280f18585efa411601e","#8aaa2f","1","Familie","SUV","SU-B 74"}, new Discounted(3, STUDENT));
+        Car c4 = new Car(new String[]{ENTER,"4",t4,"_","_","81607fe4e3b6fede95ab8d8ec99b511e","#c4d291","18","Standard","SUV","SU-N 38"}, new Discounted(4,"Familie"));
+        Car c5 = new Car(new String[]{ENTER,"5",t5,"_","_","5ef7f4d31c1b37808dbfe800d29b76af","#f39ca9","12", STUDENT,"Limousine","SU-Y 76"}, new Discounted(5, "Senior"));
 
         utilizationTestList = new ArrayList<>();
         utilizationList = new ArrayList<>();
