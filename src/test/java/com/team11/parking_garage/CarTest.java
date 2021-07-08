@@ -12,23 +12,32 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
+    private final String ENTER = "enter";
+    private final String STANDARD = "Standard";
+    private final String KOMBI = "Kombi";
+    private final String SUV = "SUV";
+    private final String LIMOUSINE = "Limousine";
+    private final String COLOR_1 = "#4b96f1";
+    private final String COLOR_2 = "#f5a852";
+    private final String COLOR_3 = "#a2caec";
+
     CarIF c1;
     CarIF c2;
     CarIF c3;
     CarIF c4;
     CarIF c5;
     CarIF emptyCar;
-    List<CarIF> cars, emptyList;
-
+    List<CarIF> cars;
+    List<CarIF> emptyList;
 
     @BeforeEach
     public void setUp() {
                             //     nr    arrival              ticketId                           color     space  costomertypt  cartypt  license-plate
-        String[] paramsC1 = {"enter", "1", "1623766786071","","", "20622e7202ff98f04cce072d21a42387", "#4b96f1", "7", "Standard", "Kombi", "SU-K 12"};
-        String[] paramsC2 = {"enter", "2", "1623766789000","","", "114fe2ed725e9988285bbc4c5c8d6145", "#4b96f1", "7", "Standard", "SUV", "SU-L 24"};
-        String[] paramsC3 = {"enter", "3", "1623766890000","","", "573466f20334252981478621577421e3", "#f5a852", "7", "Standard", "Limousine", "SU-M 19"};
-        String[] paramsC4 = {"enter", "4", "1623766786071","","", "a91b9e388b674143294675ceed1fd68a", "#c86e7f", "7", "Standard", "Kombi", "SU-N 13"};
-        String[] paramsC5 = {"enter", "5", "1623766789000","","", "3409fef14239d5e9eefabd63f7819a7d", "#a2caec", "7", "Standard", "SUV", "SU-O 56"};
+        String[] paramsC1 = {ENTER, "1", "1623766786071","","", "20622e7202ff98f04cce072d21a42387", COLOR_1, "7", STANDARD, KOMBI, "SU-K 12"};
+        String[] paramsC2 = {ENTER, "2", "1623766789000","","", "114fe2ed725e9988285bbc4c5c8d6145", COLOR_1, "7", STANDARD, SUV, "SU-L 24"};
+        String[] paramsC3 = {ENTER, "3", "1623766890000","","", "573466f20334252981478621577421e3", COLOR_2, "7", STANDARD, LIMOUSINE, "SU-M 19"};
+        String[] paramsC4 = {ENTER, "4", "1623766786071","","", "a91b9e388b674143294675ceed1fd68a", "#c86e7f", "7", STANDARD, KOMBI, "SU-N 13"};
+        String[] paramsC5 = {ENTER, "5", "1623766789000","","", "3409fef14239d5e9eefabd63f7819a7d", COLOR_3, "7", STANDARD, SUV, "SU-O 56"};
         String[] empty = {"","0","0","","","","","0","","","",""};
         c1 = new Car(paramsC1, new Standard(1));
         c2 = new Car(paramsC2, new Subscriber(2));
@@ -55,7 +64,7 @@ class CarTest {
 
     @Test
     public void carTypeArray() {
-        String[] carType = {"Kombi", "SUV", "Limousine", "Kombi", "SUV"};
+        String[] carType = {KOMBI, SUV, LIMOUSINE, KOMBI, SUV};
         int pos = 0;
         for (CarIF car : cars) {
             assertEquals(carType[pos++], car.getCarType());
@@ -88,11 +97,11 @@ class CarTest {
 
     @Test
     public void getCarType() {
-        assertEquals("Kombi", c1.getCarType());
-        assertEquals("SUV", c2.getCarType());
-        assertEquals("Limousine", c3.getCarType());
-        assertEquals("Kombi", c4.getCarType() );
-        assertEquals("SUV", c5.getCarType() );
+        assertEquals(KOMBI, c1.getCarType());
+        assertEquals(SUV, c2.getCarType());
+        assertEquals(LIMOUSINE, c3.getCarType());
+        assertEquals(KOMBI, c4.getCarType() );
+        assertEquals(SUV, c5.getCarType() );
         assertEquals("", emptyCar.getCarType());
     }
 
@@ -139,7 +148,7 @@ class CarTest {
 
     @Test
     public void getColor() {
-        String[] colorArr= {"#4b96f1", "#4b96f1", "#f5a852", "#c86e7f", "#a2caec"};
+        String[] colorArr= {COLOR_1, COLOR_1, COLOR_2, "#c86e7f", COLOR_3};
         int pos=0;
         for(CarIF car:cars){
             assertEquals(colorArr[pos++], car.getColor());
@@ -188,7 +197,7 @@ class CarTest {
     @Test
     public void getClientType() {
         for(CarIF car:cars){
-            assertEquals("Standard", car.getClientType());
+            assertEquals(STANDARD, car.getClientType());
         }
         assertEquals("", emptyCar.getClientType());
     }
