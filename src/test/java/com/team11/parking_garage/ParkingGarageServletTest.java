@@ -23,7 +23,6 @@ class ParkingGarageServletTest {
     private final ParkingGarageServlet servlet = new ParkingGarageServlet();
     private final ServletConfig postConfig = new MockServletConfig();
     private final ServletConfig servletConfig = new MockServletConfig();
-    private static final String CRLF = "\r\n";
 
     @RegisterExtension
     LogCapturer logs = LogCapturer.create().captureForLogger("parking_garage.ParkingGarageServlet");
@@ -240,8 +239,8 @@ class ParkingGarageServletTest {
                 "\"roi\": 70.1," +
                 "\"months\": 17.1," +
                 "\"years\": 1.43" +
-                "}\r\n",
-                response.getContentAsString()
+                "}",
+                response.getContentAsString().trim()
         );
 
         // INCOME STATEMENT
@@ -260,8 +259,8 @@ class ParkingGarageServletTest {
                         "\"turnoverAfterTax\": 19.7," +
                         "\"cost\": 0.5," +
                         "\"profit\": 19.2" +
-                        "}\r\n",
-                response.getContentAsString()
+                        "}",
+                response.getContentAsString().trim()
         );
 
         // CSV-String for unknown POSTs
@@ -334,103 +333,103 @@ class ParkingGarageServletTest {
         Stats stats = Stats.getInstance();
 
         // GET sum
-        String expected = stats.getSum(tickets) + CRLF;
+        String expected = String.valueOf(stats.getSum(tickets));
         MockHttpServletResponse sumRes = new MockHttpServletResponse();
         servlet.doGet(sumReq, sumRes);
-        assertEquals(expected, sumRes.getContentAsString());
+        assertEquals(expected, sumRes.getContentAsString().trim());
 
         // GET averagePrice
-        expected = stats.getAvg(tickets) + CRLF;
+        expected = String.valueOf(stats.getAvg(tickets));
         MockHttpServletResponse averagePriceRes = new MockHttpServletResponse();
         servlet.doGet(averagePriceReq, averagePriceRes);
-        assertEquals(expected, averagePriceRes.getContentAsString());
+        assertEquals(expected, averagePriceRes.getContentAsString().trim());
 
         // GET ticketCount
-        expected = stats.getCarCount(tickets) + CRLF;
+        expected = String.valueOf(stats.getCarCount(tickets));
         MockHttpServletResponse ticketCountRes = new MockHttpServletResponse();
         servlet.doGet(ticketCountReq, ticketCountRes);
-        assertEquals(expected, ticketCountRes.getContentAsString());
+        assertEquals(expected, ticketCountRes.getContentAsString().trim());
 
         // GET averageDiagram
-        expected = new AveragePriceDuration(tickets).getJson() + CRLF;
+        expected = new AveragePriceDuration(tickets).getJson();
 
         MockHttpServletResponse averageDiagramRes = new MockHttpServletResponse();
         servlet.doGet(averageDiagramReq, averageDiagramRes);
 
-        assertEquals(expected, averageDiagramRes.getContentAsString());
+        assertEquals(expected, averageDiagramRes.getContentAsString().trim());
 
         // GET carTypeDiagram
-        expected = new CarType(cars).getJson() + CRLF;
+        expected = new CarType(cars).getJson();
 
         MockHttpServletResponse carTypeDiagramRes = new MockHttpServletResponse();
         servlet.doGet(carTypeDiagramReq, carTypeDiagramRes);
 
-        assertEquals(expected, carTypeDiagramRes.getContentAsString());
+        assertEquals(expected, carTypeDiagramRes.getContentAsString().trim());
 
         // GET customerDiagram
-        expected = new CustomerType(tickets).getJson() + CRLF;
+        expected = new CustomerType(tickets).getJson();
 
         MockHttpServletResponse customerDiagramRes = new MockHttpServletResponse();
         servlet.doGet(customerDiagramReq, customerDiagramRes);
 
-        assertEquals(expected, customerDiagramRes.getContentAsString());
+        assertEquals(expected, customerDiagramRes.getContentAsString().trim());
 
         // GET subDurationDiagram
         List<String[]> subscriberAvg = (List<String[]>) servlet.getContext().getAttribute("subscriberAvg");
-        expected = new SubscriberDuration(subscriberAvg).getJson() + CRLF;
+        expected = new SubscriberDuration(subscriberAvg).getJson();
 
         MockHttpServletResponse subDurationDiagramRes = new MockHttpServletResponse();
         servlet.doGet(subDurationDiagramReq, subDurationDiagramRes);
 
-        assertEquals(expected, subDurationDiagramRes.getContentAsString());
+        assertEquals(expected, subDurationDiagramRes.getContentAsString().trim());
 
         // GET utilization
         Utilization utilization = Utilization.getInstance();
-        expected = utilization.getUtilization(cars, servlet.getContext()) + "%" + CRLF;
+        expected = utilization.getUtilization(cars, servlet.getContext()) + "%";
 
         MockHttpServletResponse utilizationRes = new MockHttpServletResponse();
         servlet.doGet(utilizationReq, utilizationRes);
 
-        assertEquals(expected, utilizationRes.getContentAsString());
+        assertEquals(expected, utilizationRes.getContentAsString().trim());
 
         // GET utilizationDiagram
         List<String[]> utilizationList = (List<String[]>) servlet.getContext().getAttribute("utilizationList");
-        expected = new UtilizationChart(utilizationList).getJson() + CRLF;
+        expected = new UtilizationChart(utilizationList).getJson();
 
         MockHttpServletResponse utilizationDiagramRes = new MockHttpServletResponse();
         servlet.doGet(utilizationDiagramReq, utilizationDiagramRes);
 
-        assertEquals(expected, utilizationDiagramRes.getContentAsString());
+        assertEquals(expected, utilizationDiagramRes.getContentAsString().trim());
 
         // GET ticket
-        expected = servlet.getTicketJsonById("135e6d8aaa2ea8b8e68e013b910e8e6e") + CRLF;
+        expected = servlet.getTicketJsonById("135e6d8aaa2ea8b8e68e013b910e8e6e");
 
         MockHttpServletResponse ticketRes = new MockHttpServletResponse();
         servlet.doGet(ticketReq, ticketRes);
 
-        assertEquals(expected, ticketRes.getContentAsString());
+        assertEquals(expected, ticketRes.getContentAsString().trim());
 
         // GET allTickets
-        expected = servlet.allTicketsAsJson() + CRLF;
+        expected = servlet.allTicketsAsJson();
 
         MockHttpServletResponse allTicketsRes = new MockHttpServletResponse();
         servlet.doGet(allTicketsReq, allTicketsRes);
 
-        assertEquals(expected, allTicketsRes.getContentAsString());
+        assertEquals(expected, allTicketsRes.getContentAsString().trim());
 
         // GET config
         MockHttpServletResponse configRes = new MockHttpServletResponse();
         servlet.doGet(configReq, configRes);
 
-        assertEquals("20,0,24,200,2700" + CRLF, configRes.getContentAsString());
+        assertEquals("20,0,24,200,2700", configRes.getContentAsString().trim());
 
         // GET cars
-        expected = Car.getSavedCarsCSV(cars) + CRLF;
+        expected = Car.getSavedCarsCSV(cars);
 
         MockHttpServletResponse carsRes = new MockHttpServletResponse();
         servlet.doGet(carsReq, carsRes);
 
-        assertEquals(expected, carsRes.getContentAsString());
+        assertEquals(expected, carsRes.getContentAsString().trim());
 
         // GET reset
         MockHttpServletResponse resetRes = new MockHttpServletResponse();
