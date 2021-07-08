@@ -115,7 +115,7 @@ class TicketTest {
                         "\"arrival\": " + Long.parseLong(t1) + "," +
                         "\"departure\": " + (Long.parseLong(t1)+Long.parseLong(d1)) + "," +
                         "\"duration\": " + Long.parseLong(d1) + "," +
-                        "\"licensePlate\": \"SU-B 26\"," +
+                        "\"licensePlate\": \"SU-R 65\"," +
                         "\"vehicleType\": \"Kombi\"," +
                         "\"customerType\": \"Standard\"," +
                         "\"price\": 10," +
@@ -128,7 +128,7 @@ class TicketTest {
                         "\"arrival\": " + Long.parseLong(t2) + "," +
                         "\"departure\": " + (Long.parseLong(t2)+Long.parseLong(d2)) + "," +
                         "\"duration\": " + Long.parseLong(d2) + "," +
-                        "\"licensePlate\": \"SU-G 93\"," +
+                        "\"licensePlate\": \"SU-A 43\"," +
                         "\"vehicleType\": \"SUV\"," +
                         "\"customerType\": \"Abonnent\"," +
                         "\"price\": 0," +
@@ -141,8 +141,8 @@ class TicketTest {
                         "\"arrival\": " + Long.parseLong(t3) + "," +
                         "\"departure\": " + (Long.parseLong(t3)+Long.parseLong(d3)) + "," +
                         "\"duration\": " + Long.parseLong(d3) + "," +
-                        "\"licensePlate\": \"SU-A 14\"," +
-                        "\"vehicleType\": \"Limousine\"," +
+                        "\"licensePlate\": \"SU-V 21\"," +
+                        "\"vehicleType\": \"SUV\"," +
                         "\"customerType\": \"Student\"," +
                         "\"price\": 34.00," +
                         "\"ticketId\": \"5f8833de9729cf35075f3fe18a96670f\"}",
@@ -154,8 +154,8 @@ class TicketTest {
                         "\"arrival\": " + Long.parseLong(t4) + "," +
                         "\"departure\": " + (Long.parseLong(t4)+Long.parseLong(d4)) + "," +
                         "\"duration\": " + Long.parseLong(d4) + "," +
-                        "\"licensePlate\": \"SU-J 99\"," +
-                        "\"vehicleType\": \"SUV\"," +
+                        "\"licensePlate\": \"SU-M 66\"," +
+                        "\"vehicleType\": \"Limousine\"," +
                         "\"customerType\": \"Senior\"," +
                         "\"price\": 68.00," +
                         "\"ticketId\": \"cfc413b566aa1cbc2ab77b2e5c1339b9\"}",
@@ -167,8 +167,8 @@ class TicketTest {
                         "\"arrival\": " + Long.parseLong(t5) + "," +
                         "\"departure\": " + (Long.parseLong(t5)+Long.parseLong(d5)) + "," +
                         "\"duration\": " + Long.parseLong(d5) + "," +
-                        "\"licensePlate\": \"SU-Q 66\"," +
-                        "\"vehicleType\": \"SUV\"," +
+                        "\"licensePlate\": \"SU-Z 34\"," +
+                        "\"vehicleType\": \"Limousine\"," +
                         "\"customerType\": \"Familie\"," +
                         "\"price\": 136.00," +
                         "\"ticketId\": \"56d3f6307c60f1f3ae172585f7f95dea\"}",
