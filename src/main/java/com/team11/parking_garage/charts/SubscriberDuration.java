@@ -26,7 +26,7 @@ public class SubscriberDuration extends Chart {
         JsonArray time = new JsonArray();
 
         for (String[] s : subscriberAvg) {
-            duration.add(Float.parseFloat(s[0])/1000/60);
+            duration.add(Float.parseFloat(s[0])/60000);
             time.add(s[1]);
         }
 
