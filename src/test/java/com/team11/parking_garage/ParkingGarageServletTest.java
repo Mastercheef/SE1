@@ -20,10 +20,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingGarageServletTest {
-    private final String TICKET_ID_1 = "135e6d8aaa2ea8b8e68e013b910e8e6e";
-    private final String ARRIVAL_JSON = "\"arrival\": 1625756316229,";
-    private final String DEPARTURE_JSON = "\"departure\": 1625807829529,";
-    private final String DURATION_JSON = "\"duration\": 51513300,";
+    private static final String ticketId1 = "135e6d8aaa2ea8b8e68e013b910e8e6e";
+    private static final String arrivalJson = "\"arrival\": 1625756316229,";
+    private static final String departureJson = "\"departure\": 1625807829529,";
+    private static final String durationJson = "\"duration\": 51513300,";
 
     private final ParkingGarageServlet servlet = new ParkingGarageServlet();
     private final ServletConfig postConfig = new MockServletConfig();
@@ -64,7 +64,7 @@ class ParkingGarageServletTest {
         String occupiedCSV = "occupied,Car(8)";
         String leaveCSV = "leave,42,1625756316229,51513300,2862,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3";
 
-        // ENTER FIRST CAR
+        // enterString FIRST CAR
         // Setting up enterCSV POST request
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -86,10 +86,10 @@ class ParkingGarageServletTest {
         assertEquals("SU-X 3", enteredCar.getLicencePlate());
         assertEquals(42, enteredCar.getNr());
         assertEquals(1, enteredCar.getSpace());
-        assertEquals(TICKET_ID_1, enteredCar.getTicketId());
+        assertEquals(ticketId1, enteredCar.getTicketId());
 
 
-        // ENTER SECOND CAR
+        // enterString SECOND CAR
         // Setting up enter2CSV POST request
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
@@ -136,7 +136,7 @@ class ParkingGarageServletTest {
         assertEquals("SU-X 3", occupiedCar.getLicencePlate());
         assertEquals(42, occupiedCar.getNr());
         assertEquals(1, occupiedCar.getSpace());
-        assertEquals(TICKET_ID_1, occupiedCar.getTicketId());
+        assertEquals(ticketId1, occupiedCar.getTicketId());
 
 
         // LEAVE
@@ -164,14 +164,14 @@ class ParkingGarageServletTest {
         assertEquals(42, leaveTicket.getNr());
         assertEquals(1625756316229L + 51513300L, leaveTicket.getDeparture());
         assertEquals(51513300L, leaveTicket.getDuration());
-        assertEquals(TICKET_ID_1, leaveTicket.getId());
+        assertEquals(ticketId1, leaveTicket.getId());
         assertEquals(new BigDecimal("24.31"), leaveTicket.getPrice());
         assertEquals(
                 "{" +
                 "\"nr\": 42," +
-                ARRIVAL_JSON +
-                DEPARTURE_JSON +
-                DURATION_JSON +
+                        arrivalJson +
+                        departureJson +
+                        durationJson +
                 "\"licensePlate\": \"SU-X 3\"," +
                 "\"vehicleType\": \"SUV\"," +
                 "\"customerType\": \"Senior\"," +
@@ -315,7 +315,7 @@ class ParkingGarageServletTest {
 
         MockHttpServletRequest ticketReq = new MockHttpServletRequest();
         ticketReq.setParameter("cmd", "ticket");
-        ticketReq.setParameter("id", TICKET_ID_1);
+        ticketReq.setParameter("id", ticketId1);
 
         MockHttpServletRequest allTicketsReq = new MockHttpServletRequest();
         allTicketsReq.setParameter("cmd", "allTickets");
@@ -407,7 +407,7 @@ class ParkingGarageServletTest {
         assertEquals(expected, utilizationDiagramRes.getContentAsString().trim());
 
         // GET ticket
-        expected = servlet.getTicketJsonById(TICKET_ID_1);
+        expected = servlet.getTicketJsonById(ticketId1);
 
         MockHttpServletResponse ticketRes = new MockHttpServletResponse();
         servlet.doGet(ticketReq, ticketRes);
@@ -464,23 +464,23 @@ class ParkingGarageServletTest {
         assertEquals(
                 "{" +
                 "\"nr\": 42," +
-                ARRIVAL_JSON +
-                DEPARTURE_JSON +
-                DURATION_JSON +
+                        arrivalJson +
+                        departureJson +
+                        durationJson +
                 "\"licensePlate\": \"SU-X 3\"," +
                 "\"vehicleType\": \"SUV\"," +
                 "\"customerType\": \"Senior\"," +
                 "\"price\": 24.31," +
                 "\"ticketId\": \"135e6d8aaa2ea8b8e68e013b910e8e6e\"" +
                 "}",
-                servlet.getTicketJsonById(TICKET_ID_1)
+                servlet.getTicketJsonById(ticketId1)
         );
         assertEquals(
                 "{" +
                 "\"nr\": 35," +
-                ARRIVAL_JSON +
-                DEPARTURE_JSON +
-                DURATION_JSON +
+                        arrivalJson +
+                        departureJson +
+                        durationJson +
                 "\"licensePlate\": \"SU-J 69\"," +
                 "\"vehicleType\": \"Kombi\"," +
                 "\"customerType\": \"Abonnent\"," +

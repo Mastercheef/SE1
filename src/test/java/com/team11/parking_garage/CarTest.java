@@ -12,14 +12,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
-    private final String ENTER = "enter";
-    private final String STANDARD = "Standard";
-    private final String KOMBI = "Kombi";
-    private final String SUV = "SUV";
-    private final String LIMOUSINE = "Limousine";
-    private final String COLOR_1 = "#4b96f1";
-    private final String COLOR_2 = "#f5a852";
-    private final String COLOR_3 = "#a2caec";
+    private static final String enterString = "enter";
+    private static final String standardString = "Standard";
+    private static final String kombiString = "Kombi";
+    private static final String suvString = "SUV";
+    private static final String limousineString = "Limousine";
+    private static final String color1 = "#4b96f1";
+    private static final String color2 = "#f5a852";
+    private static final String color3 = "#a2caec";
 
     CarIF c1;
     CarIF c2;
@@ -33,11 +33,11 @@ class CarTest {
     @BeforeEach
     public void setUp() {
                             //     nr    arrival              ticketId                           color     space  costomertypt  cartypt  license-plate
-        String[] paramsC1 = {ENTER, "1", "1623766786071","","", "20622e7202ff98f04cce072d21a42387", COLOR_1, "7", STANDARD, KOMBI, "SU-K 12"};
-        String[] paramsC2 = {ENTER, "2", "1623766789000","","", "114fe2ed725e9988285bbc4c5c8d6145", COLOR_1, "7", STANDARD, SUV, "SU-L 24"};
-        String[] paramsC3 = {ENTER, "3", "1623766890000","","", "573466f20334252981478621577421e3", COLOR_2, "7", STANDARD, LIMOUSINE, "SU-M 19"};
-        String[] paramsC4 = {ENTER, "4", "1623766786071","","", "a91b9e388b674143294675ceed1fd68a", "#c86e7f", "7", STANDARD, KOMBI, "SU-N 13"};
-        String[] paramsC5 = {ENTER, "5", "1623766789000","","", "3409fef14239d5e9eefabd63f7819a7d", COLOR_3, "7", STANDARD, SUV, "SU-O 56"};
+        String[] paramsC1 = {enterString, "1", "1623766786071","","", "20622e7202ff98f04cce072d21a42387", color1, "7", standardString, kombiString, "SU-K 12"};
+        String[] paramsC2 = {enterString, "2", "1623766789000","","", "114fe2ed725e9988285bbc4c5c8d6145", color1, "7", standardString, suvString, "SU-L 24"};
+        String[] paramsC3 = {enterString, "3", "1623766890000","","", "573466f20334252981478621577421e3", color2, "7", standardString, limousineString, "SU-M 19"};
+        String[] paramsC4 = {enterString, "4", "1623766786071","","", "a91b9e388b674143294675ceed1fd68a", "#c86e7f", "7", standardString, kombiString, "SU-N 13"};
+        String[] paramsC5 = {enterString, "5", "1623766789000","","", "3409fef14239d5e9eefabd63f7819a7d", color3, "7", standardString, suvString, "SU-O 56"};
         String[] empty = {"","0","0","","","","","0","","","",""};
         c1 = new Car(paramsC1, new Standard(1));
         c2 = new Car(paramsC2, new Subscriber(2));
@@ -64,7 +64,7 @@ class CarTest {
 
     @Test
     public void carTypeArray() {
-        String[] carType = {KOMBI, SUV, LIMOUSINE, KOMBI, SUV};
+        String[] carType = {kombiString, suvString, limousineString, kombiString, suvString};
         int pos = 0;
         for (CarIF car : cars) {
             assertEquals(carType[pos++], car.getCarType());
@@ -97,11 +97,11 @@ class CarTest {
 
     @Test
     public void getCarType() {
-        assertEquals(KOMBI, c1.getCarType());
-        assertEquals(SUV, c2.getCarType());
-        assertEquals(LIMOUSINE, c3.getCarType());
-        assertEquals(KOMBI, c4.getCarType() );
-        assertEquals(SUV, c5.getCarType() );
+        assertEquals(kombiString, c1.getCarType());
+        assertEquals(suvString, c2.getCarType());
+        assertEquals(limousineString, c3.getCarType());
+        assertEquals(kombiString, c4.getCarType() );
+        assertEquals(suvString, c5.getCarType() );
         assertEquals("", emptyCar.getCarType());
     }
 
@@ -148,7 +148,7 @@ class CarTest {
 
     @Test
     public void getColor() {
-        String[] colorArr= {COLOR_1, COLOR_1, COLOR_2, "#c86e7f", COLOR_3};
+        String[] colorArr= {color1, color1, color2, "#c86e7f", color3};
         int pos=0;
         for(CarIF car:cars){
             assertEquals(colorArr[pos++], car.getColor());
@@ -197,7 +197,7 @@ class CarTest {
     @Test
     public void getClientType() {
         for(CarIF car:cars){
-            assertEquals(STANDARD, car.getClientType());
+            assertEquals(standardString, car.getClientType());
         }
         assertEquals("", emptyCar.getClientType());
     }
