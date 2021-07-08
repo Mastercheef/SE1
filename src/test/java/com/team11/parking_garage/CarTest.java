@@ -38,10 +38,9 @@ class CarTest {
         Car c7 = new Car(new String[]{"enter","4","1625744459000","_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
         Car c8= new Car(new String[]{"enter","5","1625744460000","_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12","Student","SUV","SU-Q 66"}, new Discounted(5, "Familie"));
 
-        ticketList = new ArrayList<Ticket>();
-        c1.leave(ticketList,"480000","4000");
-        c2.leave(ticketList,"120000","1000");
-        c3.leave(ticketList,"240000","2000");
+        c1.leave("480000","4000");
+        c2.leave("120000","1000");
+        c3.leave("240000","2000");
 
         emptyList = new ArrayList<CarIF>();
         cars = new ArrayList<CarIF>();
@@ -104,8 +103,8 @@ class CarTest {
 
     @Test
     public void leave() {
-        Ticket t1 = c4.leave(ticketList, "60000", "100");
-        Ticket t2 = c5.leave(ticketList, "1200000", "1000");
+        Ticket t1 = c4.leave( "60000", "100");
+        Ticket t2 = c5.leave( "1200000", "1000");
         assertEquals(60000d, t1.getDuration());
         assertEquals(1200000d, t2.getDuration());
         assertEquals(new BigDecimal(1), t1.getPrice());
