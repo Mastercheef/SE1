@@ -15,12 +15,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TicketTest {
-    private static final String enterString = "enter";
-    private static final String studentString = "Student";
-    private static final String arrivalJson = "\"arrival\": ";
-    private static final String departureJson = "\"departure\": ";
-    private static final String durationJson = "\"duration\": ";
-    private static final String vehicleTypeSuv = "\"vehicleType\": \"SUV\",";
+    private static final String ENTER = "enter";
+    private static final String STUDENT = "Student";
+    private static final String ARRIVAL_JSON = "\"arrival\": ";
+    private static final String DEPARTURE_JSON = "\"departure\": ";
+    private static final String DURATION_JSON = "\"duration\": ";
+    private static final String VEHICLE_TYPE_SUV = "\"vehicleType\": \"SUV\",";
 
     List<Ticket> ticketList;
     String t1 = "1625744456000";
@@ -38,11 +38,11 @@ class TicketTest {
 
     @BeforeEach
     public void setUp() {
-        Car c1 = new Car(new String[]{enterString,"1",t1,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14", studentString,"Kombi","SU-B 26"}, new Standard(1));
-        Car c2 = new Car(new String[]{enterString,"2",t2,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4", studentString,"SUV","SU-G 93"}, new Subscriber(2));
-        Car c3 = new Car(new String[]{enterString,"3",t3,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1","Familie","Limousine","SU-A 14"}, new Discounted(3, studentString));
-        Car c4 = new Car(new String[]{enterString,"4",t4,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
-        Car c5 = new Car(new String[]{enterString,"5",t5,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12", studentString,"SUV","SU-Q 66"}, new Discounted(5, "Familie"));
+        Car c1 = new Car(new String[]{ENTER,"1",t1,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14", STUDENT,"Kombi","SU-B 26"}, new Standard(1));
+        Car c2 = new Car(new String[]{ENTER,"2",t2,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4", STUDENT,"SUV","SU-G 93"}, new Subscriber(2));
+        Car c3 = new Car(new String[]{ENTER,"3",t3,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1","Familie","Limousine","SU-A 14"}, new Discounted(3, STUDENT));
+        Car c4 = new Car(new String[]{ENTER,"4",t4,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
+        Car c5 = new Car(new String[]{ENTER,"5",t5,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12", STUDENT,"SUV","SU-Q 66"}, new Discounted(5, "Familie"));
 
         ticketList = new ArrayList<>();
         ticketList.add(c1.leave(d1,"1000"));
@@ -119,9 +119,9 @@ class TicketTest {
     public void getAsJson() {
         assertEquals(
                 "{\"nr\": 1," +
-                        arrivalJson + Long.parseLong(t1) + "," +
-                        departureJson + (Long.parseLong(t1)+Long.parseLong(d1)) + "," +
-                        durationJson + Long.parseLong(d1) + "," +
+                        ARRIVAL_JSON + Long.parseLong(t1) + "," +
+                        DEPARTURE_JSON + (Long.parseLong(t1)+Long.parseLong(d1)) + "," +
+                        DURATION_JSON + Long.parseLong(d1) + "," +
                         "\"licensePlate\": \"SU-B 26\"," +
                         "\"vehicleType\": \"Kombi\"," +
                         "\"customerType\": \"Standard\"," +
@@ -132,11 +132,11 @@ class TicketTest {
 
         assertEquals(
                 "{\"nr\": 2," +
-                        arrivalJson + Long.parseLong(t2) + "," +
-                        departureJson + (Long.parseLong(t2)+Long.parseLong(d2)) + "," +
-                        durationJson + Long.parseLong(d2) + "," +
+                        ARRIVAL_JSON + Long.parseLong(t2) + "," +
+                        DEPARTURE_JSON + (Long.parseLong(t2)+Long.parseLong(d2)) + "," +
+                        DURATION_JSON + Long.parseLong(d2) + "," +
                         "\"licensePlate\": \"SU-G 93\"," +
-                        vehicleTypeSuv +
+                        VEHICLE_TYPE_SUV +
                         "\"customerType\": \"Abonnent\"," +
                         "\"price\": 0," +
                         "\"ticketId\": \"f55fb9cbe110192e12c21dc734b6511c\"}",
@@ -145,9 +145,9 @@ class TicketTest {
 
         assertEquals(
                 "{\"nr\": 3," +
-                        arrivalJson + Long.parseLong(t3) + "," +
-                        departureJson + (Long.parseLong(t3)+Long.parseLong(d3)) + "," +
-                        durationJson + Long.parseLong(d3) + "," +
+                        ARRIVAL_JSON + Long.parseLong(t3) + "," +
+                        DEPARTURE_JSON + (Long.parseLong(t3)+Long.parseLong(d3)) + "," +
+                        DURATION_JSON + Long.parseLong(d3) + "," +
                         "\"licensePlate\": \"SU-A 14\"," +
                         "\"vehicleType\": \"Limousine\"," +
                         "\"customerType\": \"Student\"," +
@@ -158,11 +158,11 @@ class TicketTest {
 
         assertEquals(
                 "{\"nr\": 4," +
-                        arrivalJson + Long.parseLong(t4) + "," +
-                        departureJson + (Long.parseLong(t4)+Long.parseLong(d4)) + "," +
-                        durationJson + Long.parseLong(d4) + "," +
+                        ARRIVAL_JSON + Long.parseLong(t4) + "," +
+                        DEPARTURE_JSON + (Long.parseLong(t4)+Long.parseLong(d4)) + "," +
+                        DURATION_JSON + Long.parseLong(d4) + "," +
                         "\"licensePlate\": \"SU-J 99\"," +
-                        vehicleTypeSuv +
+                        VEHICLE_TYPE_SUV +
                         "\"customerType\": \"Senior\"," +
                         "\"price\": 68.00," +
                         "\"ticketId\": \"c354d2014d1c63c9be162400be104894\"}",
@@ -171,11 +171,11 @@ class TicketTest {
 
         assertEquals(
                 "{\"nr\": 5," +
-                        arrivalJson + Long.parseLong(t5) + "," +
-                        departureJson + (Long.parseLong(t5)+Long.parseLong(d5)) + "," +
-                        durationJson + Long.parseLong(d5) + "," +
+                        ARRIVAL_JSON + Long.parseLong(t5) + "," +
+                        DEPARTURE_JSON + (Long.parseLong(t5)+Long.parseLong(d5)) + "," +
+                        DURATION_JSON + Long.parseLong(d5) + "," +
                         "\"licensePlate\": \"SU-Q 66\"," +
-                        vehicleTypeSuv +
+                        VEHICLE_TYPE_SUV +
                         "\"customerType\": \"Familie\"," +
                         "\"price\": 136.00," +
                         "\"ticketId\": \"d2227edd8ae39c18375039e14602afb4\"}",
