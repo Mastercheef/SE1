@@ -30,11 +30,12 @@ class UtilizationTest {
         context = new MockServletContext();
         context.setAttribute("cfgMax", "10");
 
-        String t1 = "1625744456000";
-        String t2 = "1625744457000";
-        String t3 = "1625744458000";
-        String t4 = "1625744459000";
-        String t5 = "1625744460000";
+        String t = "16257444";
+        String t1 = t + "56000";
+        String t2 = t + "57000";
+        String t3 = t + "58000";
+        String t4 = t + "59000";
+        String t5 = t + "60000";
 
         Car c1 = new Car(new String[]{ENTER,"1",t1,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14", STUDENT,"Kombi","SU-B 26"}, new Standard(1));
         Car c2 = new Car(new String[]{ENTER,"2",t2,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4", STUDENT,"SUV","SU-G 93"}, new Subscriber(2));
