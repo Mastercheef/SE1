@@ -153,22 +153,4 @@ public class Charts {
 
         return json.toString();
     }
-
-    public String getCarTypeDiagram(List<CarIF> cars) {
-        int suv = 0;
-        int limousine = 0;
-        int kombi = 0;
-        String[] carTypeArray = Car.carTypeArray(cars);
-        for (String c : carTypeArray) {
-            if (c.equals("SUV")) suv++;
-            if (c.equals("Limousine")) limousine++;
-            if (c.equals("Kombi")) kombi++;
-        }
-
-        JsonArray labels = new JsonArray();
-        labels.add("SUV");
-        labels.add("Limousine");
-        labels.add("Kombi");
-        return getPieChart(new int[]{suv, limousine, kombi}, labels, "Fahrzeugtypen");
-    }
 }

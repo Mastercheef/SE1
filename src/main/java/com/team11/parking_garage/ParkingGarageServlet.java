@@ -1,5 +1,6 @@
 package com.team11.parking_garage;
 
+import com.team11.parking_garage.charts.CarType;
 import com.team11.parking_garage.charts.CustomerType;
 import com.team11.parking_garage.charts.SubscriberDuration;
 import com.team11.parking_garage.charts.UtilizationChart;
@@ -111,7 +112,7 @@ public class ParkingGarageServlet extends HttpServlet {
                     out.println((charts.getAveragePriceDurationDiagram(getTickets())));
                     break;
                 case "carTypeDiagram":
-                    out.println((charts.getCarTypeDiagram(getCars())));
+                    out.println(new CarType(getCars()).getJson());
                     break;
                 case "customerDiagram":
                     out.println(new CustomerType(getTickets()).getJson());
