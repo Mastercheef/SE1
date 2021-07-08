@@ -4,13 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.team11.parking_garage.Car;
 import com.team11.parking_garage.CarIF;
-import com.team11.parking_garage.customers.Discounted;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CarType extends Chart {
+public class CarType extends PieChart {
     private final List<CarIF> cars;
     private static final Logger logger = Logger.getLogger("parking_garage.charts.CarType");
 
@@ -44,18 +43,13 @@ public class CarType extends Chart {
         }
 
         JsonArray labels = new JsonArray();
-        JsonArray values = new JsonArray();
 
         labels.add("SUV");
         labels.add("Limousine");
         labels.add("Kombi");
 
-        for (int count : counts) {
-            values.add(count);
-        }
-
         jsonObject.add("labels", labels);
-        jsonObject.add("values", values);
+        jsonObject.add("values", createValuesArray(counts));
         jsonObject.addProperty("type", "pie");
         jsonObject.addProperty("name", "Typ");
 

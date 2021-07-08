@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CustomerType extends Chart {
+public class CustomerType extends PieChart {
     private final List<Ticket> tickets;
     private static final Logger logger = Logger.getLogger("parking_garage.charts.CustomerType");
 
@@ -51,7 +51,6 @@ public class CustomerType extends Chart {
         }
 
         JsonArray labels = new JsonArray();
-        JsonArray values = new JsonArray();
 
         labels.add("Abonnent");
         labels.add("Standard");
@@ -59,12 +58,8 @@ public class CustomerType extends Chart {
         labels.add("Student");
         labels.add("Familie");
 
-        for (int count : counts) {
-            values.add(count);
-        }
-
         jsonObject.add("labels", labels);
-        jsonObject.add("values", values);
+        jsonObject.add("values", createValuesArray(counts));
         jsonObject.addProperty("type", "pie");
         jsonObject.addProperty("name", "Typ");
 

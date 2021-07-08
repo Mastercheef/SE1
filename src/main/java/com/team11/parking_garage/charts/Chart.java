@@ -26,8 +26,7 @@ public abstract class Chart {
     }
 
     protected JsonArray getData() {
-        JsonArray data = new JsonArray();
-        return data;
+        return new JsonArray();
     }
 
     protected JsonObject getLayout() {
