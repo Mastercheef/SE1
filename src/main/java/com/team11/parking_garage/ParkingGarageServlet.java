@@ -212,7 +212,7 @@ public class ParkingGarageServlet extends HttpServlet {
         List<Ticket> tickets = getTickets();
 
         if (toLeave != null) {
-            tickets.add(toLeave.leave(tickets, duration, price));
+            tickets.add(toLeave.leave(duration, price));
             setTickets(tickets);
             setCars(cars);
             setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));

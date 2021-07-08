@@ -44,7 +44,7 @@ public class CustomerType extends PieChart {
                         counts[4]++;
                         break;
                     default:
-                        logger.log(Level.INFO,"Unrecognised Client Type: " + ((Discounted) customer).getType());
+                        logger.log(Level.INFO,"Unrecognised Customer Type: " + ((Discounted) customer).getType());
                         break;
                 }
             }

@@ -96,10 +96,10 @@ public class Car implements CarIF {
 
 
     @Override
-    public Ticket leave(List<Ticket> tickets, String duration, String price) {
+    public Ticket leave(String duration, String price) {
         this.isParking = false;
         this.duration = Long.parseLong(duration);
-        this.price = customer.calculatePrice(tickets, new BigDecimal(price));
+        this.price = customer.calculatePrice(new BigDecimal(price));
         return new Ticket(this, this.customer);
     }
 
@@ -115,7 +115,7 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getDuration() { return this.duration/60f; }
+    public float getDuration() { return this.duration == -1 ? this.duration/60f : -1; }
 
 
     @Override

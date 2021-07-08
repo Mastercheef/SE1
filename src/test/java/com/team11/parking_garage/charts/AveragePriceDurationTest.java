@@ -51,11 +51,11 @@ class AveragePriceDurationTest {
         String d4 = "960000";
         String d5 = "1920000";
 
-        ticketList.add(c1.leave(ticketList,d1,"1000"));
-        ticketList.add(c2.leave(ticketList,d2,"2000"));
-        ticketList.add(c3.leave(ticketList,d3,"4000"));
-        ticketList.add(c4.leave(ticketList,d4, "8000"));
-        ticketList.add(c5.leave(ticketList,d5, "16000"));
+        ticketList.add(c1.leave(d1,"1000"));
+        ticketList.add(c2.leave(d2,"2000"));
+        ticketList.add(c3.leave(d3,"4000"));
+        ticketList.add(c4.leave(d4, "8000"));
+        ticketList.add(c5.leave(d5, "16000"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
 
