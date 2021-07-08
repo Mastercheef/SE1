@@ -252,7 +252,7 @@ public class ParkingGarageServlet extends HttpServlet {
         return t.getAsJson();
     }
 
-    public List<Ticket> getTickets() {
+    private List<Ticket> getTickets() {
         if (getContext().getAttribute(TICKETS) == null) {
             return new ArrayList<>();
         } else {

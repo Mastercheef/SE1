@@ -91,6 +91,11 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-launcher:1.4.2" level="project" />
     <orderEntry type="library" name="Maven: io.github.netmikey.logunit:logunit-core:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.26" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.github.netmikey.logunit:logunit-jul:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.github.netmikey.logunit:logunit-jul:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.8" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.8" level="project" />
   </component>
 </module>
