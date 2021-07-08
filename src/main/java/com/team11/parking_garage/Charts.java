@@ -171,35 +171,4 @@ public class Charts {
         labels.add("Kombi");
         return getPieChart(new int[]{suv, limousine, kombi}, labels, "Fahrzeugtypen");
     }
-
-    public String getUtilizationDiagram(List<String[]> utilizationList) {
-        JsonObject json = new JsonObject();
-        JsonObject utilization = new JsonObject();
-        JsonArray data = new JsonArray();
-
-        JsonArray percent = new JsonArray();
-        JsonArray timeJson = new JsonArray();
-
-        for (String[] p : utilizationList) {
-            percent.add(Integer.parseInt(p[1]));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
-            String javaDate = LocalDateTime.ofInstant(
-                    Instant.ofEpochMilli(Long.parseLong(p[0])),
-                    ZoneId.systemDefault())
-                    .format(formatter);
-            timeJson.add(javaDate);
-        }
-
-        utilization.add("x", timeJson);
-        utilization.add("y", percent);
-        utilization.addProperty("type", "line");
-        utilization.addProperty("name", "Maximale Auslastung");
-
-        data.add(utilization);
-        json.add(DATA, data);
-        json.add(LAYOUT, getLayout(
-                "Momentane Auslastung des Parkhauses",
-                "Auslastung (in %)"));
-        return json.toString();
-    }
 }

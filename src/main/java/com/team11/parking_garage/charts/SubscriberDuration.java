@@ -36,7 +36,6 @@ public class SubscriberDuration extends Chart {
         jsonObject.addProperty("name", "Durchschnittl. Parkdauer der Abonnenten");
 
         data.add(jsonObject);
-
         return data;
     }
 }

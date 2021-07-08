@@ -2,6 +2,7 @@ package com.team11.parking_garage;
 
 import com.team11.parking_garage.charts.CustomerType;
 import com.team11.parking_garage.charts.SubscriberDuration;
+import com.team11.parking_garage.charts.UtilizationChart;
 import com.team11.parking_garage.customers.Customer;
 import com.team11.parking_garage.customers.Discounted;
 import com.team11.parking_garage.customers.Standard;
@@ -122,7 +123,7 @@ public class ParkingGarageServlet extends HttpServlet {
                     out.println((utilization.getUtilization(getCars(), getContext()) + "%"));
                     break;
                 case "utilizationDiagram":
-                    out.println((charts.getUtilizationDiagram(getUtilizationList())));
+                    out.println(new UtilizationChart(getUtilizationList()).getJson());
                     break;
                 case "ticket":
                     out.println(getTicketJsonById(req.getParameter("id")));
