@@ -22,7 +22,7 @@ ___
 ___
 
 ### Beschreibung des Projektes
-hier steht eine Beschreibung.
+Einfügen Link zur Projektbeschreibung.
 
 ___
 
@@ -38,7 +38,7 @@ ___
 5. Eine [Story Map](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Story-Map) der  User Stories.
 6. Ein [MVP](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/MVP) (Minimum Viable Product).
 7. Ein [UML Use Case-Diagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Use-Case-Diagramm).
-8. Auswahl an UML-Diagrammen.
+8. Auswahl an UML-Diagrammen:
     - [Robustheitsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Robustheitsdiagramm)
     - UML Klassendiagramme
     - UML Sequenzdiagramme
@@ -60,11 +60,14 @@ ___
 17. Video Demo des Produkts (3 Min).
 18. Video Team-Präsentation des Projekts mit Schwerpunkt "Professionelles Software Engineering" (10 Min).
 
+### Benutzung
+___
+
 
 
 ### Lizenz
 ___
-Academic Free License v3.0   `afl-3.0`
+[AGPL](LIZENZ)
 
 
 ### Kontakt
