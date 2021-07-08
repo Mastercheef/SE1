@@ -16,8 +16,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CustomerTypeTest {
-    private final String STUDENT = "Student";
-    private final String ENTER = "enter";
+    private static final String studentString = "Student";
+    private static final String enterString = "enter";
 
     List<Ticket> ticketList;
     CustomerType customerType;
@@ -32,11 +32,11 @@ class CustomerTypeTest {
     String t4 = "1625744459000";
     String t5 = "1625744460000";
 
-    Car c1 = new Car(new String[]{ENTER,"1",t1,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14","Standard","Kombi","SU-B 26"}, new Standard(1));
-    Car c2 = new Car(new String[]{ENTER,"2",t2,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4","Abonnent","SUV","SU-G 93"}, new Subscriber(2));
-    Car c3 = new Car(new String[]{ENTER,"3",t3,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1",STUDENT,"Limousine","SU-A 14"}, new Discounted(3, STUDENT));
-    Car c4 = new Car(new String[]{ENTER,"4",t4,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Senoir","SUV","SU-J 99"}, new Discounted(4,"Senior"));
-    Car c5 = new Car(new String[]{ENTER,"5",t5,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12","Familie","SUV","SU-Q 66"}, new Discounted(5, "Familie"));
+    Car c1 = new Car(new String[]{enterString,"1",t1,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14","Standard","Kombi","SU-B 26"}, new Standard(1));
+    Car c2 = new Car(new String[]{enterString,"2",t2,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4","Abonnent","SUV","SU-G 93"}, new Subscriber(2));
+    Car c3 = new Car(new String[]{enterString,"3",t3,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1",studentString,"Limousine","SU-A 14"}, new Discounted(3, studentString));
+    Car c4 = new Car(new String[]{enterString,"4",t4,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Senoir","SUV","SU-J 99"}, new Discounted(4,"Senior"));
+    Car c5 = new Car(new String[]{enterString,"5",t5,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12","Familie","SUV","SU-Q 66"}, new Discounted(5, "Familie"));
 
     ticketList = new ArrayList<>();
     String d1 = "120000";
@@ -98,7 +98,7 @@ class CustomerTypeTest {
     void loggerTest() {
         String t6 = "1625744461000";
         String d6 = "1000";
-        Car c6 = new Car(new String[]{ENTER,"6",t6,"_","_","5454bc8efc5a83c0bc5c547e543df689","#613cfb","15",STUDENT,"Test","SU-Q 66"}, new Discounted(6, "Test"));
+        Car c6 = new Car(new String[]{enterString,"6",t6,"_","_","5454bc8efc5a83c0bc5c547e543df689","#613cfb","15",studentString,"Test","SU-Q 66"}, new Discounted(6, "Test"));
         ticketList.add(c6.leave(d6,"100"));
         customerType = new CustomerType(ticketList);
         customerType.getJson();

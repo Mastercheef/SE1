@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilizationChartTest {
-    private final String COMMA = "\",\"";
+    private static final String commaString = "\",\"";
 
     UtilizationChart utilizationChart;
     String layout;
@@ -68,23 +68,23 @@ class UtilizationChartTest {
 
         String times = "[\"" +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t1)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t2)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t3)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t4)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t5)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t6)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t7)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t8)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t9)), ZoneId.systemDefault()).format(formatter) +
-                COMMA +
+                commaString +
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(t10)), ZoneId.systemDefault()).format(formatter) +
                 "\"]";
 
