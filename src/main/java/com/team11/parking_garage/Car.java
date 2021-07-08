@@ -115,7 +115,7 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getDuration() { return this.duration/60f; }
+    public float getDuration() { return this.duration == -1 ? this.duration/60f : -1; }
 
 
     @Override
