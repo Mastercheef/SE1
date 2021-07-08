@@ -1,20 +1,26 @@
 package com.team11.parking_garage;
 
-import com.team11.parking_garage.customers.Subscriber;
+import com.team11.parking_garage.charts.*;
 import com.team11.parking_garage.customers.Customer;
 import com.team11.parking_garage.customers.Discounted;
 import com.team11.parking_garage.customers.Standard;
+import com.team11.parking_garage.customers.Subscriber;
 import com.team11.parking_garage.management.IncomeStatement;
 import com.team11.parking_garage.management.ROICalculator;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
-import javax.servlet.*;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 public class ParkingGarageServlet extends HttpServlet {
@@ -29,22 +35,22 @@ public class ParkingGarageServlet extends HttpServlet {
      *      defaultSimulationSpeed: 10
      */
 
-    private static final int defaultMax = 20;
-    private static final int defaultOpenFrom = 0;
-    private static final int defaultOpenTo = 24;
-    private static final int defaultDelay = 200;
-    private static final int defaultSimulationSpeed = 2700;
+    static final int DEFAULT_MAX = 20;
+    private static final int DEFAULT_OPEN_FROM = 0;
+    private static final int DEFAULT_OPEN_TO = 24;
+    private static final int DEFAULT_DELAY = 200;
+    private static final int DEFAULT_SIMULATION_SPEED = 2700;
     private static final String CFG_MAX = "cfgMax";
     private static final String CFG_FROM = "cfgFrom";
     private static final String CFG_TO = "cfgTo";
-    public static final String CUSTOMERS = "customers";
-    public static final String TICKETS = "tickets";
-    public static final String SUBSCRIBER_AVG = "subscriberAvg";
-    public static final String UTILIZATION_LIST = "utilizationList";
+    private static final String CUSTOMERS = "customers";
+    private static final String TICKETS = "tickets";
+    private static final String SUBSCRIBER_AVG = "subscriberAvg";
+    private static final String UTILIZATION_LIST = "utilizationList";
 
-    Stats stats = new Stats();
-    Charts charts = new Charts();
-    Utilization utilization = new Utilization(defaultMax);
+    private final Stats stats = Stats.getInstance();
+    private final Utilization utilization = Utilization.getInstance();
+    private static Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -77,7 +83,7 @@ public class ParkingGarageServlet extends HttpServlet {
                 out.println(createIncomeStatement(postParams[1]));
                 break;
             default:
-                System.out.println("Post Parameter \"" + postParams[0] + "\" detected.");
+                logger.log(Level.INFO, "Unknown POST: \"" + postParams[0] + "\" detected.");
                 break;
         }
     }
@@ -99,22 +105,22 @@ public class ParkingGarageServlet extends HttpServlet {
                     out.println(stats.getCarCount(getTickets()));
                     break;
                 case "averageDiagram":
-                    out.println((charts.getAveragePriceDurationDiagram(getTickets())));
+                    out.println(new AveragePriceDuration(getTickets()).getJson());
                     break;
                 case "carTypeDiagram":
-                    out.println((charts.getCarTypeDiagram(getCars())));
+                    out.println(new CarType(getCars()).getJson());
                     break;
                 case "customerDiagram":
-                    out.println(charts.getCustomerTypeDiagram(getTickets()));
+                    out.println(new CustomerType(getTickets()).getJson());
                     break;
                 case "subDurationDiagram":
-                    out.println(charts.getSubscriberDurationsDiagram(getSubscriberAvg()));
+                    out.println(new SubscriberDuration(getSubscriberAvg()).getJson());
                     break;
                 case "utilization":
                     out.println((utilization.getUtilization(getCars(), getContext()) + "%"));
                     break;
                 case "utilizationDiagram":
-                    out.println((charts.getUtilizationDiagram(getUtilizationList())));
+                    out.println(new UtilizationChart(getUtilizationList()).getJson());
                     break;
                 case "ticket":
                     out.println(getTicketJsonById(req.getParameter("id")));
@@ -132,18 +138,18 @@ public class ParkingGarageServlet extends HttpServlet {
                     reset();
                     break;
                 default:
-                    System.out.println("Command \""+ cmd + "\" detected.");
+                    logger.log(Level.INFO, "Unknown GET: \""+ cmd + "\" detected.");
             }
         }
     }
 
 
 
-    String getBody( HttpServletRequest request ) throws IOException {
+    String getBody( HttpServletRequest request ) {
         StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
 
         try {
+            BufferedReader bufferedReader = null;
             InputStream inputStream = request.getInputStream();
             if ( inputStream != null ) {
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -152,11 +158,12 @@ public class ParkingGarageServlet extends HttpServlet {
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
                     stringBuilder.append(charBuffer, 0, bytesRead);
                 }
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
             }
-        } finally {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
+        } catch (IOException e) {
+            logger.log(Level.INFO,"Invalid POST Body");
         }
         return stringBuilder.toString();
     }
@@ -196,7 +203,7 @@ public class ParkingGarageServlet extends HttpServlet {
 
         setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));
 
-        System.out.println("ENTER: " + parsedNr);
+        logger.log(Level.INFO,"New Car with Nr: " + parsedNr + " entered");
     }
 
 
@@ -212,7 +219,7 @@ public class ParkingGarageServlet extends HttpServlet {
             setCars(cars);
             setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));
             updateSubscriberAvg();
-            System.out.println("LEAVE: " + toLeave.getNr());
+            logger.log(Level.INFO,"Car with Nr: " + toLeave.getNr() + " left");
         }
     }
 
@@ -221,7 +228,7 @@ public class ParkingGarageServlet extends HttpServlet {
         List<CarIF> cars = getCars();
         int toRemove = Integer.parseInt(nr.replaceAll("\\D+","")); // Übrige zeichen aus nr entfernen
         setCars(cars.stream().filter(car -> car.getNr() != toRemove).collect(Collectors.toList())); // Alle übrigen Cars an setCars übergeben
-        System.out.println("DELETED: " + toRemove);
+        logger.log(Level.INFO,"Car with Nr: " + toRemove + " deleted");
     }
 
     private List<Customer> getCustomers() {
@@ -283,9 +290,9 @@ public class ParkingGarageServlet extends HttpServlet {
         List<String[]> subscriberAvg = getSubscriberAvg();
         double avg = getTickets().stream().filter(ticket -> ticket.getCustomer() instanceof Subscriber).mapToLong(Ticket::getDuration).average().orElse(-1);
         if (avg > -1) {
-            SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm:ss:SS");
-            format.setTimeZone(TimeZone.getTimeZone("Europe/Berlin"));
-            subscriberAvg.add(new String[]{String.valueOf(avg), format.format(new Date())});
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
+            subscriberAvg.add(new String[]{String.valueOf(avg), LocalDateTime.now().format(formatter)});
             getContext().setAttribute(SUBSCRIBER_AVG, subscriberAvg);
         }
     }
@@ -329,19 +336,19 @@ public class ParkingGarageServlet extends HttpServlet {
         String cfgFrom;
         String cfgTo;
         if (getContext().getAttribute(CFG_MAX) == null) {
-            cfgMax = String.valueOf(defaultMax);
+            cfgMax = String.valueOf(DEFAULT_MAX);
         } else {
             cfgMax = (String)(getContext().getAttribute(CFG_MAX));
         }
 
         if (getContext().getAttribute(CFG_FROM) == null) {
-            cfgFrom = String.valueOf(defaultOpenFrom);
+            cfgFrom = String.valueOf(DEFAULT_OPEN_FROM);
         } else {
             cfgFrom = (String)(getContext().getAttribute(CFG_FROM));
         }
 
         if (getContext().getAttribute(CFG_TO) == null) {
-            cfgTo = String.valueOf(defaultOpenTo);
+            cfgTo = String.valueOf(DEFAULT_OPEN_TO);
         } else {
             cfgTo = (String)(getContext().getAttribute(CFG_TO));
         }
@@ -350,8 +357,8 @@ public class ParkingGarageServlet extends HttpServlet {
                 .append(cfgMax).append(",")
                 .append(cfgFrom).append(",")
                 .append(cfgTo).append(",")
-                .append(defaultDelay).append(",")
-                .append(defaultSimulationSpeed);
+                .append(DEFAULT_DELAY).append(",")
+                .append(DEFAULT_SIMULATION_SPEED);
         return stringBuilder.toString();
     }
 

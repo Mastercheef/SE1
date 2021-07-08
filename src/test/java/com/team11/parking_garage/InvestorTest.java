@@ -5,7 +5,7 @@ class InvestorTest {
     double invest = 10000.0;
     private CarIF[] cars = new Car[5];
     private CarIF[] cars2 = new Car[101];
-    private Stats stats = new Stats();
+    private Stats stats = Stats.getInstance();
 
     /*
     @BeforeEach
