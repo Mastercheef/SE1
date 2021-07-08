@@ -67,6 +67,9 @@
           <element id="library" level="project" name="Maven: org.ow2.asm:asm-analysis:9.1" />
           <element id="library" level="project" name="Maven: org.ow2.asm:asm-tree:9.1" />
           <element id="library" level="project" name="Maven: org.jacoco:org.jacoco.report:0.8.7" />
+          <element id="library" level="project" name="Maven: io.github.netmikey.logunit:logunit-core:1.1.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.26" />
+          <element id="library" level="project" name="Maven: io.github.netmikey.logunit:logunit-jul:1.1.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

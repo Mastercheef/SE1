@@ -10,8 +10,8 @@
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/resources" />
           <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
         </sourceRoots>
       </configuration>
     </facet>
@@ -88,5 +88,9 @@
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-analysis:9.1" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm-tree:9.1" level="project" />
     <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.report:0.8.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-launcher:1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: io.github.netmikey.logunit:logunit-core:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.26" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.github.netmikey.logunit:logunit-jul:1.1.0" level="project" />
   </component>
 </module>

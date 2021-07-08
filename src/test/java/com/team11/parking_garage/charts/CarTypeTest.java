@@ -2,19 +2,21 @@ package com.team11.parking_garage.charts;
 
 import com.team11.parking_garage.Car;
 import com.team11.parking_garage.CarIF;
-import com.team11.parking_garage.Ticket;
 import com.team11.parking_garage.customers.Discounted;
 import com.team11.parking_garage.customers.Standard;
 import com.team11.parking_garage.customers.Subscriber;
+import io.github.netmikey.logunit.api.LogCapturer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CarTypeTest {
+    List<CarIF> cars = new ArrayList<>();
     CarType carType;
     String layout;
     String data;
@@ -32,8 +34,6 @@ class CarTypeTest {
         Car c3 = new Car(new String[]{"enter","3",t3,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1","Familie","Limousine","SU-A 14"}, new Discounted(3, "Student"));
         Car c4 = new Car(new String[]{"enter","4",t4,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
         Car c5 = new Car(new String[]{"enter","5",t5,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12","Student","SUV","SU-Q 66"}, new Discounted(5, "Familie"));
-
-        List<CarIF> cars = new ArrayList<>();
 
         cars.add(c1);
         cars.add(c2);
@@ -82,4 +82,17 @@ class CarTypeTest {
         );
     }
 
+    @RegisterExtension
+    LogCapturer logs = LogCapturer.create().captureForLogger("parking_garage.charts.CarType");
+
+    @Test
+    void loggerTest() {
+        String t6 = "1625744461000";
+        Car c6 = new Car(new String[]{"enter","6",t6,"_","_","5454bc8efc5a83c0bc5c547e543df689","#613cfb","15","Student","Test","SU-Q 66"}, new Discounted(6, "Test"));
+        cars.add(c6);
+        carType = new CarType(cars);
+        carType.getJson();
+
+        logs.assertContains("Unrecognised Car Type:");
+    }
 }
