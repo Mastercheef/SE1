@@ -34,7 +34,7 @@ class StatsTest {
 
     @Test
     public void getAvg() {
-        assertEquals(20f,stats.getAvg(ticketList));
+        assertEquals(30f,stats.getAvg(ticketList));
     }
 
     @Test
