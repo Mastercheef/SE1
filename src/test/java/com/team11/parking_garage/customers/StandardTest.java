@@ -25,9 +25,9 @@ class StandardTest {
 
     @Test
     void calculatePrice() {
-        assertEquals(BigDecimal.valueOf(12), s1.calculatePrice(tickets, BigDecimal.valueOf(1200)));
-        assertEquals(BigDecimal.valueOf(349), s2.calculatePrice(tickets, BigDecimal.valueOf(34890)));
-        assertEquals(BigDecimal.valueOf(123), s3.calculatePrice(tickets, BigDecimal.valueOf(12345)));
+        assertEquals(BigDecimal.valueOf(12), s1.calculatePrice(BigDecimal.valueOf(1200)));
+        assertEquals(BigDecimal.valueOf(349), s2.calculatePrice(BigDecimal.valueOf(34890)));
+        assertEquals(BigDecimal.valueOf(123), s3.calculatePrice(BigDecimal.valueOf(12345)));
     }
 
     @Test

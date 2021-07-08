@@ -7,7 +7,7 @@ class SubscriberTest {
 
     @BeforeEach
     public void setUp() {
-        /* TODO */
+
     }
 
     @Test

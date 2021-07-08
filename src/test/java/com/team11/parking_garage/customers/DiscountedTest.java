@@ -16,7 +16,6 @@ class DiscountedTest {
     Discounted c1;
     Discounted c2;
     Discounted c3;
-    List<Ticket> tickets = new ArrayList<>();
     private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
 
     @BeforeEach
@@ -32,7 +31,7 @@ class DiscountedTest {
                 .divide(BigDecimal.valueOf(100), mc)
                 .multiply(BigDecimal.valueOf(0.85))
                 .setScale(2, RoundingMode.HALF_UP),
-                c1.calculatePrice(tickets, BigDecimal.valueOf(1200))
+                c1.calculatePrice(BigDecimal.valueOf(1200))
         );
     }
 

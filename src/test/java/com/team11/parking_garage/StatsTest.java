@@ -22,9 +22,9 @@ class StatsTest {
         Car c2 = new Car(new String[]{"","2","1625669536598","_","_","62f0972e64e5f32484e8d129ebbdb1d9","#f492a5","17","Student","Limousine","SU-Q 57"}, new Subscriber(2));
         Car c3 = new Car(new String[]{"","3","1625669536198","_","_","5a560ae743a686979250b117c95463fb","#9ce696","7","Abonnent","Limousine","SU-U 78"}, new Standard(3));
 
-        ticketList.add(c1.leave(ticketList,"480000","4000"));
-        ticketList.add(c2.leave(ticketList,"120000","1000"));
-        ticketList.add(c3.leave(ticketList,"240000","2000"));
+        ticketList.add(c1.leave("480000","4000"));
+        ticketList.add(c2.leave("120000","1000"));
+        ticketList.add(c3.leave("240000","2000"));
     }
 
     @Test
