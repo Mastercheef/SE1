@@ -115,7 +115,7 @@ public class Charts {
             sumDuration += ticket.getDuration();
             carCount++;
             price.add((sumPrice.divide(BigDecimal.valueOf(carCount), mc)).floatValue());
-            duration.add(sumDuration/carCount/1000/60   );
+            duration.add(sumDuration / carCount / 1000 / 60);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
             String javaDate = LocalDateTime.ofInstant(
                     Instant.ofEpochMilli(ticket.getDeparture()),
@@ -239,32 +239,5 @@ public class Charts {
         labels.add("Familie");
 
         return getPieChart(new int[]{subscriber, standard, senior, student, family}, labels, "Kundentypen");
-    }
-
-    public String getSubscriberDurationsDiagram(List<String[]> subscriberAvg) {
-        JsonObject json = new JsonObject();
-        JsonObject avgDurationJson = new JsonObject();
-        JsonArray data = new JsonArray();
-
-        JsonArray duration = new JsonArray();
-        JsonArray time = new JsonArray();
-
-        for (String[] a : subscriberAvg) {
-            duration.add(Float.parseFloat(a[0])/1000/60);
-            time.add(a[1]);
-        }
-
-        avgDurationJson.add("x", time);
-        avgDurationJson.add("y", duration);
-        avgDurationJson.addProperty("type", "line");
-        avgDurationJson.addProperty("name", "Durchschnittl. Parkdauer der Abonnenten");
-
-        data.add(avgDurationJson);
-
-        json.add(DATA, data);
-        json.add(LAYOUT, getLayout(
-                "Durschnittliche Parkdauer der Abonnenten",
-                "Parkdauer in Minuten"));
-        return json.toString();
     }
 }
