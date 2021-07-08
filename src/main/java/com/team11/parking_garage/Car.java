@@ -4,7 +4,6 @@ import com.team11.parking_garage.customers.Customer;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Car implements CarIF {
     private boolean isParking;

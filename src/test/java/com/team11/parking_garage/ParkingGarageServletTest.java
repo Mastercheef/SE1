@@ -20,6 +20,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingGarageServletTest {
+    private final String TICKET_ID_1 = "135e6d8aaa2ea8b8e68e013b910e8e6e";
+    private final String ARRIVAL_JSON = "\"arrival\": 1625756316229,";
+    private final String DEPARTURE_JSON = "\"departure\": 1625807829529,";
+    private final String DURATION_JSON = "\"duration\": 51513300,";
+
     private final ParkingGarageServlet servlet = new ParkingGarageServlet();
     private final ServletConfig postConfig = new MockServletConfig();
     private final ServletConfig servletConfig = new MockServletConfig();
@@ -31,7 +36,7 @@ class ParkingGarageServletTest {
     void setUp() throws ServletException, IOException {
         servlet.init(servletConfig);
         // Filling garage with data
-        String[] CSVs = new String[] {
+        String[] csvs = new String[] {
                 "enter,42,1625756316229,_,_,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3",
                 "enter,35,1625756316229,_,_,a531b24e184b1e8b5fac3d649a00f913,#67e789,2,Abonnent,Kombi,SU-J 69",
                 "enter,8,1625756329618,_,_,068428844fb0db8d9ae4a241943e718b,#e4796c,1,Senior,Limousine,SU-K 18",
@@ -42,7 +47,7 @@ class ParkingGarageServletTest {
 
         MockHttpServletResponse setupResponse = new MockHttpServletResponse();
 
-        for (String csv : CSVs) {
+        for (String csv : csvs) {
             MockHttpServletRequest setupRequest = new MockHttpServletRequest();
             setupRequest.setContent(csv.getBytes(StandardCharsets.UTF_8));
             servlet.doPost(setupRequest, setupResponse);
@@ -81,7 +86,7 @@ class ParkingGarageServletTest {
         assertEquals("SU-X 3", enteredCar.getLicencePlate());
         assertEquals(42, enteredCar.getNr());
         assertEquals(1, enteredCar.getSpace());
-        assertEquals("135e6d8aaa2ea8b8e68e013b910e8e6e", enteredCar.getTicketId());
+        assertEquals(TICKET_ID_1, enteredCar.getTicketId());
 
 
         // ENTER SECOND CAR
@@ -131,7 +136,7 @@ class ParkingGarageServletTest {
         assertEquals("SU-X 3", occupiedCar.getLicencePlate());
         assertEquals(42, occupiedCar.getNr());
         assertEquals(1, occupiedCar.getSpace());
-        assertEquals("135e6d8aaa2ea8b8e68e013b910e8e6e", occupiedCar.getTicketId());
+        assertEquals(TICKET_ID_1, occupiedCar.getTicketId());
 
 
         // LEAVE
@@ -159,14 +164,14 @@ class ParkingGarageServletTest {
         assertEquals(42, leaveTicket.getNr());
         assertEquals(1625756316229L + 51513300L, leaveTicket.getDeparture());
         assertEquals(51513300L, leaveTicket.getDuration());
-        assertEquals("135e6d8aaa2ea8b8e68e013b910e8e6e", leaveTicket.getId());
+        assertEquals(TICKET_ID_1, leaveTicket.getId());
         assertEquals(new BigDecimal("24.31"), leaveTicket.getPrice());
         assertEquals(
                 "{" +
                 "\"nr\": 42," +
-                "\"arrival\": 1625756316229," +
-                "\"departure\": 1625807829529," +
-                "\"duration\": 51513300," +
+                ARRIVAL_JSON +
+                DEPARTURE_JSON +
+                DURATION_JSON +
                 "\"licensePlate\": \"SU-X 3\"," +
                 "\"vehicleType\": \"SUV\"," +
                 "\"customerType\": \"Senior\"," +
@@ -310,7 +315,7 @@ class ParkingGarageServletTest {
 
         MockHttpServletRequest ticketReq = new MockHttpServletRequest();
         ticketReq.setParameter("cmd", "ticket");
-        ticketReq.setParameter("id", "135e6d8aaa2ea8b8e68e013b910e8e6e");
+        ticketReq.setParameter("id", TICKET_ID_1);
 
         MockHttpServletRequest allTicketsReq = new MockHttpServletRequest();
         allTicketsReq.setParameter("cmd", "allTickets");
@@ -402,7 +407,7 @@ class ParkingGarageServletTest {
         assertEquals(expected, utilizationDiagramRes.getContentAsString().trim());
 
         // GET ticket
-        expected = servlet.getTicketJsonById("135e6d8aaa2ea8b8e68e013b910e8e6e");
+        expected = servlet.getTicketJsonById(TICKET_ID_1);
 
         MockHttpServletResponse ticketRes = new MockHttpServletResponse();
         servlet.doGet(ticketReq, ticketRes);
@@ -459,23 +464,23 @@ class ParkingGarageServletTest {
         assertEquals(
                 "{" +
                 "\"nr\": 42," +
-                "\"arrival\": 1625756316229," +
-                "\"departure\": 1625807829529," +
-                "\"duration\": 51513300," +
+                ARRIVAL_JSON +
+                DEPARTURE_JSON +
+                DURATION_JSON +
                 "\"licensePlate\": \"SU-X 3\"," +
                 "\"vehicleType\": \"SUV\"," +
                 "\"customerType\": \"Senior\"," +
                 "\"price\": 24.31," +
                 "\"ticketId\": \"135e6d8aaa2ea8b8e68e013b910e8e6e\"" +
                 "}",
-                servlet.getTicketJsonById("135e6d8aaa2ea8b8e68e013b910e8e6e")
+                servlet.getTicketJsonById(TICKET_ID_1)
         );
         assertEquals(
                 "{" +
                 "\"nr\": 35," +
-                "\"arrival\": 1625756316229," +
-                "\"departure\": 1625807829529," +
-                "\"duration\": 51513300," +
+                ARRIVAL_JSON +
+                DEPARTURE_JSON +
+                DURATION_JSON +
                 "\"licensePlate\": \"SU-J 69\"," +
                 "\"vehicleType\": \"Kombi\"," +
                 "\"customerType\": \"Abonnent\"," +

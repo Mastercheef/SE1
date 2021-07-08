@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ROICalculatorTest {
-    ROICalculator r1, r2;
+    private ROICalculator r1;
+    private ROICalculator r2;
 
     @BeforeEach
     void setUp() {

@@ -14,17 +14,21 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IncomeStatementTest {
-    private IncomeStatement i1, i2;
+    private final String STANDARD = "Standard";
+    private final String ENTER = "enter";
+
+    private IncomeStatement i1;
+    private IncomeStatement i2;
 
     @BeforeEach
     void setUp() {
         String time = String.valueOf(LocalDateTime.now().toInstant(ZoneOffset.ofHours(0)).toEpochMilli());
 
-        Car c1 = new Car(new String[]{"enter","1",time,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14","Standard","Kombi","SU-B 26"}, new Standard(1));
-        Car c2 = new Car(new String[]{"enter","2",time,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4","Standard","SUV","SU-G 93"},new Standard(2));
-        Car c3 = new Car(new String[]{"enter","3",time,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1","Standard","Limousine","SU-A 14"}, new Standard(3));
-        Car c4 = new Car(new String[]{"enter","4",time,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Standard(4));
-        Car c5 = new Car(new String[]{"enter","5",time,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12","Standard","SUV","SU-Q 66"}, new Standard(5));
+        Car c1 = new Car(new String[]{ENTER,"1",time,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14",STANDARD,"Kombi","SU-B 26"}, new Standard(1));
+        Car c2 = new Car(new String[]{ENTER,"2",time,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4",STANDARD,"SUV","SU-G 93"}, new Standard(2));
+        Car c3 = new Car(new String[]{ENTER,"3",time,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1",STANDARD,"Limousine","SU-A 14"}, new Standard(3));
+        Car c4 = new Car(new String[]{ENTER,"4",time,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18",STANDARD,"SUV","SU-J 99"}, new Standard(4));
+        Car c5 = new Car(new String[]{ENTER,"5",time,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12",STANDARD,"SUV","SU-Q 66"}, new Standard(5));
 
         List<Ticket> t1 = new ArrayList<>();
         List<Ticket> t2 = new ArrayList<>();
