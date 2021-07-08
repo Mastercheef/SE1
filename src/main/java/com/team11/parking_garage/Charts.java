@@ -202,42 +202,4 @@ public class Charts {
                 "Auslastung (in %)"));
         return json.toString();
     }
-
-    public String getCustomerTypeDiagram(List<Ticket> tickets) {
-        int subscriber = 0;
-        int standard = 0;
-        int senior = 0;
-        int student = 0;
-        int family = 0;
-        for (Ticket ticket : tickets) {
-            Customer customer = ticket.getCustomer();
-            if (customer instanceof Subscriber) subscriber++;
-            if (customer instanceof Standard) standard++;
-            if (customer instanceof Discounted) {
-                switch(((Discounted) customer).getType()) {
-                    case "Senior":
-                        senior++;
-                        break;
-                    case "Student":
-                        student++;
-                        break;
-                    case "Familie":
-                        family++;
-                        break;
-                    default:
-                        logger.log(Level.INFO,"Unrecognised Client Type: " + ((Discounted) customer).getType());
-                        break;
-                }
-            }
-        }
-
-        JsonArray labels = new JsonArray();
-        labels.add("Abonnent");
-        labels.add("Standard");
-        labels.add("Senior");
-        labels.add("Student");
-        labels.add("Familie");
-
-        return getPieChart(new int[]{subscriber, standard, senior, student, family}, labels, "Kundentypen");
-    }
 }

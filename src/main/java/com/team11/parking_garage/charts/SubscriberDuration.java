@@ -10,8 +10,6 @@ public class SubscriberDuration extends Chart {
 
     public SubscriberDuration(List<String[]> subscriberAvg) {
         super(
-                "line",
-                "Durchschnittl. Parkdauer der Abonnenten",
                 "Durschnittliche Parkdauer der Abonnenten",
                 "Zeitpunkt der Messung",
                 "Parkdauer in Minuten"
