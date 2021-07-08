@@ -21,8 +21,8 @@ class DiscountedTest {
     @BeforeEach
     void setUp() {
         c1 = new Discounted(1, "Student");
-        c2 = new Discounted(1, "Familie");
-        c3 = new Discounted(1, "Senior");
+        c2 = new Discounted(2, "Familie");
+        c3 = new Discounted(3, "Senior");
     }
 
     @Test
@@ -40,5 +40,11 @@ class DiscountedTest {
         assertEquals("Student", c1.getType());
         assertEquals("Familie", c2.getType());
         assertEquals("Senior", c3.getType());
+    }
+
+    void getNr() {
+        assertEquals(1, c1.getNr());
+        assertEquals(2, c2.getNr());
+        assertEquals(3, c3.getNr());
     }
 }
