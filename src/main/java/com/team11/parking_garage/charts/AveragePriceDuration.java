@@ -50,7 +50,7 @@ public class AveragePriceDuration extends Chart {
             sumDuration += ticket.getDuration();
             carCount++;
             price.add((sumPrice.divide(BigDecimal.valueOf(carCount), mc)).floatValue());
-            duration.add(sumDuration / carCount / 1000 / 60);
+            duration.add(sumDuration / carCount / 60000);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
             String javaDate = LocalDateTime.ofInstant(
                     Instant.ofEpochMilli(ticket.getDeparture()),

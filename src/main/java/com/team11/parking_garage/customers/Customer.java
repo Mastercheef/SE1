@@ -1,11 +1,8 @@
 package com.team11.parking_garage.customers;
 
-import com.team11.parking_garage.Ticket;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.List;
 
 public abstract class Customer {
     private final int nr;
@@ -15,7 +12,7 @@ public abstract class Customer {
         this.nr = nr;
     }
 
-    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price) {
+    public BigDecimal calculatePrice(BigDecimal price) {
         return price
                 .divide(BigDecimal.valueOf(100), mc)
                 .round(mc);

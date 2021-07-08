@@ -83,7 +83,7 @@ public class ParkingGarageServlet extends HttpServlet {
                 out.println(createIncomeStatement(postParams[1]));
                 break;
             default:
-                logger.log(Level.INFO, "Unknown POST: \"" + postParams[0] + "\" detected.");
+                logger.log(Level.INFO, () -> "Unknown POST: \"" + postParams[0] + "\" detected.");
                 break;
         }
     }
@@ -138,7 +138,7 @@ public class ParkingGarageServlet extends HttpServlet {
                     reset();
                     break;
                 default:
-                    logger.log(Level.INFO, "Unknown GET: \""+ cmd + "\" detected.");
+                    logger.log(Level.INFO, () -> "Unknown GET: \""+ cmd + "\" detected.");
             }
         }
     }
@@ -201,7 +201,7 @@ public class ParkingGarageServlet extends HttpServlet {
 
         setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));
 
-        logger.log(Level.INFO,"New Car with Nr: " + parsedNr + " entered");
+        logger.log(Level.INFO, () ->"New Car with Nr: " + parsedNr + " entered");
     }
 
 
@@ -212,12 +212,12 @@ public class ParkingGarageServlet extends HttpServlet {
         List<Ticket> tickets = getTickets();
 
         if (toLeave != null) {
-            tickets.add(toLeave.leave(tickets, duration, price));
+            tickets.add(toLeave.leave(duration, price));
             setTickets(tickets);
             setCars(cars);
             setUtilizationList(utilization.getUtilizationNow(getUtilizationList(), getCars(), getContext()));
             updateSubscriberAvg();
-            logger.log(Level.INFO,"Car with Nr: " + toLeave.getNr() + " left");
+            logger.log(Level.INFO, () ->"Car with Nr: " + toLeave.getNr() + " left");
         }
     }
 
@@ -226,7 +226,7 @@ public class ParkingGarageServlet extends HttpServlet {
         List<CarIF> cars = getCars();
         int toRemove = Integer.parseInt(nr.replaceAll("\\D+","")); // Übrige zeichen aus nr entfernen
         setCars(cars.stream().filter(car -> car.getNr() != toRemove).collect(Collectors.toList())); // Alle übrigen Cars an setCars übergeben
-        logger.log(Level.INFO,"Car with Nr: " + toRemove + " deleted");
+        logger.log(Level.INFO, () ->"Car with Nr: " + toRemove + " deleted");
     }
 
     private List<Customer> getCustomers() {
@@ -252,7 +252,7 @@ public class ParkingGarageServlet extends HttpServlet {
         return t.getAsJson();
     }
 
-    public List<Ticket> getTickets() {
+    private List<Ticket> getTickets() {
         if (getContext().getAttribute(TICKETS) == null) {
             return new ArrayList<>();
         } else {

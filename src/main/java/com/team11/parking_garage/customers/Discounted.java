@@ -1,10 +1,7 @@
 package com.team11.parking_garage.customers;
 
-import com.team11.parking_garage.Ticket;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
 
 public class Discounted extends Customer {
     private final String type;
@@ -15,8 +12,8 @@ public class Discounted extends Customer {
     }
 
     @Override
-    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price) {
-        return super.calculatePrice(tickets, price)
+    public BigDecimal calculatePrice(BigDecimal price) {
+        return super.calculatePrice(price)
                 .multiply(new BigDecimal("0.85"))
                 .setScale(2, RoundingMode.HALF_UP);
     }

@@ -37,7 +37,7 @@ public class CarType extends PieChart {
                     counts[2]++;
                     break;
                 default:
-                    logger.log(Level.INFO, "Unrecognised Car Type: " + c);
+                    logger.log(Level.INFO, () -> "Unrecognised Car Type: " + c);
                     break;
             }
         }
