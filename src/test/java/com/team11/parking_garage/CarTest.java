@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 class CarTest {
     CarIF c1, c2 ,c3 ,c4, c5,c6, c7,c8, emptyCar;
     List<CarIF> cars, emptyList;
-    List<Ticket> ticketList;
 
 
     @BeforeEach
@@ -34,59 +33,31 @@ class CarTest {
         c5 = new Car(paramsC5, new Subscriber(5));
         emptyCar = new Car(empty,new Subscriber(0));
 
-        Car c6 = new Car(new String[]{"enter","3","1625744458000","_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1","Familie","Limousine","SU-A 14"}, new Discounted(3, "Student"));
-        Car c7 = new Car(new String[]{"enter","4","1625744459000","_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
-        Car c8= new Car(new String[]{"enter","5","1625744460000","_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12","Student","SUV","SU-Q 66"}, new Discounted(5, "Familie"));
 
-        c1.leave("480000","4000");
-        c2.leave("120000","1000");
-        c3.leave("240000","2000");
-
-        emptyList = new ArrayList<CarIF>();
-        cars = new ArrayList<CarIF>();
+        cars = new ArrayList<>();
         cars.add(c1);
         cars.add(c2);
         cars.add(c3);
         cars.add(c4);
         cars.add(c5);
+
+        cars.get(0).leave("480000","4000");
+        cars.get(1).leave("120000","1000");
+        cars.get(2).leave("240000","2000");
+
+        emptyList = new ArrayList<>();
     }
 
-    @Test
-    public void durationArray() {
-        Car car1 = (Car) cars.get(0);
-        Car car2 = (Car) cars.get(1);
-        Car car5 = (Car) cars.get(4);
-        assertFalse(car1.isParking());
-        assertFalse(car2.isParking());
-        assertTrue(car5.isParking());
-        assertEquals(8000d, c1.getDuration());
-        assertEquals(2000d, c2.getDuration());
-        assertEquals(4000d, c3.getDuration());
-        assertArrayEquals(new double[]{8000d, 2000d, 4000d}, Car.durationArray(cars));
-        assertArrayEquals(new double[]{},Car.durationArray(emptyList));
-    }
 
     @Test
     public void carTypeArray() {
-        String[] carType= {"Kombi", "SUV",  "Limousine", "Kombi" , "SUV"};
-        int pos=0;
-        for(CarIF car:cars){
-            assertEquals(carType[pos++],car.getCarType());
+        String[] carType = {"Kombi", "SUV", "Limousine", "Kombi", "SUV"};
+        int pos = 0;
+        for (CarIF car : cars) {
+            assertEquals(carType[pos++], car.getCarType());
         }
         assertArrayEquals(carType, Car.carTypeArray(cars));
-        assertArrayEquals(new String[]{},Car.carTypeArray(emptyList));
-    }
-
-    @Test
-    public void ticketIdArray() {
-        assertArrayEquals(new String[]{
-                        "20622e7202ff98f04cce072d21a42387",
-                        "114fe2ed725e9988285bbc4c5c8d6145",
-                        "573466f20334252981478621577421e3",
-                }, Car.ticketIdArray(cars)
-        );
-
-        assertArrayEquals(new String[]{},Car.ticketIdArray(emptyList));
+        assertArrayEquals(new String[]{}, Car.carTypeArray(emptyList));
     }
 
     @Test
@@ -133,7 +104,7 @@ class CarTest {
 
     @Test
     public void getDuration() {
-        assertEquals(480000/60f, c1.getDuration());
+        assertEquals(480000/60f, cars.get(0).getDuration());
         assertEquals(120000/60f, c2.getDuration());
         assertEquals(240000/60f, c3.getDuration());
         assertEquals(-1.0, c4.getDuration()) ;
