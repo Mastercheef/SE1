@@ -1,6 +1,5 @@
 package com.team11.parking_garage;
 
-import com.team11.parking_garage.charts.CarType;
 import com.team11.parking_garage.customers.Discounted;
 import com.team11.parking_garage.customers.Standard;
 import com.team11.parking_garage.customers.Subscriber;
@@ -9,13 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockServletContext;
 
 import javax.servlet.ServletContext;
-import java.time.DateTimeException;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UtilizationTest {
@@ -84,6 +80,9 @@ class UtilizationTest {
 
     @Test
     public void getUtilizationNow() {
-        assertArrayEquals(utilizationTestList.toArray(), utilizationList.toArray());
+        for (int i=0; i<utilizationTestList.size(); i++) {
+            assertEquals(Long.parseLong(utilizationTestList.get(i)[0]), Long.parseLong(utilizationList.get(i)[0]), 10);
+            assertEquals(utilizationTestList.get(i)[1], utilizationList.get(i)[1]);
+        }
     }
 }

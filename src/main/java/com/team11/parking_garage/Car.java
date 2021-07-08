@@ -36,27 +36,11 @@ public class Car implements CarIF {
         this.customer = customer;
     }
 
-    public static double[] durationArray(List<CarIF> cars) {
-        return cars.stream().filter(car -> !car.isParking()).mapToDouble(CarIF::getDuration).toArray();
-    }
 
     public static String[] carTypeArray(List<CarIF> cars) {
         return cars.stream().map(CarIF::getCarType).toArray(String[]::new);
     }
 
-
-    public static String[] ticketIdArray(List<CarIF> cars) {
-        int count = (int)cars.stream().filter(car -> !car.isParking()).count();
-        String[] ticketIdArray = new String[count];
-        for (int i=0; i<count; i++) {
-            ticketIdArray[i] = cars.stream().filter(car -> !car.isParking())
-                    .collect(Collectors
-                    .toList())
-                    .get(i)
-                    .getTicketId();
-        }
-        return ticketIdArray;
-    }
 
     public static String getSavedCarsCSV(List<CarIF> cars) {
         // Nr/Timer/Duration/Price/Hash/Color/Space/client_category/vehicle_type/license
@@ -64,7 +48,7 @@ public class Car implements CarIF {
         for (CarIF car : cars) {
             int nr = car.getNr();
             long timer = car.getArrival();
-            int duration = (int) (car.getDuration()*60);
+            int duration = car.getDuration() != -1 ? (int) (car.getDuration()*60): -1;
             int price = car.getPrice().multiply(BigDecimal.valueOf(100)).intValue();
             String ticketId = car.getTicketId();
             String color = car.getColor();
@@ -115,7 +99,7 @@ public class Car implements CarIF {
 
 
     @Override
-    public float getDuration() { return this.duration == -1 ? this.duration/60f : -1; }
+    public float getDuration() { return this.duration != -1 ? this.duration/60f : -1; }
 
 
     @Override

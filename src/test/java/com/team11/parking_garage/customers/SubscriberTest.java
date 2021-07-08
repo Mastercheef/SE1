@@ -3,15 +3,35 @@ package com.team11.parking_garage.customers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class SubscriberTest {
+    Subscriber c1;
+    Subscriber c2;
+    Subscriber c3;
+    private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
 
     @BeforeEach
-    public void setUp() {
-
+    void setUp() {
+        c1 = new Subscriber(1);
+        c2 = new Subscriber(2);
+        c3 = new Subscriber(3);
     }
 
     @Test
-    public void calculatePrice() {
-        /* TODO */
+    void calculatePrice() {
+        assertEquals(new BigDecimal(0),
+                c1.calculatePrice(BigDecimal.valueOf(1200))
+        );
+    }
+
+    void getNr() {
+        assertEquals(1, c1.getNr());
+        assertEquals(2, c2.getNr());
+        assertEquals(3, c3.getNr());
     }
 }
