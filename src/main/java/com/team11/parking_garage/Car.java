@@ -99,7 +99,7 @@ public class Car implements CarIF {
     public Ticket leave(List<Ticket> tickets, String duration, String price) {
         this.isParking = false;
         this.duration = Long.parseLong(duration);
-        this.price = customer.calculatePrice(tickets, new BigDecimal(price), this.getDeparture());
+        this.price = customer.calculatePrice(tickets, new BigDecimal(price));
         return new Ticket(this, this.customer);
     }
 

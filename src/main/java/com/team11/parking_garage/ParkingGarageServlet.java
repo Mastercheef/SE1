@@ -50,7 +50,7 @@ public class ParkingGarageServlet extends HttpServlet {
 
     private final Stats stats = Stats.getInstance();
     private final Utilization utilization = Utilization.getInstance();
-    private static Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
+    private static final Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -149,7 +149,7 @@ public class ParkingGarageServlet extends HttpServlet {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            BufferedReader bufferedReader = null;
+            BufferedReader bufferedReader;
             InputStream inputStream = request.getInputStream();
             if ( inputStream != null ) {
                 bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -158,9 +158,7 @@ public class ParkingGarageServlet extends HttpServlet {
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
                     stringBuilder.append(charBuffer, 0, bytesRead);
                 }
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
+                bufferedReader.close();
             }
         } catch (IOException e) {
             logger.log(Level.INFO,"Invalid POST Body");
@@ -185,7 +183,7 @@ public class ParkingGarageServlet extends HttpServlet {
         if (enteringCustomer == null) {
             switch (clientType) {
                 case "Abonnent":
-                    enteringCustomer = new Subscriber(parsedNr, 0);
+                    enteringCustomer = new Subscriber(parsedNr);
                     break;
                 case "Standard":
                     enteringCustomer = new Standard(parsedNr);

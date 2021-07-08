@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Utilization {
-    private static Utilization instance = new Utilization();
+    private static final Utilization instance = new Utilization();
     private static final int DEFAULT_MAX = ParkingGarageServlet.DEFAULT_MAX;
 
     private Utilization(){}
