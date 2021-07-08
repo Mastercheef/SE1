@@ -42,13 +42,9 @@ public class CarType extends PieChart {
             }
         }
 
-        JsonArray labels = new JsonArray();
+        String[] labels = new String[]{"SUV", "Limousine", "Kombi"};
 
-        labels.add("SUV");
-        labels.add("Limousine");
-        labels.add("Kombi");
-
-        jsonObject.add("labels", labels);
+        jsonObject.add("labels", createLabelArray(labels));
         jsonObject.add("values", createValuesArray(counts));
         jsonObject.addProperty("type", "pie");
         jsonObject.addProperty("name", "Typ");

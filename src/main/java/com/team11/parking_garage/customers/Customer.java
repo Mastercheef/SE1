@@ -15,7 +15,7 @@ public abstract class Customer {
         this.nr = nr;
     }
 
-    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price, long departure) {
+    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price) {
         return price
                 .divide(BigDecimal.valueOf(100), mc)
                 .round(mc);

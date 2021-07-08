@@ -17,9 +17,9 @@ class CustomerTest {
     @BeforeEach
     public void setUp() {
         tickets = new ArrayList<>();
-        a1 = new Subscriber(1, 0);
-        a2 = new Subscriber(2, 3);
-        a3 = new Subscriber(3, 5);
+        a1 = new Subscriber(1);
+        a2 = new Subscriber(2);
+        a3 = new Subscriber(3);
         s1 = new Standard(4);
         s2 = new Standard(5);
     }

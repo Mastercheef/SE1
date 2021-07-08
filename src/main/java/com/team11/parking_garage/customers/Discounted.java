@@ -15,8 +15,8 @@ public class Discounted extends Customer {
     }
 
     @Override
-    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price, long departure) {
-        return super.calculatePrice(tickets, price, departure)
+    public BigDecimal calculatePrice(List<Ticket> tickets, BigDecimal price) {
+        return super.calculatePrice(tickets, price)
                 .multiply(new BigDecimal("0.85"))
                 .setScale(2, RoundingMode.HALF_UP);
     }

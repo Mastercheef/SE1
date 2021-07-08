@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 public class Stats {
-    private static Stats instance = new Stats();
+    private static final Stats instance = new Stats();
     private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
 
     private Stats() {}

@@ -50,15 +50,9 @@ public class CustomerType extends PieChart {
             }
         }
 
-        JsonArray labels = new JsonArray();
+        String[] labels = new String[]{"Abonnent", "Standard", "Senior", "Student", "Familie"};
 
-        labels.add("Abonnent");
-        labels.add("Standard");
-        labels.add("Senior");
-        labels.add("Student");
-        labels.add("Familie");
-
-        jsonObject.add("labels", labels);
+        jsonObject.add("labels", createLabelArray(labels));
         jsonObject.add("values", createValuesArray(counts));
         jsonObject.addProperty("type", "pie");
         jsonObject.addProperty("name", "Typ");

@@ -14,4 +14,12 @@ public abstract class PieChart extends Chart {
         }
         return values;
     }
+
+    protected JsonArray createLabelArray(String[] array) {
+        JsonArray labels = new JsonArray();
+        for (String label : array) {
+            labels.add(label);
+        }
+        return labels;
+    }
 }
