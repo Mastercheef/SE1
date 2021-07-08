@@ -20,18 +20,18 @@ public class ROICalculator {
         return new BigDecimal(dailyProfit).multiply(BigDecimal.valueOf(365)).multiply(new BigDecimal(share));
     }
 
-    public float returnInvest() {
+    public String returnInvest() {
         BigDecimal roiFloating = extrapolationYear().divide(new BigDecimal(investment), mc);
-        return roiFloating.multiply(BigDecimal.valueOf(100)).round(mc).floatValue();
+        return roiFloating.multiply(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_UP).toString();
     }
 
-    public float amortisationMonths() {
+    public String amortisationMonths() {
         BigDecimal monthly = extrapolationYear().divide(BigDecimal.valueOf(12), mc);
-        return new BigDecimal(investment).divide(monthly, mc).floatValue();
+        return new BigDecimal(investment).divide(monthly, mc).setScale(2, RoundingMode.HALF_UP).toString();
     }
 
-    public float amortisationYears() {
-       return new BigDecimal(investment).divide(extrapolationYear(), mc).floatValue();
+    public String amortisationYears() {
+       return new BigDecimal(investment).divide(extrapolationYear(), mc).setScale(2, RoundingMode.HALF_UP).toString();
     }
 
     public String getAsJson() {

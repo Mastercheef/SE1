@@ -6,29 +6,49 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ROICalculatorTest {
+    ROICalculator r1, r2;
 
     @BeforeEach
     void setUp() {
-        /* TODO */
+        r1 = new ROICalculator("10000", "100", "0.1");
+        r2 = new ROICalculator("50000", "200", "0.2");
     }
 
     @Test
     void returnInvest() {
-        /* TODO */
+        assertEquals("36.50", r1.returnInvest());
+        assertEquals("29.20", r2.returnInvest());
     }
 
     @Test
     void amortisationMonths() {
-        /* TODO */
+        assertEquals("32.90", r1.amortisationMonths());
+        assertEquals("41.00", r2.amortisationMonths());
     }
 
     @Test
     void amortisationYears() {
-        /* TODO */
+        assertEquals("2.74", r1.amortisationYears());
+        assertEquals("3.42", r2.amortisationYears());
     }
 
     @Test
     void getAsJson() {
-        /* TODO */
+        assertEquals(
+    "{" +
+            "\"roi\": 36.50," +
+            "\"months\": 32.90," +
+            "\"years\": 2.74" +
+            "}",
+            r1.getAsJson()
+        );
+        assertEquals(
+    "{" +
+            "\"roi\": 29.20," +
+            "\"months\": 41.00," +
+            "\"years\": 3.42" +
+            "}",
+            r2.getAsJson()
+        );
     }
 }

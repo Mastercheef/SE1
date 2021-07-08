@@ -236,8 +236,8 @@ class ParkingGarageServletTest {
 
         assertEquals(
                 "{" +
-                "\"roi\": 70.1," +
-                "\"months\": 17.1," +
+                "\"roi\": 70.00," +
+                "\"months\": 17.10," +
                 "\"years\": 1.43" +
                 "}",
                 response.getContentAsString().trim()
@@ -254,11 +254,11 @@ class ParkingGarageServletTest {
 
         assertEquals(
                 "{" +
-                        "\"turnover\": 24.3," +
+                        "\"turnover\": 24.31," +
                         "\"taxes\": 4.62," +
-                        "\"turnoverAfterTax\": 19.7," +
-                        "\"cost\": 0.5," +
-                        "\"profit\": 19.2" +
+                        "\"turnoverAfterTax\": 19.69," +
+                        "\"cost\": 0.50," +
+                        "\"profit\": 19.19" +
                         "}",
                 response.getContentAsString().trim()
         );
