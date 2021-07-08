@@ -36,31 +36,29 @@ class AveragePriceDurationTest {
 
     @BeforeEach
     void setUp() {
+
         String t1 = "1625744456000";
-        String t2 = "1625744457000";
-        String t3 = "1625744458000";
-        String t4 = "1625744459000";
-        String t5 = "1625744460000";
-
-
         Car c1 = new Car(new String[]{ENTER,"1",t1,"_","_","78477000d3f4486557edd3245febeec0","#03b428","14", STUDENT,"Kombi","SU-B 26"}, new Standard(1));
+        String t2 = "1625744457000";
         Car c2 = new Car(new String[]{ENTER,"2",t2,"_","_","f55fb9cbe110192e12c21dc734b6511c","#69524f","4", STUDENT,"SUV","SU-G 93"}, new Subscriber(2));
+        String t3 = "1625744458000";
         Car c3 = new Car(new String[]{ENTER,"3",t3,"_","_","c8ed72e96795b1970367a5d058457ed9","#2a3e73","1","Familie","Limousine","SU-A 14"}, new Discounted(3, STUDENT));
+        String t4 = "1625744459000";
         Car c4 = new Car(new String[]{ENTER,"4",t4,"_","_","c354d2014d1c63c9be162400be104894","#d6a3ea","18","Standard","SUV","SU-J 99"}, new Discounted(4,"Senior"));
+        String t5 = "1625744460000";
         Car c5 = new Car(new String[]{ENTER,"5",t5,"_","_","d2227edd8ae39c18375039e14602afb4","#6c5d42","12", STUDENT,"SUV","SU-Q 66"}, new Discounted(5, "Familie"));
 
-
         List<Ticket> ticketList = new ArrayList<>();
-        String d1 = "120000";
-        String d2 = "240000";
-        String d3 = "480000";
-        String d4 = "960000";
-        String d5 = "1920000";
 
+        String d1 = "120000";
         ticketList.add(c1.leave(d1,"1000"));
+        String d2 = "240000";
         ticketList.add(c2.leave(d2,"2000"));
+        String d3 = "480000";
         ticketList.add(c3.leave(d3,"4000"));
+        String d4 = "960000";
         ticketList.add(c4.leave(d4, "8000"));
+        String d5 = "1920000";
         ticketList.add(c5.leave(d5, "16000"));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss:SS");
