@@ -14,15 +14,15 @@ ___
 ___
 ### Inhaltsverzeichnis
 ___
-1. [Beschreibung des Projektes](#beschreibung des Projektes)
+1. [Beschreibung](#beschreibung )
 2. [Projektverzeichnis](#projektverzeichnis)
 3. [Benutzung](#benutzung)
-4. [Lizens](#lizenz)
+4. [Lizenz](#lizenz)
 5. [Kontakt](#kontakt)
 ___
 
-### Beschreibung des Projektes
-hier steht eine Beschreibung.
+### Beschreibung 
+hier steht eine Beschreibung mit link zur genauen Beschreibung.
 
 ___
 
@@ -38,12 +38,12 @@ ___
 5. Eine [Story Map](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Story-Map) der  User Stories.
 6. Ein [MVP](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/MVP) (Minimum Viable Product).
 7. Ein [UML Use Case-Diagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Use-Case-Diagramm).
-8. Auswahl an UML-Diagrammen.
+8. Auswahl an UML-Diagrammen:
     - [Robustheitsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Robustheitsdiagramm)
     - UML Klassendiagramme
     - UML Sequenzdiagramme
     - UML Aktivitätsdiagramme
-    - UML Verteilungsdiagramm (deployment diagram)
+    - [UML Verteilungsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Verteilungsdiagramm) (deployment diagram)
     - [UML Zustandsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Zustandsdiagramm)
 
 9. Java-Interfaces
@@ -60,11 +60,14 @@ ___
 17. Video Demo des Produkts (3 Min).
 18. Video Team-Präsentation des Projekts mit Schwerpunkt "Professionelles Software Engineering" (10 Min).
 
+### Benutzung
+___
+evtl. werden wir hier das Demo Video einbinden.
 
 
 ### Lizenz
 ___
-Academic Free License v3.0   `afl-3.0`
+[AGPL](LIZENZ)
 
 
 ### Kontakt
