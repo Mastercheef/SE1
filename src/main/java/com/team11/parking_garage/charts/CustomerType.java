@@ -21,6 +21,9 @@ public class CustomerType extends PieChart {
         this.tickets = tickets;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected JsonArray getData() {
         JsonArray data = super.getData();

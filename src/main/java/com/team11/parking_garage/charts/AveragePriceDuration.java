@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author: mhoens2s
+ */
 public class AveragePriceDuration extends Chart {
     private final List<Ticket> tickets;
 
@@ -26,6 +29,9 @@ public class AveragePriceDuration extends Chart {
         this.tickets = tickets;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected JsonArray getData() {
         JsonArray data = super.getData();
@@ -75,6 +81,9 @@ public class AveragePriceDuration extends Chart {
         return data;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected JsonObject getLayout() {
          JsonObject layout = super.getLayout();

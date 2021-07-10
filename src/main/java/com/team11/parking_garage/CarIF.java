@@ -2,6 +2,9 @@ package com.team11.parking_garage;
 
 import java.math.BigDecimal;
 
+/**
+ * @author: mhoens2s
+ */
 public interface CarIF {
     Ticket leave(String duration, String price);
     String getCarType();
