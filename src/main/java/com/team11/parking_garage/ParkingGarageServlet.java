@@ -22,7 +22,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-
+/**
+ * @author: mhoens2s
+ */
 public class ParkingGarageServlet extends HttpServlet {
     /*
      * config:
@@ -52,6 +54,9 @@ public class ParkingGarageServlet extends HttpServlet {
     private final Utilization utilization = Utilization.getInstance();
     private static final Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] postParams = getBody(req).split(",");
@@ -88,6 +93,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
@@ -143,8 +151,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
-
-
+    /**
+     * @author: mhoens2s
+     */
     String getBody( HttpServletRequest request ) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -166,10 +175,16 @@ public class ParkingGarageServlet extends HttpServlet {
         return stringBuilder.toString();
     }
 
+    /**
+     * @author: mhoens2s
+     */
     public ServletContext getContext()  {
         return getServletConfig().getServletContext();
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void enter(String[] postParams) {
         List<CarIF> cars = getCars();
         List<Customer> customers = getCustomers();
@@ -204,7 +219,9 @@ public class ParkingGarageServlet extends HttpServlet {
         logger.log(Level.INFO, () ->"New Car with Nr: " + parsedNr + " entered");
     }
 
-
+    /**
+     * @author: mhoens2s
+     */
     private void leave(String ticketId, String duration, String price) {
         List<CarIF> cars = getCars();
         CarIF toLeave = cars.stream().filter(car -> car.getTicketId().equals(ticketId)).findFirst().orElse(null);
@@ -221,6 +238,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void delete(String nr) {
         deleteLastUtilization();
         List<CarIF> cars = getCars();
@@ -229,6 +249,9 @@ public class ParkingGarageServlet extends HttpServlet {
         logger.log(Level.INFO, () ->"Car with Nr: " + toRemove + " deleted");
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private List<Customer> getCustomers() {
         if (getContext().getAttribute(CUSTOMERS) == null) {
             return new ArrayList<>();
@@ -237,6 +260,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void setCustomers(List<Customer> customers) {
         getContext().setAttribute(CUSTOMERS, customers);
     }
@@ -252,6 +278,9 @@ public class ParkingGarageServlet extends HttpServlet {
         return t.getAsJson();
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private List<Ticket> getTickets() {
         if (getContext().getAttribute(TICKETS) == null) {
             return new ArrayList<>();
@@ -260,10 +289,16 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void setTickets(List<Ticket> tickets) {
         getContext().setAttribute(TICKETS, tickets);
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private List<CarIF> getCars() {
         if (getContext().getAttribute("cars") == null) {
             return new ArrayList<>();
@@ -272,6 +307,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void setCars(List<CarIF> cars) {
         getContext().setAttribute("cars", cars);
     }
@@ -284,6 +322,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void updateSubscriberAvg() {
         List<String[]> subscriberAvg = getSubscriberAvg();
         double avg = getTickets().stream().filter(ticket -> ticket.getCustomer() instanceof Subscriber).mapToLong(Ticket::getDuration).average().orElse(-1);
@@ -295,6 +336,9 @@ public class ParkingGarageServlet extends HttpServlet {
         }
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private List<String[]> getUtilizationList() {
         List<String[]> utilizationList;
         if (getContext().getAttribute(UTILIZATION_LIST) == null) {
@@ -305,10 +349,16 @@ public class ParkingGarageServlet extends HttpServlet {
         return utilizationList;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void setUtilizationList(List<String[]> utilizationList) {
         getContext().setAttribute(UTILIZATION_LIST, utilizationList);
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void deleteLastUtilization() {
         List<String[]> utilizationList = (List<String[]>)getContext().getAttribute(UTILIZATION_LIST);
         utilizationList.remove(utilizationList.size()-1);
@@ -324,10 +374,16 @@ public class ParkingGarageServlet extends HttpServlet {
         return new IncomeStatement(getTickets(), costPerCar).getAsJson();
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void setConfig(String key, String value) {
         getContext().setAttribute(key, value);
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private String getConfig() {
         StringBuilder stringBuilder = new StringBuilder();
         String cfgMax;
@@ -360,6 +416,9 @@ public class ParkingGarageServlet extends HttpServlet {
         return stringBuilder.toString();
     }
 
+    /**
+     * @author: mhoens2s
+     */
     private void reset() {
         Enumeration<String> attributeNames = getContext().getAttributeNames();
         while (attributeNames.hasMoreElements()) {

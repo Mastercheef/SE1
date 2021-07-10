@@ -9,6 +9,9 @@ import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/**
+ * @author: mhoens2s
+ */
 public class IncomeStatement {
     private final BigDecimal turnover;
     private final BigDecimal taxes;
@@ -16,6 +19,9 @@ public class IncomeStatement {
     private final BigDecimal turnoverAfterTax;
     private final BigDecimal profit;
 
+    /**
+     * @author: mhoens2s
+     */
     public IncomeStatement(List<Ticket> tickets, String costFactor) {
         long yesterday = LocalDateTime.now().toInstant(ZoneOffset.ofHours(0)).minus(1, ChronoUnit.DAYS).toEpochMilli();
         turnover = tickets.stream().

@@ -5,6 +5,9 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+/**
+ * @author: mhoens2s
+ */
 public class SubscriberDuration extends Chart {
     private final List<String[]> subscriberAvg;
 
@@ -17,6 +20,9 @@ public class SubscriberDuration extends Chart {
         this.subscriberAvg = subscriberAvg;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected JsonArray getData() {
         JsonArray data = super.getData();

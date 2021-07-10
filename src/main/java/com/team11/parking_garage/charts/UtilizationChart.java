@@ -9,6 +9,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * @author: mhoens2s
+ */
 public class UtilizationChart extends Chart {
     private final List<String[]> utilizationList;
 
@@ -17,6 +20,9 @@ public class UtilizationChart extends Chart {
         this.utilizationList = utilizationList;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected JsonArray getData() {
         JsonArray data = super.getData();

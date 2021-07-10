@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author: mhoens2s
+ */
 public class CarType extends PieChart {
     private final List<CarIF> cars;
     private static final Logger logger = Logger.getLogger("parking_garage.charts.CarType");
@@ -18,6 +21,9 @@ public class CarType extends PieChart {
         this.cars = cars;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     @Override
     protected JsonArray getData() {
         JsonArray data = super.getData();

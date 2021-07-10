@@ -18,6 +18,9 @@ public abstract class Chart {
         this.yTitle = yTitle;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     public final String getJson() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("data", getData());
@@ -29,6 +32,9 @@ public abstract class Chart {
         return new JsonArray();
     }
 
+    /**
+     * @author: mhoens2s
+     */
     protected JsonObject getLayout() {
         JsonObject layout = new JsonObject();
         JsonObject title = new JsonObject();

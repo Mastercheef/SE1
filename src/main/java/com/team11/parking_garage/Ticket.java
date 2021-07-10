@@ -7,6 +7,9 @@ import com.team11.parking_garage.customers.Standard;
 
 import java.math.BigDecimal;
 
+/**
+ * @author: mhoens2s
+ */
 public class Ticket {
     private final String id;
     private final int nr;
@@ -17,6 +20,9 @@ public class Ticket {
     private final BigDecimal price;
     private final Customer customer;
 
+    /**
+     * @author: mhoens2s
+     */
     public Ticket(CarIF car, Customer customer) {
         this.id = car.getTicketId();
         this.nr = car.getNr();
@@ -52,6 +58,9 @@ public class Ticket {
         return nr;
     }
 
+    /**
+     * @author: mhoens2s
+     */
     public Customer getCustomer() {
         return customer;
     }
