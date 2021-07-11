@@ -15,14 +15,18 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingGarageServletTest {
+    private static final long NOW_LONG = LocalDateTime.now().toInstant(ZoneOffset.ofHours(0)).toEpochMilli();
+    private static final String NOW_STRING = String.valueOf(NOW_LONG);
     private static final String TICKET_ID_1 = "135e6d8aaa2ea8b8e68e013b910e8e6e";
-    private static final String ARRIVAL_JSON = "\"arrival\": 1625756316229,";
-    private static final String DEPARTURE_JSON = "\"departure\": 1625807829529,";
+    private static final String ARRIVAL_JSON = "\"arrival\": " + NOW_STRING + ",";
+    private static final String DEPARTURE_JSON = "\"departure\": " + (NOW_LONG + 51513300L) + ",";
     private static final String DURATION_JSON = "\"duration\": 51513300,";
 
     private final ParkingGarageServlet servlet = new ParkingGarageServlet();
@@ -59,10 +63,10 @@ class ParkingGarageServletTest {
         servlet.init(postConfig);
 
         // CSV-Strings for entering, leaving and occupied
-        String enterCSV = "enter,42,1625756316229,_,_,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3";
-        String enter2CSV = "enter,8,1625756329618,_,_,068428844fb0db8d9ae4a241943e718b,#e4796c,1,Senior,Limousine,SU-K 18";
+        String enterCSV = "enter,42," + NOW_STRING + ",_,_,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3";
+        String enter2CSV = "enter,8," + NOW_STRING + ",_,_,068428844fb0db8d9ae4a241943e718b,#e4796c,1,Senior,Limousine,SU-K 18";
         String occupiedCSV = "occupied,Car(8)";
-        String leaveCSV = "leave,42,1625756316229,51513300,2862,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3";
+        String leaveCSV = "leave,42," + NOW_STRING + ",51513300,2862,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3";
 
         // enterString FIRST CAR
         // Setting up enterCSV POST request
@@ -80,7 +84,7 @@ class ParkingGarageServletTest {
         List<CarIF> enteredCarList = (List<CarIF>) servlet.getContext().getAttribute("cars");
         assertEquals(1, enteredCarList.size());
         CarIF enteredCar = enteredCarList.get(0);
-        assertEquals(1625756316229L, enteredCar.getArrival());
+        assertEquals(NOW_LONG, enteredCar.getArrival());
         assertEquals("SUV", enteredCar.getCarType());
         assertEquals("#b4209b", enteredCar.getColor());
         assertEquals("SU-X 3", enteredCar.getLicencePlate());
@@ -105,7 +109,7 @@ class ParkingGarageServletTest {
         List<CarIF> enteredTwoCarList = (List<CarIF>) servlet.getContext().getAttribute("cars");
         assertEquals(2, enteredTwoCarList.size());
         CarIF enteredSecondCar = enteredCarList.get(1);
-        assertEquals(1625756329618L, enteredSecondCar.getArrival());
+        assertEquals(NOW_LONG, enteredSecondCar.getArrival());
         assertEquals("Limousine", enteredSecondCar.getCarType());
         assertEquals("#e4796c", enteredSecondCar.getColor());
         assertEquals("SU-K 18", enteredSecondCar.getLicencePlate());
@@ -130,7 +134,7 @@ class ParkingGarageServletTest {
         List<CarIF> occupiedCarList = (List<CarIF>) servlet.getContext().getAttribute("cars");
         assertEquals(1, occupiedCarList.size());
         CarIF occupiedCar = occupiedCarList.get(0);
-        assertEquals(1625756316229L, occupiedCar.getArrival());
+        assertEquals(NOW_LONG, occupiedCar.getArrival());
         assertEquals("SUV", occupiedCar.getCarType());
         assertEquals("#b4209b", occupiedCar.getColor());
         assertEquals("SU-X 3", occupiedCar.getLicencePlate());
@@ -160,9 +164,9 @@ class ParkingGarageServletTest {
         List<Ticket> leaveTicketList = (List<Ticket>) servlet.getContext().getAttribute("tickets");
         assertEquals(1, leaveTicketList.size());
         Ticket leaveTicket = leaveTicketList.get(0);
-        assertEquals(1625756316229L, leaveTicket.getArrival());
+        assertEquals(NOW_LONG, leaveTicket.getArrival());
         assertEquals(42, leaveTicket.getNr());
-        assertEquals(1625756316229L + 51513300L, leaveTicket.getDeparture());
+        assertEquals(NOW_LONG + 51513300L, leaveTicket.getDeparture());
         assertEquals(51513300L, leaveTicket.getDuration());
         assertEquals(TICKET_ID_1, leaveTicket.getId());
         assertEquals(new BigDecimal("24.31"), leaveTicket.getPrice());
