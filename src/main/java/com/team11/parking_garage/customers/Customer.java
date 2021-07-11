@@ -5,6 +5,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public abstract class Customer {
@@ -12,6 +13,7 @@ public abstract class Customer {
     private final MathContext mc = new MathContext(3, RoundingMode.HALF_UP);
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public Customer(int nr) {
@@ -19,6 +21,7 @@ public abstract class Customer {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public BigDecimal calculatePrice(BigDecimal price) {

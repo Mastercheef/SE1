@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class UtilizationChart extends Chart {
@@ -21,6 +22,7 @@ public class UtilizationChart extends Chart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override

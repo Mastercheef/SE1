@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class Car implements CarIF {
@@ -23,6 +24,7 @@ public class Car implements CarIF {
     private final Customer customer;
 
     /**
+     * @author: ecetin2s (
      * @author: mhoens2s
      */
     public Car(String[] postParams, Customer customer) {
@@ -41,6 +43,7 @@ public class Car implements CarIF {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public static String[] carTypeArray(List<CarIF> cars) {
@@ -48,6 +51,7 @@ public class Car implements CarIF {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public static String getSavedCarsCSV(List<CarIF> cars) {
@@ -87,6 +91,7 @@ public class Car implements CarIF {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
@@ -106,6 +111,7 @@ public class Car implements CarIF {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override

@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class IncomeStatement {
@@ -20,6 +21,7 @@ public class IncomeStatement {
     private final BigDecimal profit;
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public IncomeStatement(List<Ticket> tickets, String costFactor) {

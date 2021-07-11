@@ -22,6 +22,7 @@ public class CustomerType extends PieChart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override

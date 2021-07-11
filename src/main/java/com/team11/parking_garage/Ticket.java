@@ -8,6 +8,7 @@ import com.team11.parking_garage.customers.Standard;
 import java.math.BigDecimal;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class Ticket {
@@ -21,6 +22,7 @@ public class Ticket {
     private final Customer customer;
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public Ticket(CarIF car, Customer customer) {
@@ -34,37 +36,59 @@ public class Ticket {
         this.customer = customer;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public long getArrival() {
         return arrival;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public long getDeparture() {
         return departure;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public long getDuration() {
         return departure - arrival;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public BigDecimal getPrice() {
         return price;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public int getNr() {
         return nr;
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public Customer getCustomer() {
         return customer;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String getAsJson() {
         StringBuilder stringBuilder = new StringBuilder();
         String customerType = "";

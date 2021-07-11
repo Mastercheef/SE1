@@ -3,6 +3,7 @@ package com.team11.parking_garage;
 import java.math.BigDecimal;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public interface CarIF {

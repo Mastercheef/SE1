@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class AveragePriceDuration extends Chart {
@@ -30,6 +31,7 @@ public class AveragePriceDuration extends Chart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
@@ -82,6 +84,7 @@ public class AveragePriceDuration extends Chart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
