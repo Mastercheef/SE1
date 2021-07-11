@@ -16,6 +16,9 @@ import java.util.List;
 public class UtilizationChart extends Chart {
     private final List<String[]> utilizationList;
 
+    /**
+     * @author: ecetin2s
+     */
     public UtilizationChart(List<String[]> utilizationList) {
         super("Momentane Auslastung des Parkhauses", "Zeitpunkt der Messung", "Auslastung (in %)");
         this.utilizationList = utilizationList;

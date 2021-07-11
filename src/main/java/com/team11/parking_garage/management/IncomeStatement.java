@@ -41,10 +41,16 @@ public class IncomeStatement {
         profit = turnoverAfterTax.subtract(cost);
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String getProfit() {
         return profit.setScale(2, RoundingMode.HALF_UP).toString();
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String getAsJson() {
         return "{" +
                 "\"turnover\": " + turnover.toString() + "," +

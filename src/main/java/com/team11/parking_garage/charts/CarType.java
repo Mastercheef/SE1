@@ -17,6 +17,9 @@ public class CarType extends PieChart {
     private final List<CarIF> cars;
     private static final Logger logger = Logger.getLogger("parking_garage.charts.CarType");
 
+    /**
+     * @author: ecetin2s
+     */
     public CarType(List<CarIF> cars) {
         super("Fahrzeugtypen");
         this.cars = cars;

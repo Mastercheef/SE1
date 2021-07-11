@@ -8,10 +8,16 @@ public abstract class Chart {
     private String xTitle;
     private String yTitle;
 
+    /**
+     * @author: ecetin2s
+     */
     public Chart(String chartTitle) {
         this.chartTitle = chartTitle;
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public Chart(String chartTitle, String xTitle, String yTitle) {
         this.chartTitle = chartTitle;
         this.xTitle = xTitle;

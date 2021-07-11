@@ -118,6 +118,7 @@ public class Car implements CarIF {
     public BigDecimal getPrice() { return this.price; }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
@@ -156,6 +157,7 @@ public class Car implements CarIF {
     public int getNr() { return this.nr; }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
@@ -174,6 +176,7 @@ public class Car implements CarIF {
     public String getClientType() { return this.clientType; }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public long getDeparture() {
