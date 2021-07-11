@@ -41,12 +41,12 @@ class ParkingGarageServletTest {
         servlet.init(servletConfig);
         // Filling garage with data
         String[] csvs = new String[] {
-                "enter,42,1625756316229,_,_,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3",
-                "enter,35,1625756316229,_,_,a531b24e184b1e8b5fac3d649a00f913,#67e789,2,Abonnent,Kombi,SU-J 69",
-                "enter,8,1625756329618,_,_,068428844fb0db8d9ae4a241943e718b,#e4796c,1,Senior,Limousine,SU-K 18",
+                "enter,42," + NOW_STRING + ",_,_,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3",
+                "enter,35," + NOW_STRING + ",_,_,a531b24e184b1e8b5fac3d649a00f913,#67e789,2,Abonnent,Kombi,SU-J 69",
+                "enter,8," + NOW_STRING + ",_,_,068428844fb0db8d9ae4a241943e718b,#e4796c,1,Senior,Limousine,SU-K 18",
                 "occupied,Car(8)",
-                "leave,42,1625756316229,51513300,2862,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3",
-                "leave,35,1625756316229,51513300,2862,a531b24e184b1e8b5fac3d649a00f913,#67e789,2,Abonnent,Kombi,SU-J 69",
+                "leave,42," + NOW_STRING + ",51513300,2862,135e6d8aaa2ea8b8e68e013b910e8e6e,#b4209b,1,Senior,SUV,SU-X 3",
+                "leave,35," + NOW_STRING + ",51513300,2862,a531b24e184b1e8b5fac3d649a00f913,#67e789,2,Abonnent,Kombi,SU-J 69",
         };
 
         MockHttpServletResponse setupResponse = new MockHttpServletResponse();
@@ -456,8 +456,8 @@ class ParkingGarageServletTest {
     void allTicketsAsJson() {
         assertEquals(
         "[" +
-                    "{\"nr\": 42,\"arrival\": 1625756316229,\"departure\": 1625807829529,\"duration\": 51513300,\"licensePlate\": \"SU-X 3\",\"vehicleType\": \"SUV\",\"customerType\": \"Senior\",\"price\": 24.31,\"ticketId\": \"135e6d8aaa2ea8b8e68e013b910e8e6e\"}," +
-                    "{\"nr\": 35,\"arrival\": 1625756316229,\"departure\": 1625807829529,\"duration\": 51513300,\"licensePlate\": \"SU-J 69\",\"vehicleType\": \"Kombi\",\"customerType\": \"Abonnent\",\"price\": 0,\"ticketId\": \"a531b24e184b1e8b5fac3d649a00f913\"}" +
+                    "{\"nr\": 42," + ARRIVAL_JSON + DEPARTURE_JSON + DURATION_JSON + "\"licensePlate\": \"SU-X 3\",\"vehicleType\": \"SUV\",\"customerType\": \"Senior\",\"price\": 24.31,\"ticketId\": \"135e6d8aaa2ea8b8e68e013b910e8e6e\"}," +
+                    "{\"nr\": 35," + ARRIVAL_JSON + DEPARTURE_JSON + DURATION_JSON + "\"licensePlate\": \"SU-J 69\",\"vehicleType\": \"Kombi\",\"customerType\": \"Abonnent\",\"price\": 0,\"ticketId\": \"a531b24e184b1e8b5fac3d649a00f913\"}" +
                 "]",
                 servlet.allTicketsAsJson()
         );
