@@ -30,6 +30,9 @@ public abstract class Customer {
                 .round(mc);
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public int getNr() {
         return nr;
     }

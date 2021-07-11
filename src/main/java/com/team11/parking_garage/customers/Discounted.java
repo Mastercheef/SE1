@@ -30,6 +30,9 @@ public class Discounted extends Customer {
                 .setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String getType() {
         return type;
     }

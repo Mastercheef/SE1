@@ -275,12 +275,18 @@ public class ParkingGarageServlet extends HttpServlet {
         getContext().setAttribute(CUSTOMERS, customers);
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String allTicketsAsJson() {
         List<Ticket> tickets = getTickets();
         final String collect = tickets.stream().map(Ticket::getAsJson).collect(Collectors.joining(","));
         return "[" + collect + "]";
     }
 
+    /**
+     * @author: ecetin2s
+     */
     public String getTicketJsonById(String id) {
         Ticket t = getTickets().stream().filter(ticket -> ticket.getId().equals(id)).findFirst().get();
         return t.getAsJson();

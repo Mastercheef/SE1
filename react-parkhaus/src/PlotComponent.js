@@ -1,3 +1,7 @@
+/**
+ * @author: ecetin2s
+ */
+
 import plotComponentFactory from "react-plotly.js/factory";
 import Plotly from "plotly.js-dist";
 

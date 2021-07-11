@@ -12,6 +12,9 @@ import java.util.List;
 public class SubscriberDuration extends Chart {
     private final List<String[]> subscriberAvg;
 
+    /**
+     * @author: ecetin2s
+     */
     public SubscriberDuration(List<String[]> subscriberAvg) {
         super(
                 "Durschnittliche Parkdauer der Abonnenten",

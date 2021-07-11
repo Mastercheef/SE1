@@ -16,6 +16,9 @@ public class CustomerType extends PieChart {
     private final List<Ticket> tickets;
     private static final Logger logger = Logger.getLogger("parking_garage.charts.CustomerType");
 
+    /**
+     * @author: ecetin2s
+     */
     public CustomerType(List<Ticket> tickets) {
         super("Kundentypen");
         this.tickets = tickets;
