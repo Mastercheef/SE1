@@ -55,6 +55,7 @@ public class ParkingGarageServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger("parking_garage.ParkingGarageServlet");
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
@@ -94,6 +95,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
@@ -152,6 +154,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     String getBody( HttpServletRequest request ) {
@@ -183,6 +186,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void enter(String[] postParams) {
@@ -220,6 +224,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void leave(String ticketId, String duration, String price) {
@@ -239,6 +244,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void delete(String nr) {
@@ -250,6 +256,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private List<Customer> getCustomers() {
@@ -261,6 +268,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void setCustomers(List<Customer> customers) {
@@ -279,6 +287,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private List<Ticket> getTickets() {
@@ -290,6 +299,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void setTickets(List<Ticket> tickets) {
@@ -297,6 +307,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private List<CarIF> getCars() {
@@ -308,12 +319,16 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void setCars(List<CarIF> cars) {
         getContext().setAttribute("cars", cars);
     }
 
+    /**
+     * @author: ecetin2s
+     */
     private List<String[]> getSubscriberAvg() {
         if (getContext().getAttribute(SUBSCRIBER_AVG) == null) {
             return new ArrayList<>();
@@ -323,6 +338,7 @@ public class ParkingGarageServlet extends HttpServlet {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     private void updateSubscriberAvg() {
@@ -365,11 +381,17 @@ public class ParkingGarageServlet extends HttpServlet {
         getContext().setAttribute(UTILIZATION_LIST, utilizationList);
     }
 
+    /**
+     * @author: ecetin2s
+     */
     private String calcRoi(String investment, String share, String costPerCar) {
         String dailyProfit = new IncomeStatement(getTickets(), costPerCar).getProfit();
         return new ROICalculator(investment, dailyProfit, share).getAsJson();
     }
 
+    /**
+     * @author: ecetin2s
+     */
     private String createIncomeStatement(String costPerCar) {
         return new IncomeStatement(getTickets(), costPerCar).getAsJson();
     }

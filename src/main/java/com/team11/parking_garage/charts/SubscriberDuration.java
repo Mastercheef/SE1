@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class SubscriberDuration extends Chart {
@@ -21,6 +22,7 @@ public class SubscriberDuration extends Chart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override

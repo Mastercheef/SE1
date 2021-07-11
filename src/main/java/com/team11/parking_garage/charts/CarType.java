@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class CarType extends PieChart {
@@ -22,6 +23,7 @@ public class CarType extends PieChart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override

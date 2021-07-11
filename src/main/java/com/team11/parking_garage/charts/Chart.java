@@ -19,6 +19,7 @@ public abstract class Chart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public final String getJson() {
@@ -33,6 +34,7 @@ public abstract class Chart {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     protected JsonObject getLayout() {

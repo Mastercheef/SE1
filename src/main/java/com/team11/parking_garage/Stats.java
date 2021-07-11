@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 /**
+ * @author: ecetin2s
  * @author: mhoens2s
  */
 public class Stats {
@@ -25,6 +26,7 @@ public class Stats {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public float getSum(List<Ticket> tickets) {
@@ -32,6 +34,7 @@ public class Stats {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public float getAvg(List<Ticket> tickets) {
@@ -44,6 +47,7 @@ public class Stats {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public int getCarCount(List<Ticket> tickets) {

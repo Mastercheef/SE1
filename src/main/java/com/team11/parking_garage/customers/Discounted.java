@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
+ * @author: ecetin2s (based on commit f2ab4491)
  * @author: mhoens2s
  */
 public class Discounted extends Customer {
     private final String type;
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     public Discounted(int nr, String type) {
@@ -18,6 +20,7 @@ public class Discounted extends Customer {
     }
 
     /**
+     * @author: ecetin2s
      * @author: mhoens2s
      */
     @Override
