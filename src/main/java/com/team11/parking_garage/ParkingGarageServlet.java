@@ -56,6 +56,7 @@ public class ParkingGarageServlet extends HttpServlet {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      * @author: mhoens2s
      */
     @Override

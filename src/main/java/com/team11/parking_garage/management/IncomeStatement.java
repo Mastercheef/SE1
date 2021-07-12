@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author: ecetin2s
+ * @author: eauten2s
  * @author: mhoens2s
  */
 public class IncomeStatement {
@@ -22,6 +23,7 @@ public class IncomeStatement {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      * @author: mhoens2s
      */
     public IncomeStatement(List<Ticket> tickets, String costFactor) {
@@ -43,6 +45,7 @@ public class IncomeStatement {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      */
     public String getProfit() {
         return profit.setScale(2, RoundingMode.HALF_UP).toString();
@@ -50,6 +53,7 @@ public class IncomeStatement {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      */
     public String getAsJson() {
         return "{" +
