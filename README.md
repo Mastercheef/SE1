@@ -47,11 +47,51 @@ ___
     - [UML Zustandsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Zustandsdiagramm)
 
 9. Java-Interfaces
-   - .....
+   - parking_garage
+        - [CarIF](src/main/java/com/team11/parking_garage/CarIF.java)
 10. JUnit-Tests 
-    - ....
+    - parking_garage
+        - [CarTest](src/test/java/com/team11/parking_garage/CarTest.java)
+        - [ParkingGarageServletTest](src/test/java/com/team11/parking_garage/ParkingGarageServletTest.java)
+        - [StatsTest](src/test/java/com/team11/parking_garage/StatsTest.java)
+        - [TicketTest](src/test/java/com/team11/parking_garage/TicketTest.java)
+        - [UtilizationTest](src/test/java/com/team11/parking_garage/UtilizationTest.java)
+        - charts
+            - [AveragePriceDurationTest](src/test/java/com/team11/parking_garage/charts/AveragePriceDurationTest.java)
+            - [CarTypeTest](src/test/java/com/team11/parking_garage/charts/CarTypeTest.java)
+            - [CustomerTypeTest](src/test/java/com/team11/parking_garage/charts/CustomerTypeTest.java)
+            - [SubscriberDurationTest](src/test/java/com/team11/parking_garage/charts/SubscriberDurationTest.java)
+            - [UtilizationChartTest](src/test/java/com/team11/parking_garage/charts/UtilizationChartTest.java)
+        - customers
+            - [DiscountedTest](src/test/java/com/team11/parking_garage/customers/DiscountedTest.java)
+            - [StandardTest](src/test/java/com/team11/parking_garage/customers/StandardTest.java)
+            - [SubscriberTest](src/test/java/com/team11/parking_garage/customers/SubscriberTest.java)
+        - management
+            - [IncomeStatementTest](src/test/java/com/team11/parking_garage/management/IncomeStatementTest.java)
+            - [ROICalculatorTest](src/test/java/com/team11/parking_garage/management/ROICalculatorTest.java)
 11. Java-Klassen
-    - ....
+    - parking_garage
+        - [Car](src/main/java/com/team11/parking_garage/Car.java)
+        - [ParkingGarageServlet](src/main/java/com/team11/parking_garage/ParkingGarageServlet.java)
+        - [Stats](src/main/java/com/team11/parking_garage/Stats.java)
+        - [Ticket](src/main/java/com/team11/parking_garage/Ticket.java)
+        - [Utilization](src/main/java/com/team11/parking_garage/Utilization.java)
+        - charts
+            - [AveragePriceDuration](src/main/java/com/team11/parking_garage/charts/AveragePriceDuration.java)
+            - [CarType](src/main/java/com/team11/parking_garage/charts/CarType.java)
+            - [Chart](src/main/java/com/team11/parking_garage/charts/Chart.java)
+            - [CustomerType](src/main/java/com/team11/parking_garage/charts/CustomerType.java)
+            - [PieChart](src/main/java/com/team11/parking_garage/charts/PieChart.java)
+            - [SubscriberDuration](src/main/java/com/team11/parking_garage/charts/SubscriberDuration.java)
+            - [UtilizationChart](src/main/java/com/team11/parking_garage/charts/UtilizationChart.java)
+        - customers
+            - [Customer](src/main/java/com/team11/parking_garage/customers/Customer.java)
+            - [Discounted](src/main/java/com/team11/parking_garage/customers/Discounted.java)
+            - [Standard](src/main/java/com/team11/parking_garage/customers/Standard.java)
+            - [Subscriber](src/main/java/com/team11/parking_garage/customers/Subscriber.java)
+        - management
+            - [IncomeStatement](src/main/java/com/team11/parking_garage/management/IncomeStatement.java)
+            - [ROICalculator](src/main/java/com/team11/parking_garage/management/ROICalculator.java)
 12. Patternverzeichnis
 13. Eine Beschreibung unserer [Zielkonflikte](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Zielkonflikte).
 14. Ein [Iterationsbericht](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Iterationsbericht) über fünf Iterrationen.
