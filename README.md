@@ -40,9 +40,9 @@ ___
 7. Ein [UML Use Case-Diagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Use-Case-Diagramm).
 8. Auswahl an UML-Diagrammen:
     - [Robustheitsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Robustheitsdiagramm)
-    - UML Klassendiagramme
-    - UML Sequenzdiagramme
-    - UML Aktivitätsdiagramme
+    - [UML Klassendiagramme](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Klassendiagramme)
+    - [UML Sequenzdiagramme](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Sequenzdiagramme)
+    - [UML Aktivitätsdiagramme](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Aktivit%C3%A4tsdiagramme)
     - [UML Verteilungsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Verteilungsdiagramm) (deployment diagram)
     - [UML Zustandsdiagramm](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/UML-Zustandsdiagramm)
 
@@ -54,8 +54,8 @@ ___
     - ....
 12. Patternverzeichnis
 13. Eine Beschreibung unserer [Zielkonflikte](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Zielkonflikte).
-14. Iterationsbericht
-15. Summarisches Projektprotokoll
+14. Ein [Iterationsbericht](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Iterationsbericht) über fünf Iterrationen.
+15. Ein [Summarisches Projektprotokoll](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Summarisches-Projektprotokoll).
 16. Gesamt-[Retrospektive](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Retrospektive) des Projektes.
 17. Video Demo des Produkts (3 Min).
 18. Video Team-Präsentation des Projekts mit Schwerpunkt "Professionelles Software Engineering" (10 Min).
