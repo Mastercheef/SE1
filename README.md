@@ -1,4 +1,3 @@
-
 ## <center>Parkhaus Team 11
 ___
 #### <center>Praxisprojekt Software Engineering I (SE1)</center>
@@ -93,6 +92,17 @@ ___
             - [IncomeStatement](src/main/java/com/team11/parking_garage/management/IncomeStatement.java)
             - [ROICalculator](src/main/java/com/team11/parking_garage/management/ROICalculator.java)
 12. Patternverzeichnis
+    - Singleton Pattern:
+        - Stats
+        - Utilization
+    - Template Pattern:
+        - [Chart](src/main/java/com/team11/parking_garage/charts/Chart.java)
+            - [AveragePriceDuration](src/main/java/com/team11/parking_garage/charts/AveragePriceDuration.java)
+            - [SubscriberDuration](src/main/java/com/team11/parking_garage/charts/SubscriberDuration.java)
+            - [UtilizationChart](src/main/java/com/team11/parking_garage/charts/UtilizationChart.java)
+        - [PieChart](src/main/java/com/team11/parking_garage/charts/PieChart.java)
+            - [CarType](src/main/java/com/team11/parking_garage/charts/CarType.java)
+            - [CustomerType](src/main/java/com/team11/parking_garage/charts/CustomerType.java)
 13. Eine Beschreibung unserer [Zielkonflikte](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Zielkonflikte).
 14. Ein [Iterationsbericht](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Iterationsbericht) über fünf Iterrationen.
 15. Ein [Summarisches Projektprotokoll](https://vm-2d21.inf.h-brs.de/mk_se1_ss21_Team_11/mk_se1_ss21_Team_11/-/wikis/Summarisches-Projektprotokoll).
