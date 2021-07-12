@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author: mhoens2s
+ * @author: eauten2s
  */
 class CarTest {
     private static final String ENTER = "enter";

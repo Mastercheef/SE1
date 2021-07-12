@@ -8,7 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * @author: ecetin2s
+ * @author: eauten2s
+ */
 class ROICalculatorTest {
     private ROICalculator r1;
     private ROICalculator r2;

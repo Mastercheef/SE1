@@ -16,7 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * @author: ecetin2s
+ * @author: eauten2s
+ */
 class IncomeStatementTest {
     private static final String STANDARD = "Standard";
     private static final String ENTER = "enter";
