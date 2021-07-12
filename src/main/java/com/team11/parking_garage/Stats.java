@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * @author: ecetin2s
+ * @author: eauten2s
  * @author: mhoens2s
  */
 public class Stats {
@@ -27,6 +28,7 @@ public class Stats {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      * @author: mhoens2s
      */
     public float getSum(List<Ticket> tickets) {
@@ -35,6 +37,7 @@ public class Stats {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      * @author: mhoens2s
      */
     public float getAvg(List<Ticket> tickets) {
