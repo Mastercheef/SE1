@@ -9,6 +9,9 @@ import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author: mhoens2s
+ */
 class DiscountedTest {
     Discounted c1;
     Discounted c2;

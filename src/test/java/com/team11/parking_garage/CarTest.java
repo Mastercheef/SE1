@@ -11,6 +11,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: mhoens2s
+ */
 class CarTest {
     private static final String ENTER = "enter";
     private static final String STANDARD = "Standard";
