@@ -32,6 +32,7 @@ public class AveragePriceDuration extends Chart {
 
     /**
      * @author: ecetin2s
+     * @author: eauten2s
      * @author: mhoens2s
      */
     @Override
