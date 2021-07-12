@@ -15,6 +15,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: mhoens2s
+ */
 class SubscriberDurationTest {
     private static final String STUDENT = "Student";
     private static final String ENTER = "enter";

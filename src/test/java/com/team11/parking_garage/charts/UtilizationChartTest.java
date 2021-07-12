@@ -12,6 +12,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: mhoens2s
+ */
 class UtilizationChartTest {
     private static final String COMMA = "\",\"";
 

@@ -10,6 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: mhoens2s
+ */
 class StandardTest {
     Standard s1;
     Standard s2;

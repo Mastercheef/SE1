@@ -14,6 +14,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author: mhoens2s
+ */
 class TicketTest {
     private static final String STUDENT = "Student";
     private static final String ENTER = "enter";

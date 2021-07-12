@@ -10,6 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author: mhoens2s
+ */
 class StatsTest {
     Stats stats;
     List<Ticket> ticketList;

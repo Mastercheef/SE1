@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author: mhoens2s
+ */
 class SubscriberTest {
     Subscriber c1;
     Subscriber c2;
