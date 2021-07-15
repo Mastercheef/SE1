@@ -15,9 +15,8 @@ SoSe 2021, Hochschule Bonn-Rhein-Sieg (H-BRS)
 ___
 1. [Beschreibung](#beschreibung )
 2. [Projektverzeichnis](#projektverzeichnis)
-3. [Benutzung](#benutzung)
-4. [Lizenz](#lizenz)
-5. [Kontakt](#kontakt)
+3. [Lizenz](#lizenz)
+4. [Kontakt](#kontakt)
 ___
 
 
